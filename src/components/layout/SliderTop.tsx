@@ -17,13 +17,13 @@ export const SliderTop = () => {
       }}
     >
       <SwiperSlide >
-        <div className='flex items-center justify-center h-full w-full'>a</div>
+        <div className='flex items-center justify-center h-full w-full text-sm font-semibold'>10 Ngày Đổi Trả (LiLi Đến Tận Nơi Nhận Hàng)</div>
       </SwiperSlide>
       <SwiperSlide >
-        <div className='flex items-center justify-center h-full w-full'>b</div>
+        <div className='flex items-center justify-center h-full w-full text-sm font-semibold'>Mang Đến Cho Bạn Sản Phẩm Và Dịch Vụ Cao Cấp</div>
       </SwiperSlide>
       <SwiperSlide >
-        <div className='flex items-center justify-center h-full w-full'>c</div>
+        <div className='flex items-center justify-center h-full w-full text-sm font-semibold'>Đặt Sự Hài Lòng Của Bạn Là Ưu Tiên Số 1</div>
       </SwiperSlide>
     </Swiper>
   )

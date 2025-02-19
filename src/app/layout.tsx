@@ -9,9 +9,9 @@ import VLogo from '@/assets/VLogo_LiLi_Horizontal.svg'
 import Image from "next/image";
 import { Input } from "@heroui/input";
 import { ShoppingCart, Menu, Smile, Medal, Package, Headset, Phone, Mail, MapPin, Clock4, Facebook, Instagram } from "lucide-react"
-import { SliderBanner } from "@/components/layout/SliderBanner";
 import { Divider } from "@heroui/divider";
 import { Button } from "@/components/ui/button";
+import { DrawerCustom } from "@/components/layout/DrawerCustom";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -42,7 +42,7 @@ export default function RootLayout({
         <div className="h-9">
           <SliderTop />
         </div>
-        <div className="flex w-full border-b-1 border-[#C4001F]">
+        <div className="flex w-full border-b-1 border-[#C4001F] max-w-[1420px] mx-auto">
           <div className="w-[30%] px-2">
             <Image className="h-14 max-w-24 " src={Logo} alt="" />
           </div>
@@ -50,12 +50,12 @@ export default function RootLayout({
             <Input type="search" variant="bordered" radius={"sm"} placeholder="Tìm sản phẩm" />
           </div>
           <div className="w-[25%] px-2 gap-4 flex justify-end items-center">
-            <ShoppingCart size={28} />
-            <Menu size={28} />
+            <ShoppingCart strokeWidth={1} size={28} />
+            <DrawerCustom />
           </div>
         </div>
         {children}
-        <footer className="border-t-1 border-[#C4001F] p-4">
+        <footer className="border-t-1 border-[#C4001F] p-4 max-w-[1420px] mx-auto">
           <div>
             <div className="flex flex-col items-center justify-center gap-2 p-2">
               <Smile size={48} strokeWidth={1} />
