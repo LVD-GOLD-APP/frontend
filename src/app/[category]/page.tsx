@@ -4,9 +4,6 @@ import { SectionTitle } from "@/components/ui/section-title"
 import { CategoryBanner } from "@/components/category-banner"
 import { ProductFilter } from "@/components/product-filter"
 
-import BoTrangSuc from "@/assets/Bo-trang-suc-bac-dinh-da-pha-le-hinh-trai-tim-LILI_941338-10.jpg";
-
-
 interface CategoryPageProps {
     params: {
         category: string
