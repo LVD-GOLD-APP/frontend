@@ -189,9 +189,9 @@ export default function RootLayout({
 
           </div>
           <div className="flex items-center gap-2">
-            <Divider className="my-4" />
+            <Divider className="my-4 shrink" />
             <p className="whitespace-nowrap">KẾT NỐI VỚI CHÚNG TÔI</p>
-            <Divider className="my-4" />
+            <Divider className="my-4 shrink" />
           </div>
           <div className="w-full">
             <div className="w-2/3">
