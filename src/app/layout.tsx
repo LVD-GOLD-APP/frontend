@@ -34,6 +34,50 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const sections = [
+    {
+      title: "DỊCH VỤ KHÁCH HÀNG",
+      links: [
+        { text: "Điều khoản và điều kiện", href: "#" },
+        { text: "Chính sách trả hàng hoàn tiền", href: "#" },
+        { text: "Chính sách giao hàng", href: "#" },
+        { text: "Chính sách quyền riêng tư", href: "#" },
+        { text: "Hướng dẫn mua hàng online", href: "#" },
+      ],
+    },
+    {
+      title: "CẨM NANG SỬ DỤNG",
+      links: [
+        { text: "Tại sao nên chọn bạc cao cấp?", href: "#" },
+        { text: "Cách làm trắng bạc tại nhà", href: "#" },
+        { text: "Chính sách giao hàng", href: "#" },
+        { text: "Phân biệt các loại bạc S925, S999,...", href: "#" },
+        { text: "Những tác dụng của bạc", href: "#" },
+        { text: "Cách bảo quản trang sức bạc", href: "#" },
+      ],
+    },
+    {
+      title: "THÔNG TIN CHUNG",
+      links: [
+        { text: "Tin trang sức", href: "#" },
+        { text: "Quyền lợi thành viên", href: "#" },
+        { text: "Tiếp thị liên kết LiLi", href: "#" },
+        { text: "Ưu đãi khi đánh giá", href: "#" },
+        { text: "Nhận quà tri ân", href: "#" },
+        { text: "Liên hệ", href: "#" },
+      ],
+    },
+    {
+      title: "Ý KIẾN ĐÓNG GÓP",
+      links: [
+        {
+          text: "LiLi luôn mong nhận được ý kiến đóng góp từ bạn để nâng cấp dịch vụ và sản phẩm tốt hơn.",
+        },
+        { text: "Nếu bạn có ý kiến, đừng ngần ngại đóng góp cho LiLi nhé. LiLi xin cảm ơn!" },
+      ],
+    },
+  ];
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -86,69 +130,170 @@ export default function RootLayout({
               </p>
             </div>
           </div>
-          <Divider className="my-4" />
-          <div className="grid grid-cols-2 gap-x-2 gap-y-6">
-            <div>
-              <h3>DỊCH VỤ KHÁCH HÀNG</h3>
-              <Divider className="my-2 w-1/2" />
-              <ul className="flex flex-col gap-1">
-                <li className="text-sm">Điều khoản và điều kiện</li>
-                <li className="text-sm">Chính sách trả hàng hoàn tiền</li>
-                <li className="text-sm">Chính sách giao hàng</li>
-                <li className="text-sm">Chính sách quyền riêng tư</li>
-                <li className="text-sm">Hướng dẫn mua hàng online</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3>CẨM NANG SỬ DỤNG</h3>
-              <Divider className="my-2 w-1/2" />
-              <ul className="flex flex-col gap-1">
-                <li className="text-sm">Tại sao nên chọn bạc cao cấp?</li>
-                <li className="text-sm">Cách làm trắng bạc tại nhà</li>
-                <li className="text-sm">Chính sách giao hàng</li>
-                <li className="text-sm">Phân biệt các loại bạc S925, S999,...</li>
-                <li className="text-sm">Những tác dụng của bạc</li>
-                <li className="text-sm">Cách bảo quản trang sức bạc</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3>THÔNG TIN CHUNG</h3>
-              <Divider className="my-2 w-1/2" />
-              <ul className="flex flex-col gap-1">
-                <li className="text-sm">Tin trang sức</li>
-                <li className="text-sm">Quyền lợi thành viên</li>
-                <li className="text-sm">Tiếp thị liên kết LiLi</li>
-                <li className="text-sm">Ưu đãi khi đánh giá</li>
-                <li className="text-sm">Nhận quà tri ân</li>
-                <li className="text-sm">Liên hệ</li>
-              </ul>
-            </div>
-
-            <div>
-              <h3>Ý KIẾN ĐÓNG GÓP</h3>
-
-              <Divider className="my-2 w-1/2" />
-
-              <ul className="flex flex-col gap-1">
-                <li className="text-sm">
-                  LiLi luôn mong nhận được ý kiến đóng góp từ bạn để nâng cấp dịch vụ và sản phẩm tốt hơn.
-                </li>
-                <li className="text-sm">Nếu bạn có ý kiến, đừng ngần ngại đóng góp cho LiLi nhé. LiLi xin cảm ơn!</li>
-              </ul>
-            </div>
-
-            <Button variant="outline" className="col-span-1 col-start-2">
-              Gửi ý kiến
-            </Button>
+          <Divider className="my-8" />
+          {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-6">
+            {sections.map((section, index) => (
+              <div key={index} className="w-full">
+                <h3 className="font-semibold text-sm">{section.title}</h3>
+                <Divider className="my-2 w-1/2" />
+                <ul className="flex flex-col gap-1">
+                  {section.links.map((link, idx) => (
+                    <li key={idx}>
+                      {"href" in link ? (
+                        <a
+                          href={link.href}
+                          className="text-sm text-gray-700 transition-colors hover:text-red-500 hover:no-underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.text}
+                        </a>
+                      ) : (
+                        <span className="text-sm text-gray-500">{link.text}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                {section.title === "Ý KIẾN ĐÓNG GÓP" && (
+                  <div className="mt-4 w-full">
+                    <Button variant="black" className="w-full text-center">
+                      Gửi ý kiến
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-          <div className="flex items-center gap-2">
+          <div className="md:flex items-center gap-2">
             <Divider className="my-4 shrink" />
             <p className="whitespace-nowrap">KẾT NỐI VỚI CHÚNG TÔI</p>
             <Divider className="my-4 shrink" />
           </div>
           <div className="w-full">
+            <div className="w-2/3">
+              <Image className="w-48 mb-5" src={VLogo} alt="" />
+              <ul className="flex flex-col gap-2">
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <Phone size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">0368.860.660 (chính)</span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <Phone size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">0388.468.620 (phụ)</span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <Mail size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">Contact@lili.vn</span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <MapPin size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">Biển Hồ 10A, Vinhomes Ocean Park, Gia Lâm, Hà Nội</span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <Clock4 size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">Thứ 2 - CN : 8h00 - 24h00</span>
+                </li>
+              </ul>
+            </div>
+            <div className="w-1/3"></div>
+          </div> */}
+          <div className="md:flex md:justify-between md:items-start">
+            <div className="w-full md:w-1/3 hidden md:block">
+              <Image className="w-48 mb-5" src={VLogo} alt="" />
+              <ul className="flex flex-col gap-2">
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <Phone size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">0368.860.660 (chính)</span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <Phone size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">0388.468.620 (phụ)</span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <Mail size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">Contact@lili.vn</span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <MapPin size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">Biển Hồ 10A, Vinhomes Ocean Park, Gia Lâm, Hà Nội</span>
+                </li>
+
+                <li className="flex items-center gap-3">
+                  <div className="size-5">
+                    <Clock4 size={20} strokeWidth={1} />
+                  </div>
+                  <span className="text-xs">Thứ 2 - CN : 8h00 - 24h00</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-x-2 gap-y-6 w-full md:w-2/3">
+              {sections.map((section, index) => (
+                <div key={index} className="w-full">
+                  <h3 className="font-semibold text-sm">{section.title}</h3>
+                  <Divider className="my-2 w-1/2" />
+                  <ul className="flex flex-col gap-1">
+                    {section.links.map((link, idx) => (
+                      <li key={idx}>
+                        {"href" in link ? (
+                          <a
+                            href={link.href}
+                            className="text-sm text-gray-700 transition-colors hover:text-red-500 hover:no-underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {link.text}
+                          </a>
+                        ) : (
+                          <span className="text-sm text-gray-500">{link.text}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                  {section.title === "Ý KIẾN ĐÓNG GÓP" && (
+                    <div className="mt-4 w-full">
+                      <Button variant="black" className="w-full text-center">
+                        Gửi ý kiến
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex md:hidden items-center gap-2">
+            <Divider className="my-4 shrink" />
+            <p className="whitespace-nowrap">KẾT NỐI VỚI CHÚNG TÔI</p>
+            <Divider className="my-4 shrink" />
+          </div>
+
+          <div className="flex w-full md:hidden">
             <div className="w-2/3">
               <Image className="w-48 mb-5" src={VLogo} alt="" />
               <ul className="flex flex-col gap-2">
