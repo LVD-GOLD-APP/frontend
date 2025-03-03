@@ -1,17 +1,17 @@
+import Logo from "@/assets/Logo.svg";
+import VLogo from "@/assets/VLogo_LiLi_Horizontal.svg";
+import { SliderTop } from "@/components/layout/SliderTop";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { SliderTop } from "@/components/layout/SliderTop";
-import Logo from '@/assets/Logo.svg'
-import VLogo from '@/assets/VLogo_LiLi_Horizontal.svg'
 // import IconfaceSmileRelaxed from '@/assets/Iconface-Smile-Relaxed.png'
 // import MedalLight from '@/assets/MedalLight.svg'
-import Image from "next/image";
-import { Input } from "@heroui/input";
-import { ShoppingCart, Menu, Smile, Medal, Package, Headset, Phone, Mail, MapPin, Clock4, Facebook, Instagram } from "lucide-react"
-import { Divider } from "@heroui/divider";
-import { Button } from "@/components/ui/button";
 import { DrawerCustom } from "@/components/layout/DrawerCustom";
+import { Button } from "@/components/ui/button";
+import { Divider } from "@heroui/divider";
+import { Input } from "@heroui/input";
+import { Clock4, Headset, Mail, MapPin, Medal, Package, Phone, ShoppingCart, Smile } from "lucide-react";
+import Image from "next/image";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,9 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="h-9">
           <SliderTop />
         </div>
@@ -56,39 +54,31 @@ export default function RootLayout({
         </div>
         {children}
         <footer className="border-t-1 border-[#C4001F] p-4 max-w-[1420px] mx-auto">
-          <div>
+          <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-4 max-w-[1420px] mx-auto">
             <div className="flex flex-col items-center justify-center gap-2 p-2">
               <Smile size={48} strokeWidth={1} />
-              <h3>
-                KHÁCH HÀNG HÀI LÒNG
-              </h3>
+              <h3>KHÁCH HÀNG HÀI LÒNG</h3>
               <p className="text-center text-sm">
                 Đặt sự hài lòng của khách hàng là ưu tiên số 1 trong mọi suy nghĩ hành động
               </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-2 p-2">
               <Medal size={48} strokeWidth={1} />
-              <h3>
-                CHẤT LƯỢNG CAO CẤP
-              </h3>
+              <h3>CHẤT LƯỢNG CAO CẤP</h3>
               <p className="text-center text-sm">
                 Mọi sản phẩm đều được thiết kế và chế tác bởi các nghệ nhân hàng đầu
               </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-2 p-2">
               <Package size={48} strokeWidth={1} />
-              <h3>
-                ĐỔI TRẢ DỄ DÀNG
-              </h3>
+              <h3>ĐỔI TRẢ DỄ DÀNG</h3>
               <p className="text-center text-sm">
                 10 ngày đổi trả (LiLi đến tận nơi nhận hàng). Hoàn tiền nếu không hài lòng
               </p>
             </div>
             <div className="flex flex-col items-center justify-center gap-2 p-2">
               <Headset size={48} strokeWidth={1} />
-              <h3>
-                HỖ TRỢ NHIỆT TÌNH
-              </h3>
+              <h3>HỖ TRỢ NHIỆT TÌNH</h3>
               <p className="text-center text-sm">
                 Tất cả câu hỏi đều được các chuyên viên của LiLi tư vấn, giải đáp kỹ càng
               </p>
@@ -100,21 +90,11 @@ export default function RootLayout({
               <h3>DỊCH VỤ KHÁCH HÀNG</h3>
               <Divider className="my-2 w-1/2" />
               <ul className="flex flex-col gap-1">
-                <li className="text-sm">
-                  Điều khoản và điều kiện
-                </li>
-                <li className="text-sm">
-                  Chính sách trả hàng hoàn tiền
-                </li>
-                <li className="text-sm">
-                  Chính sách giao hàng
-                </li>
-                <li className="text-sm">
-                  Chính sách quyền riêng tư
-                </li>
-                <li className="text-sm">
-                  Hướng dẫn mua hàng online
-                </li>
+                <li className="text-sm">Điều khoản và điều kiện</li>
+                <li className="text-sm">Chính sách trả hàng hoàn tiền</li>
+                <li className="text-sm">Chính sách giao hàng</li>
+                <li className="text-sm">Chính sách quyền riêng tư</li>
+                <li className="text-sm">Hướng dẫn mua hàng online</li>
               </ul>
             </div>
 
@@ -122,24 +102,12 @@ export default function RootLayout({
               <h3>CẨM NANG SỬ DỤNG</h3>
               <Divider className="my-2 w-1/2" />
               <ul className="flex flex-col gap-1">
-                <li className="text-sm">
-                  Tại sao nên chọn bạc cao cấp?
-                </li>
-                <li className="text-sm">
-                  Cách làm trắng bạc tại nhà
-                </li>
-                <li className="text-sm">
-                  Chính sách giao hàng
-                </li>
-                <li className="text-sm">
-                  Phân biệt các loại bạc S925, S999,...
-                </li>
-                <li className="text-sm">
-                  Những tác dụng của bạc
-                </li>
-                <li className="text-sm">
-                  Cách bảo quản trang sức bạc
-                </li>
+                <li className="text-sm">Tại sao nên chọn bạc cao cấp?</li>
+                <li className="text-sm">Cách làm trắng bạc tại nhà</li>
+                <li className="text-sm">Chính sách giao hàng</li>
+                <li className="text-sm">Phân biệt các loại bạc S925, S999,...</li>
+                <li className="text-sm">Những tác dụng của bạc</li>
+                <li className="text-sm">Cách bảo quản trang sức bạc</li>
               </ul>
             </div>
 
@@ -147,24 +115,12 @@ export default function RootLayout({
               <h3>THÔNG TIN CHUNG</h3>
               <Divider className="my-2 w-1/2" />
               <ul className="flex flex-col gap-1">
-                <li className="text-sm">
-                  Tin trang sức
-                </li>
-                <li className="text-sm">
-                  Quyền lợi thành viên
-                </li>
-                <li className="text-sm">
-                  Tiếp thị liên kết LiLi
-                </li>
-                <li className="text-sm">
-                  Ưu đãi khi đánh giá
-                </li>
-                <li className="text-sm">
-                  Nhận quà tri ân
-                </li>
-                <li className="text-sm">
-                  Liên hệ
-                </li>
+                <li className="text-sm">Tin trang sức</li>
+                <li className="text-sm">Quyền lợi thành viên</li>
+                <li className="text-sm">Tiếp thị liên kết LiLi</li>
+                <li className="text-sm">Ưu đãi khi đánh giá</li>
+                <li className="text-sm">Nhận quà tri ân</li>
+                <li className="text-sm">Liên hệ</li>
               </ul>
             </div>
 
@@ -177,16 +133,13 @@ export default function RootLayout({
                 <li className="text-sm">
                   LiLi luôn mong nhận được ý kiến đóng góp từ bạn để nâng cấp dịch vụ và sản phẩm tốt hơn.
                 </li>
-                <li className="text-sm">
-                  Nếu bạn có ý kiến, đừng ngần ngại đóng góp cho LiLi nhé. LiLi xin cảm ơn!
-                </li>
+                <li className="text-sm">Nếu bạn có ý kiến, đừng ngần ngại đóng góp cho LiLi nhé. LiLi xin cảm ơn!</li>
               </ul>
             </div>
 
             <Button variant="outline" className="col-span-1 col-start-2">
               Gửi ý kiến
             </Button>
-
           </div>
           <div className="flex items-center gap-2">
             <Divider className="my-4 shrink" />
@@ -233,8 +186,7 @@ export default function RootLayout({
                 </li>
               </ul>
             </div>
-            <div className="w-1/3">
-            </div>
+            <div className="w-1/3"></div>
           </div>
         </footer>
       </body>
