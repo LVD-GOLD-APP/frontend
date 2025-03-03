@@ -40,16 +40,18 @@ export default function RootLayout({
         <div className="h-9">
           <SliderTop />
         </div>
-        <div className="flex w-full border-b-1 border-[#C4001F] max-w-[1420px] mx-auto">
-          <div className="w-[30%] px-2">
-            <Image className="h-14 max-w-24 " src={Logo} alt="" />
-          </div>
-          <div className="w-[45%] px-2 flex items-center">
-            <Input type="search" variant="bordered" radius={"sm"} placeholder="Tìm sản phẩm" />
-          </div>
-          <div className="w-[25%] px-2 gap-4 flex justify-end items-center">
-            <ShoppingCart strokeWidth={1} size={28} />
-            <DrawerCustom />
+        <div className="sticky top-0 z-10 bg-white">
+          <div className="flex w-full border-b-1 border-[#C4001F] max-w-[1420px] mx-auto">
+            <div className="w-[30%] px-2">
+              <Image className="h-14 max-w-24 " src={Logo} alt="" />
+            </div>
+            <div className="w-[45%] px-2 flex items-center">
+              <Input type="search" variant="bordered" radius={"sm"} placeholder="Tìm sản phẩm" />
+            </div>
+            <div className="w-[25%] px-2 gap-4 flex justify-end items-center">
+              <ShoppingCart strokeWidth={1} size={28} />
+              <DrawerCustom />
+            </div>
           </div>
         </div>
         {children}
