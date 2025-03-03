@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { Home, ChevronRight, Check } from "lucide-react"
+import Link from "next/link";
+import { Home, ChevronRight, Check } from "lucide-react";
 import ProductImageGallery from "@/app/san-pham/product-image-gallery";
 import QuantitySelector from "../quantity-selector";
 import ColorSelector from "../color-selector";
@@ -10,11 +9,13 @@ import BenefitsSection from "../benefits-section";
 import MembershipBenefits from "../membership-benefits";
 import ProductTabs from "../product-tabs";
 import StickyCheckoutBar from "../sticky-checkout-bar";
+import { ProductActions } from "../product-action";
+import { ProductActionsNow } from "../product-action-now";
 
 interface PageProps {
     params: {
-        slug: string
-    }
+        slug: string;
+    };
 }
 
 export default function ProductPage({ params }: PageProps) {
@@ -34,7 +35,9 @@ export default function ProductPage({ params }: PageProps) {
                     <ChevronRight className="h-4 w-4 mx-1" />
                     <Link href="/vong-tay">Vòng - Lắc tay nữ</Link>
                     <ChevronRight className="h-4 w-4 mx-1" />
-                    <span className="text-gray-500">Lắc tay bạc nữ đính pha lê Swarovski trái tim của biển LILI_579467</span>
+                    <span className="text-gray-500">
+                        Lắc tay bạc nữ đính pha lê Swarovski trái tim của biển LILI_579467
+                    </span>
                 </nav>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -67,7 +70,13 @@ export default function ProductPage({ params }: PageProps) {
                         <div className="bg-gray-50 p-3 rounded-md mb-6">
                             <div className="flex items-center">
                                 <div className="mr-2">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
                                         <path
                                             d="M20 7H4C2.9 7 2 7.9 2 9V15C2 16.1 2.9 17 4 17H20C21.1 17 22 16.1 22 15V9C22 7.9 21.1 7 20 7Z"
                                             stroke="currentColor"
@@ -84,7 +93,9 @@ export default function ProductPage({ params }: PageProps) {
                                         />
                                     </svg>
                                 </div>
-                                <span>Đăng ký để nhận ngay hộp trang sức trị giá 224.000₫ + tích lũy, giảm giá...</span>
+                                <span>
+                                    Đăng ký để nhận ngay hộp trang sức trị giá 224.000₫ + tích lũy, giảm giá...
+                                </span>
                             </div>
                         </div>
 
@@ -95,10 +106,7 @@ export default function ProductPage({ params }: PageProps) {
 
                         <div className="flex items-center gap-4 mb-6">
                             <QuantitySelector />
-                            <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-6">MUA NGAY</Button>
-                            <Button variant="outline" className="border-gray-300 px-8 py-6">
-                                GỌI TƯ VẤN MIỄN PHÍ
-                            </Button>
+                            <ProductActionsNow />
                         </div>
 
                         <div className="mb-6">
@@ -106,7 +114,7 @@ export default function ProductPage({ params }: PageProps) {
                             <RelatedProducts />
                         </div>
 
-                        <Button className="w-full bg-red-600 hover:bg-red-700 text-white py-6 mb-6">BẤM ĐỂ MUA NGAY ƯU ĐÃI</Button>
+                        <ProductActions />
 
                         <div className="space-y-2 mb-6">
                             <div className="flex items-start">
@@ -154,6 +162,5 @@ export default function ProductPage({ params }: PageProps) {
             </div>
             <StickyCheckoutBar />
         </>
-    )
+    );
 }
-

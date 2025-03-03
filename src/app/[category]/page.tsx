@@ -1,169 +1,136 @@
-import { notFound } from "next/navigation"
-import { ProductCard } from "@/components/product-card"
-import { SectionTitle } from "@/components/ui/section-title"
-import { CategoryBanner } from "@/components/category-banner"
-import { ProductFilter } from "@/components/product-filter"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
+import ProductGrid from "./product-grid"
 
-interface CategoryPageProps {
-    params: {
-        category: string
-    }
+const categoryData = {
+  "day-chuyen": {
+    title: "DÂY CHUYỀN CAO CẤP",
+    description:
+      "Dây chuyền LILI mang đến cho bạn một vẻ đẹp hoàn hảo, góp phần tạo nên phong cách của riêng mình và là điểm nhấn nhẹ tuyệt vời mỗi khi bạn xuất hiện",
+    filters: [
+      {
+        id: "type",
+        name: "Loại dây chuyền",
+        options: ["Nữ", "Nam", "Cặp đôi", "Trẻ em"],
+      },
+      {
+        id: "material",
+        name: "Chất liệu",
+        options: ["Bạc", "Vàng", "Bạc mạ vàng"],
+      },
+    ],
+  },
+  "vong-lac": {
+    title: "VÒNG - LẮC CAO CẤP",
+    description: "Vòng và lắc LILI - Điểm nhấn tinh tế cho phong cách của bạn",
+    filters: [
+      {
+        id: "type",
+        name: "Loại vòng - lắc",
+        options: ["Vòng tay", "Lắc tay", "Vòng cổ", "Lắc chân"],
+      },
+      {
+        id: "material",
+        name: "Chất liệu",
+        options: ["Bạc", "Vàng", "Bạc mạ vàng"],
+      },
+    ],
+  },
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
-    // Trong thực tế, bạn sẽ lấy dữ liệu danh mục từ API dựa vào params.category
-    // Đây là dữ liệu mẫu cho danh mục "bong-tai"
+const commonFilters = [
+  {
+    id: "gender",
+    name: "Giới tính",
+    options: ["Nam", "Nữ", "Unisex"],
+  },
+  {
+    id: "price",
+    name: "Khoảng giá",
+    options: ["Dưới 500.000₫", "500.000₫ - 1.000.000₫", "Trên 1.000.000₫"],
+  },
+]
 
-    const categories = {
-        "bong-tai": {
-            id: "bong-tai",
-            name: "BÔNG TAI",
-            description:
-                "Cùng khám phá bộ sưu tập khuyên tai LiLi đẹp cao cấp mang sự cuốn hút và nổi bật đến cho bạn. Với sự tỉ mỉ trong từng đường nét thiết kế, bạn sẽ trở nên thật hoàn hảo đấy!",
-            bannerImage: "/placeholder.svg?height=400&width=1200",
-            products: [
-                {
-                    id: "LILI_123456",
-                    name: "Bông tai bạc nữ đính đá xanh dương",
-                    price: 850000,
-                    image: "/placeholder.svg?height=400&width=400",
-                    slug: "bong-tai-bac-nu-dinh-da-xanh-duong-lili_123456",
-                },
-                {
-                    id: "LILI_234567",
-                    name: "Bông tai bạc nữ đính đá kim cương Moissanite",
-                    price: 1250000,
-                    image: "/placeholder.svg?height=400&width=400",
-                    slug: "bong-tai-bac-nu-dinh-da-kim-cuong-moissanite-lili_234567",
-                },
-                {
-                    id: "LILI_345678",
-                    name: "Bông tai bạc nữ đính đá xanh biển",
-                    price: 950000,
-                    image: "/placeholder.svg?height=400&width=400",
-                    slug: "bong-tai-bac-nu-dinh-da-xanh-bien-lili_345678",
-                },
-                {
-                    id: "LILI_456789",
-                    name: "Bông tai bạc nữ hoa mai đính đá trắng",
-                    price: 1050000,
-                    image: "/placeholder.svg?height=400&width=400",
-                    slug: "bong-tai-bac-nu-hoa-mai-dinh-da-trang-lili_456789",
-                },
-                {
-                    id: "LILI_567890",
-                    name: "Bông tai bạc nữ đính đá trắng hình trái tim",
-                    price: 1150000,
-                    image: "/placeholder.svg?height=400&width=400",
-                    slug: "bong-tai-bac-nu-dinh-da-trang-hinh-trai-tim-lili_567890",
-                },
-                {
-                    id: "LILI_678901",
-                    name: "Bông tai bạc nữ đính đá hồng phấn",
-                    price: 950000,
-                    image: "/placeholder.svg?height=400&width=400",
-                    slug: "bong-tai-bac-nu-dinh-da-hong-phan-lili_678901",
-                },
-                {
-                    id: "LILI_789012",
-                    name: "Bông tai bạc nữ đính đá tím lavender",
-                    price: 1050000,
-                    image: "/placeholder.svg?height=400&width=400",
-                    slug: "bong-tai-bac-nu-dinh-da-tim-lavender-lili_789012",
-                },
-                {
-                    id: "LILI_890123",
-                    name: "Bông tai bạc nữ đính đá xanh lá",
-                    price: 950000,
-                    image: "/placeholder.svg?height=400&width=400",
-                    slug: "bong-tai-bac-nu-dinh-da-xanh-la-lili_890123",
-                },
-            ],
-        },
-    }
+const sortOptions = [
+  { label: "Giá: từ thấp đến cao", value: "price-asc" },
+  { label: "Giá: từ cao đến thấp", value: "price-desc" },
+  { label: "Số lượt mua", value: "purchases" },
+  { label: "Số lượt đánh giá", value: "reviews" },
+  { label: "Số sao trung bình", value: "rating" },
+  { label: "Mới nhất", value: "newest" },
+  { label: "Tên sản phẩm", value: "name" },
+]
 
-    const category = categories[params.category as keyof typeof categories]
+export default function CategoryPage({ params }: { params: { category: string } }) {
+  const category = categoryData[params.category as keyof typeof categoryData]
 
-    if (!category) {
-        notFound()
-    }
+  if (!category) {
+    return <div>Danh mục không tồn tại</div>
+  }
 
-    return (
-        <div className="min-h-screen">
-            {/* Category Banner */}
-            <CategoryBanner title={category.name} description={category.description} image={category.bannerImage} />
+  const allFilters = [...(category.filters || []), ...commonFilters]
 
-            <div className="container mx-auto px-4 py-8">
-                {/* Bộ lọc - Hiển thị theo hàng ngang */}
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 border-b pb-4">
-                    <ProductFilter/>
+  return (
+    <div>
+      {/* Hero Section */}
+      <div className="relative h-[400px] bg-[url('/placeholder.svg')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
+          <h1 className="text-4xl font-bold mb-4">{category.title}</h1>
+          <p className="max-w-2xl">{category.description}</p>
+        </div>
+      </div>
 
-                    <div className="flex items-center gap-2">
-                        <span className="text-sm text-gray-500">Sắp xếp theo:</span>
-                        <select className="text-sm border rounded-md px-2 py-1">
-                            <option>Mới nhất</option>
-                            <option>Giá: Thấp đến cao</option>
-                            <option>Giá: Cao đến thấp</option>
-                            <option>Bán chạy nhất</option>
-                        </select>
-                    </div>
-                </div>
-
-                {/* Product Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                    {category.products.map((product) => (
-                        <ProductCard
-                            key={product.id}
-                            id={product.id}
-                            name={product.name}
-                            price={product.price}
-                            image={product.image}
-                            slug={product.slug}
-                        />
-                    ))}
-                </div>
-
-                {/* Pagination */}
-                <div className="flex justify-center mt-12">
-                    <nav className="flex items-center gap-1">
-                        <button className="w-10 h-10 border rounded-md flex items-center justify-center hover:bg-gray-50">
-                            &lt;
-                        </button>
-                        <button className="w-10 h-10 border rounded-md flex items-center justify-center bg-primary text-white">
-                            1
-                        </button>
-                        <button className="w-10 h-10 border rounded-md flex items-center justify-center hover:bg-gray-50">
-                            2
-                        </button>
-                        <button className="w-10 h-10 border rounded-md flex items-center justify-center hover:bg-gray-50">
-                            3
-                        </button>
-                        <button className="w-10 h-10 border rounded-md flex items-center justify-center hover:bg-gray-50">
-                            &gt;
-                        </button>
-                    </nav>
-                </div>
-            </div>
-
-            {/* Suggested Products */}
-            <div className="container mx-auto px-4 py-12">
-                <SectionTitle title="SẢN PHẨM ĐỀ XUẤT" />
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mt-8">
-                    {category.products.slice(0, 4).map((product) => (
-                        <ProductCard
-                            key={product.id}
-                            id={product.id}
-                            name={product.name}
-                            price={product.price}
-                            image={product.image}
-                            slug={product.slug}
-                        />
-                    ))}
-                </div>
-            </div>
+      <div className="container mx-auto px-4 py-8">
+        {/* Featured Products */}
+        <div className="mb-12">
+          <h2 className="text-center font-medium mb-8 relative">
+            <span className="bg-white px-4 relative z-10">SẢN PHẨM ĐỀ XUẤT</span>
+            <div className="absolute left-0 right-0 h-px bg-gray-200 top-1/2 -z-[1]" />
+          </h2>
+          <ProductGrid />
         </div>
 
+        <div className="mb-8">
+          <h2 className="text-center font-medium mb-8 relative">
+            <span className="bg-white px-4 relative z-10">{category.title}</span>
+            <div className="absolute left-0 right-0 h-px bg-gray-200 top-1/2 -z-[1]" />
+          </h2>
 
-    )
+          <div className="flex flex-wrap items-center gap-4 mb-6">
+            {allFilters.map((filter) => (
+              <Select key={filter.id}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder={filter.name} />
+                </SelectTrigger>
+                <SelectContent>
+                  {filter.options.map((option) => (
+                    <SelectItem key={option} value={option.toLowerCase()}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ))}
+            <Input type="search" placeholder="Tìm kiếm sản phẩm..." className="max-w-xs" />
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Sắp xếp" />
+              </SelectTrigger>
+              <SelectContent>
+                {sortOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
+        <ProductGrid />
+      </div>
+    </div>
+  )
 }
 

@@ -1,27 +1,31 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Button } from "@/components/ui/button";
-import { Gift, Truck } from "lucide-react";
+import type React from "react"
+
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Card } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Button } from "@/components/ui/button"
+import { Gift, Truck } from "lucide-react"
 
 export default function CheckoutForm() {
-  const [hasAlternateRecipient, setHasAlternateRecipient] = useState(false);
+  const router = useRouter()
+  const [hasAlternateRecipient, setHasAlternateRecipient] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission logic here
+    router.push("/thanh-toan/uu-dai")
+  }
 
   return (
-    <div className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {/* Order Information */}
       <Card className="p-6">
         <h2 className="text-lg font-semibold mb-4">THÔNG TIN ĐẶT HÀNG</h2>
@@ -29,21 +33,15 @@ export default function CheckoutForm() {
           <p>Mọi thông tin của bạn sẽ được LILI bảo mật tuyệt đối</p>
           <div className="flex items-center gap-2 text-red-600">
             <Gift className="h-4 w-4" />
-            <span>
-              Quà tặng: Bộ đóng gói sản phẩm cao cấp - L1 đã được áp dụng
-            </span>
+            <span>Quà tặng: Bộ đóng gói sản phẩm cao cấp - L1 đã được áp dụng</span>
           </div>
           <div className="flex items-center gap-2">
             <Gift className="h-4 w-4" />
-            <span>
-              Quà tặng: Hộp trang sức bọc da Royal - Lắc đơn đã được áp dụng
-            </span>
+            <span>Quà tặng: Hộp trang sức bọc da Royal - Lắc đơn đã được áp dụng</span>
           </div>
           <div className="flex items-center gap-2">
             <Gift className="h-4 w-4" />
-            <span>
-              Quà Tặng: Hộp đựng đa trang sức bọc nhung đã được áp dụng
-            </span>
+            <span>Quà Tặng: Hộp đựng đa trang sức bọc nhung đã được áp dụng</span>
           </div>
         </div>
       </Card>
@@ -109,13 +107,9 @@ export default function CheckoutForm() {
             <Checkbox
               id="alternate-recipient"
               checked={hasAlternateRecipient}
-              onCheckedChange={(checked) =>
-                setHasAlternateRecipient(checked as boolean)
-              }
+              onCheckedChange={(checked) => setHasAlternateRecipient(checked as boolean)}
             />
-            <Label htmlFor="alternate-recipient">
-              Gửi người khác nhận hàng (nếu có)
-            </Label>
+            <Label htmlFor="alternate-recipient">Gửi người khác nhận hàng (nếu có)</Label>
           </div>
         </div>
       </Card>
@@ -142,10 +136,7 @@ export default function CheckoutForm() {
           </div>
           <div className="flex items-center space-x-2 border rounded-md p-3">
             <RadioGroupItem value="bank" id="bank" />
-            <Label htmlFor="bank">
-              Chuyển khoản ngân hàng hoặc ví điện tử MoMo, Zalopay... (Tiết kiệm
-              20.000₫)
-            </Label>
+            <Label htmlFor="bank">Chuyển khoản ngân hàng hoặc ví điện tử MoMo, Zalopay... (Tiết kiệm 20.000₫)</Label>
           </div>
           <div className="flex items-center space-x-2 border rounded-md p-3">
             <RadioGroupItem value="momo" id="momo" />
@@ -153,17 +144,16 @@ export default function CheckoutForm() {
           </div>
           <div className="flex items-center space-x-2 border rounded-md p-3">
             <RadioGroupItem value="shopeepay" id="shopeepay" />
-            <Label htmlFor="shopeepay">
-              Quét Mã ShopeePay (Tiết kiệm 10.000₫)
-            </Label>
+            <Label htmlFor="shopeepay">Quét Mã ShopeePay (Tiết kiệm 10.000₫)</Label>
           </div>
         </RadioGroup>
       </Card>
 
       {/* Submit Button */}
-      <Button className="w-full bg-red-600 hover:bg-red-700 text-white py-6 text-lg">
-        ĐẶT HÀNG
+      <Button type="submit" className="w-full bg-red-600 hover:bg-red-700 text-white py-6 text-lg">
+        TIẾP TỤC
       </Button>
-    </div>
-  );
+    </form>
+  )
 }
+
