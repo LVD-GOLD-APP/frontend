@@ -6,6 +6,7 @@ import VeChungToi from "@/assets/Ve-chung-toi-banner_1f.jpg";
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -54,20 +55,22 @@ export default function Home() {
       </div>
       <div className="max-w-[1420px] mx-auto grid grid-cols-2 gap-4 p-4 md:grid-cols-3 xl:grid-cols-6">
         {[
-          { src: LacTay, label: "Vòng - Lắc" },
-          { src: LacTay, label: "Vòng - Lắc" },
-          { src: LacTay, label: "Vòng - Lắc" },
-          { src: LacTay, label: "Vòng - Lắc" },
-          { src: LacTay, label: "Vòng - Lắc" },
-          { src: LacTay, label: "Vòng - Lắc" },
+          { src: LacTay, label: "Vòng - Lắc", slug: "bong-tai" },
+          { src: LacTay, label: "Vòng - Lắc", slug: "bong-tai" },
+          { src: LacTay, label: "Vòng - Lắc", slug: "bong-tai" },
+          { src: LacTay, label: "Vòng - Lắc", slug: "bong-tai" },
+          { src: LacTay, label: "Vòng - Lắc", slug: "bong-tai" },
+          { src: LacTay, label: "Vòng - Lắc", slug: "bong-tai" },
         ].map((item, index) => (
-          <div key={index} className="flex flex-col items-center gap-4 group">
-            <div className="overflow-hidden rounded-xl transition-transform duration-300 group-hover:-translate-y-2">
-              <Image src={item.src} className="aspect-square rounded-xl" alt={item.label} />
-              <div className="absolute inset-0 bg-gray-50/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <Link key={index} href={`/${item.slug}`} className="group">
+            <div className="flex flex-col items-center gap-4 group">
+              <div className="overflow-hidden rounded-xl transition-transform duration-300 group-hover:-translate-y-2">
+                <Image src={item.src} className="aspect-square rounded-xl" alt={item.label} />
+                <div className="absolute inset-0 bg-gray-50/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+              <span>{item.label}</span>
             </div>
-            <span>{item.label}</span>
-          </div>
+          </Link>
         ))}
       </div>
       <div className="flex items-center gap-2 max-w-[1420px] w-full mx-auto">

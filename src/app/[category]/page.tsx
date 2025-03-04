@@ -80,6 +80,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 },
             ],
         },
+        
     }
 
     const category = categories[params.category as keyof typeof categories]

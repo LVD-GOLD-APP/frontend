@@ -1,24 +1,24 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { Minus, Plus } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import Image from "next/image";
+import { Minus, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 export default function StickyCheckoutBar() {
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(1);
 
   const increment = () => {
-    setQuantity((prev) => prev + 1)
-  }
+    setQuantity((prev) => prev + 1);
+  };
 
   const decrement = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1))
-  }
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  };
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50">
-      <div className="container mx-auto px-4 py-3">
+      <div className="max-w-[1420px] mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="relative w-16 h-16 border rounded-md overflow-hidden flex-shrink-0">
@@ -44,5 +44,5 @@ export default function StickyCheckoutBar() {
         </div>
       </div>
     </div>
-  )
+  );
 }
