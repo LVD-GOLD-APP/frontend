@@ -41,7 +41,7 @@ export default function StickyCheckoutBar() {
             </div>
             <Button
               className="bg-red-600 hover:bg-red-700 text-white px-12 h-12 text-base font-medium"
-              onClick={() => setCartOpen(true)}
+             
             >
               MUA NGAY
             </Button>
