@@ -22,29 +22,30 @@ export default function ProductPage({}: PageProps) {
     <>
       <div className="max-w-[1420px] mx-auto px-1 lg:px-4 py-6 pb-20">
         {/* Breadcrumb */}
-        <nav className="flex items-center text-sm mb-6 text-gray-600 overflow-x-auto whitespace-nowrap scrollbar-hide">
-          <Link href="/" className="flex items-center shrink-0">
-            <Home className="h-4 w-4 mr-1" />
-            Trang chủ
-          </Link>
-          <Link href="/vong-tay" className="flex items-center shrink-0">
-            <ChevronRight className="h-4 w-4 mx-1" />
-            Vòng - Lắc
-          </Link>
-          <Link href="/vong-tay" className="flex items-center shrink-0">
-            <ChevronRight className="h-4 w-4 mx-1" />
-            Vòng - Lắc tay
-          </Link>
-          <Link href="/vong-tay" className="flex items-center shrink-0">
-            <ChevronRight className="h-4 w-4 mx-1" />
-            Vòng - Lắc tay nữ
-          </Link>
-          <ChevronRight className="h-4 w-4 mx-1 hidden sm:md:lg:block shrink-0" />
-          <span className="text-gray-500 hidden sm:md:lg:block shrink-0">
-            Lắc tay bạc nữ đính pha lê Swarovski trái tim của biển LILI_579467
-          </span>
-        </nav>
-
+        <div className="container mx-auto pl-3">
+          <nav className="flex items-center text-sm mb-6 text-gray-600 overflow-x-auto whitespace-nowrap scrollbar-hide">
+            <Link href="/" className="flex items-center shrink-0">
+              <Home className="h-4 w-4 mr-1" />
+              Trang chủ
+            </Link>
+            <Link href="/vong-tay" className="flex items-center shrink-0">
+              <ChevronRight className="h-4 w-4 mx-1" />
+              Vòng - Lắc
+            </Link>
+            <Link href="/vong-tay" className="flex items-center shrink-0">
+              <ChevronRight className="h-4 w-4 mx-1" />
+              Vòng - Lắc tay
+            </Link>
+            <Link href="/vong-tay" className="flex items-center shrink-0">
+              <ChevronRight className="h-4 w-4 mx-1" />
+              Vòng - Lắc tay nữ
+            </Link>
+            <ChevronRight className="h-4 w-4 mx-1 hidden sm:md:lg:block shrink-0" />
+            <span className="text-gray-500 hidden sm:md:lg:block shrink-0">
+              Lắc tay bạc nữ đính pha lê Swarovski trái tim của biển LILI_579467
+            </span>
+          </nav>
+        </div>
         <div className="grid grid-cols-1 sm:md:lg:grid-cols-2 gap-8">
           <div>
             <ProductImageGallery />

@@ -94,7 +94,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   return (
     <div className="min-h-screen mx-auto py-6 pb-20">
       {/* Breadcrumb */}
-      <div className="container mx-auto">
+      <div className="container mx-auto pl-3">
         <nav className="flex items-center text-sm mb-6 text-gray-600 overflow-x-auto whitespace-nowrap scrollbar-hide">
           <Link href="/" className="flex items-center shrink-0">
             <Home className="h-4 w-4 mr-1" />
@@ -109,7 +109,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       {/* Category Banner */}
       <CategoryBanner title={category.name} description={category.description} image={category.bannerImage} />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto">
         {/* Suggested Products */}
         <div className="container mx-auto px-4 py-12">
           <SectionTitle title="SẢN PHẨM ĐỀ XUẤT" />
