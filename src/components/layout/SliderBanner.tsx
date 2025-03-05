@@ -27,7 +27,9 @@ export const SliderBanner = () => {
       {imgs.map((img, index) => {
         return (
           <SwiperSlide key={index}>
-            <Image className="h-full" src={img} alt="" />
+            <div className="lg:aspect-auto aspect-square lg:relative">
+              <Image src={img} alt="" fill className="object-cover h-full" priority />
+            </div>
           </SwiperSlide>
         );
       })}
