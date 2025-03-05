@@ -1,5 +1,5 @@
-import Image from "next/image"
-import { Gift } from "lucide-react"
+import { Gift } from "lucide-react";
+import Image from "next/image";
 
 const giftBoxes = [
   {
@@ -22,29 +22,26 @@ const giftBoxes = [
     title: "Món quà bí mật đặc biệt Mystery",
     image: "/placeholder.svg?height=100&width=100",
   },
-]
+];
 
 export default function GiftBoxSection() {
   return (
-    <div className="mb-8">
-      <div className="bg-gray-100 p-3 rounded-md mb-4">
-        <div className="flex items-center gap-2 font-medium text-gray-800">
-          <Gift className="h-5 w-5 text-red-600" />
-          <h3 className="uppercase">BỘ QUÀ CAO CẤP SỐ LƯỢNG CÓ HẠN</h3>
-        </div>
-      </div>
+    <section className="mb-8 border border-gray-100 rounded-md">
+      <header className="bg-gray-100 p-2 rounded-t-md flex items-center gap-2 text-gray-800 font-medium">
+        <Gift className="h-5 w-5 text-red-600" />
+        <h3 className="uppercase">BỘ QUÀ CAO CẤP SỐ LƯỢNG CÓ HẠN</h3>
+      </header>
 
-      <div className="grid grid-cols-2 gap-2">
-        {giftBoxes.map((gift) => (
-          <div key={gift.id} className="border border-gray-200 rounded-md p-3 flex items-center gap-3">
+      <div className="grid grid-cols-2 gap-2 p-2">
+        {giftBoxes.map(({ id, title, image }) => (
+          <div key={id} className="flex items-center gap-3 p-3 border border-gray-200 rounded-md">
             <div className="relative w-16 h-16 flex-shrink-0">
-              <Image src={gift.image || "/placeholder.svg"} alt={gift.title} fill className="object-cover" />
+              <Image src={image} alt={title} fill className="object-cover rounded-md" />
             </div>
-            <p className="text-sm font-medium">{gift.title}</p>
+            <p className="text-sm font-medium">{title}</p>
           </div>
         ))}
       </div>
-    </div>
-  )
+    </section>
+  );
 }
-

@@ -90,8 +90,8 @@ export default function ProductPage({}: PageProps) {
               </div>
             </div>
 
-            <div className="mb-6">
-              <h3 className="font-medium mb-2">Màu Sắc</h3>
+            <div className="mb-6 flex gap-14 items-center">
+              <div className="font-medium">Màu Sắc</div>
               <ColorSelector />
             </div>
 
@@ -147,13 +147,11 @@ export default function ProductPage({}: PageProps) {
             <BenefitsSection />
           </div>
         </div>
-
-        <div className="mt-12">
-          <ProductTabs />
-        </div>
-
         <div className="mt-12">
           <MembershipBenefits />
+        </div>
+        <div className="mt-12">
+          <ProductTabs />
         </div>
       </div>
       <StickyCheckoutBar />

@@ -1,4 +1,4 @@
-import { RefreshCw, Truck, Shield, CreditCard, Clock } from "lucide-react"
+import { RefreshCw, Truck, Shield, CreditCard, Clock } from "lucide-react";
 
 const benefits = [
   {
@@ -31,20 +31,19 @@ const benefits = [
     title: "Bảo hành 12 tháng tận nơi",
     icon: Shield,
   },
-]
+];
 
 export default function BenefitsSection() {
   return (
-    <div className="grid grid-cols-2 gap-4 mb-8">
+    <div className="grid grid-cols-3 gap-4 mb-8">
       {benefits.map((benefit) => (
-        <div key={benefit.id} className="flex items-center gap-3">
+        <div key={benefit.id} className="flex flex-col items-center gap-1">
           <div className="w-10 h-10 flex items-center justify-center flex-shrink-0">
             <benefit.icon className="h-6 w-6 text-gray-600" />
           </div>
-          <p className="text-sm">{benefit.title}</p>
+          <div className="text-sm text-center">{benefit.title}</div>
         </div>
       ))}
     </div>
-  )
+  );
 }
-
