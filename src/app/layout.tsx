@@ -10,9 +10,22 @@ import { DrawerCustom } from "@/components/layout/DrawerCustom";
 import { Button } from "@/components/ui/button";
 import { Divider } from "@heroui/divider";
 import { Input } from "@heroui/input";
-import { Clock4, Headset, Mail, MapPin, Medal, Package, Phone, ShoppingCart, Smile } from "lucide-react";
+import {
+  Clock4,
+  EyeIcon,
+  Headset,
+  Mail,
+  MapPin,
+  Medal,
+  Package,
+  Phone,
+  ShoppingCart,
+  Smile,
+  UserIcon,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import MenuHeader from "@/components/layout/MenuHeader";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -85,21 +98,33 @@ export default function RootLayout({
         <div className="h-9">
           <SliderTop />
         </div>
-        <div className="sticky top-0 z-10 bg-white">
-          <div className="flex w-full border-b-1 border-[#C4001F] max-w-[1420px] mx-auto">
-            <div className="w-[30%] px-2">
+        <div className="sticky top-0 z-10 bg-white border-b-1 border-[#C4001F]">
+          <div className="flex justify-between w-full max-w-[1420px] mx-auto">
+            <div className="px-2">
               <Link href={"/"}>
-                {" "}
                 <Image className="h-14 max-w-24 " src={Logo} alt="" />
               </Link>
             </div>
-            <div className="w-[45%] px-2 flex items-center">
+            <div className="px-2 flex items-center w-[500px]">
               <Input type="search" variant="bordered" radius={"sm"} placeholder="Tìm sản phẩm" />
             </div>
-            <div className="w-[25%] px-2 gap-4 flex justify-end items-center">
-              <ShoppingCart strokeWidth={1} size={28} />
-              <DrawerCustom />
+            <div className="px-2 gap-4 flex justify-end items-center">
+              <Button variant="black" className="bg-white border border-black lg:flex hidden">
+                <UserIcon />
+                Tài khoản
+              </Button>
+              <Button variant="black" className="bg-white border border-black lg:flex hidden">
+                <EyeIcon />
+                Sản phẩm đã xem
+              </Button>
+              <ShoppingCart strokeWidth={1} size={28} color="black" />
+              <div className="flex lg:hidden">
+                <DrawerCustom />
+              </div>
             </div>
+          </div>
+          <div className="max-w-[1420px] pt-4 px-10 mx-auto lg:flex hidden">
+            <MenuHeader />
           </div>
         </div>
         {children}
