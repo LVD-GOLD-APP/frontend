@@ -2,6 +2,9 @@ import { codeInspectorPlugin } from "code-inspector-plugin";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: ['localhost'], 
+  },
   webpack: (config) => {
     config.plugins.push(
       codeInspectorPlugin({
