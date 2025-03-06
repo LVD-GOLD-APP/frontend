@@ -1,116 +1,152 @@
-'use client'
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+"use client";
+
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
 import { Gift, Handshake, IdCard, Menu, Newspaper, ThumbsUp, UsersRound } from "lucide-react";
 import { Button } from "../ui/button";
 import { Divider } from "@heroui/divider";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
+const features = [
+  { icon: IdCard, label: "Ưu đãi thành viên", url: "/member-benefits" },
+  { icon: ThumbsUp, label: "Đánh giá từ Google", url: "/google-reviews" },
+  { icon: Gift, label: "Quà tặng miễn phí", url: "/free-gifts" },
+  { icon: Handshake, label: "Ưu đãi affiliate", url: "/affiliate-deals" },
+];
+
+const categoriesList = [
+  {
+    title: "VÒNG - LẮC",
+    items: [
+      {
+        title: "XU HƯỚNG TÌM KIẾM",
+        links: [
+          { name: "Lắc tay bạc nữ", url: "/bracelets/women" },
+          { name: "Lắc tay bạc nam", url: "/bracelets/men" },
+          { name: "Lắc tay bạc đôi", url: "/bracelets/couples" },
+          { name: "Lắc chân bạc nữ", url: "/anklets/women" },
+          { name: "Vòng pandora - Hạt charm bạc", url: "/pandora-charms" },
+        ],
+      },
+      {
+        title: "CHẤT LIỆU",
+        links: [
+          { name: "Bạc", url: "/materials/silver" },
+          { name: "Đá quý", url: "/materials/gemstone" },
+          { name: "Ngọc trai", url: "/materials/pearl" },
+          { name: "Vàng", url: "/materials/gold" },
+        ],
+      },
+      {
+        title: "GIỚI TÍNH",
+        links: [
+          { name: "Nữ", url: "/gender/women" },
+          { name: "Nam", url: "/gender/men" },
+          { name: "Cặp đôi", url: "/gender/couples" },
+          { name: "Trẻ em", url: "/gender/kids" },
+        ],
+      },
+    ],
+  },
+  {
+    title: "NHẪN",
+    items: [
+      {
+        title: "XU HƯỚNG TÌM KIẾM",
+        links: [
+          { name: "Nhẫn bạc nữ", url: "/rings/women" },
+          { name: "Nhẫn bạc nam", url: "/rings/men" },
+          { name: "Nhẫn bạc đôi", url: "/rings/couples" },
+        ],
+      },
+      {
+        title: "CHẤT LIỆU",
+        links: [
+          { name: "Bạc", url: "/materials/silver" },
+          { name: "Đá quý", url: "/materials/gemstone" },
+          { name: "Ngọc trai", url: "/materials/pearl" },
+          { name: "Vàng", url: "/materials/gold" },
+        ],
+      },
+      {
+        title: "GIỚI TÍNH",
+        links: [
+          { name: "Nữ", url: "/gender/women" },
+          { name: "Nam", url: "/gender/men" },
+          { name: "Cặp đôi", url: "/gender/couples" },
+        ],
+      },
+    ],
+  },
+];
+
 export const DrawerCustom = () => {
   return (
     <Sheet>
       <SheetTrigger>
-        <Menu strokeWidth={1} size={28} />
+        <Menu strokeWidth={1} size={28} color="black" />
       </SheetTrigger>
-      <SheetContent side={"left"}>
+      <SheetContent side="left">
         <SheetHeader>
           <SheetDescription className="text-black">
             <Button variant="outline" className="bg-white border border-black">
               Sản phẩm đã xem
             </Button>
             <Divider className="my-4" />
+
+            {/* Icons Grid */}
             <div className="grid grid-cols-4">
-              <div className="flex flex-col items-center p-1 aspect-square">
-                <IdCard size={42} strokeWidth={1} />
-                <h3 className="text-xs font-bold">Ưu đãi thành viên</h3>
-              </div>
-
-              <div className="flex flex-col items-center p-1 aspect-square">
-                <ThumbsUp size={42} strokeWidth={1} />
-                <h3 className="text-xs font-bold">Đánh giá từ Google</h3>
-              </div>
-
-              <div className="flex flex-col items-center p-1 aspect-square">
-                <Gift size={42} strokeWidth={1} />
-                <h3 className="text-xs font-bold">Quà tặng miễn phí</h3>
-              </div>
-
-              <div className="flex flex-col items-center p-1 aspect-square">
-                <Handshake size={42} strokeWidth={1} />
-                <h3 className="text-xs font-bold">Ưu đãi affiliate</h3>
-              </div>
+              {features.map(({ icon: Icon, label, url }, index) => (
+                <a key={index} href={url} className="flex flex-col items-center p-1 aspect-square">
+                  <Icon size={42} strokeWidth={1} />
+                  <h3 className="text-xs font-bold">{label}</h3>
+                </a>
+              ))}
             </div>
+
             <Divider className="my-4" />
-            <h2 className="mb-4 text-xl">Danh mục sản phẩm</h2>
-            <Accordion className="bg-[#EDEDED]" type="multiple">
-              <AccordionItem value="item-1">
-                <AccordionTrigger>
-                  <span className="grow">
-                    VÒNG - LẮC
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="flex flex-col">
-                    <h2 className="mt-3 mb-2">XU HƯỚNG TÌM KIẾM</h2>
-                    <Divider className="border-black mx-4 w-auto" />
-                    <span className="my-2">Lắc tay bạc nữ</span>
-                    <span className="my-2">Lắc tay bạc nam</span>
-                    <span className="my-2">Lắc tay bạc đôi</span>
-                    <span className="my-2">Lắc chân bạc nữ</span>
-                    <span className="my-2">Vòng pandora - Hạt charm bạc</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <h2 className="mt-3 mb-2">LOẠI</h2>
-                    <Divider className="border-black mx-4 w-auto" />
-                    <span className="my-2">Vòng - lắc tay</span>
-                    <span className="my-2">Vòng - lắc chân</span>
-                    <span className="my-2">Charm Pandora</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <h2 className="mt-3 mb-2">CHẤT LIỆU</h2>
-                    <Divider className="border-black mx-4 w-auto" />
-                    <span className="my-2">Bạc</span>
-                    <span className="my-2">Đá quý</span>
-                    <span className="my-2">Ngọc trai</span>
-                    <span className="my-2">Vàng</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <h2 className="mt-3 mb-2">GIỚI TÍNH</h2>
-                    <Divider className="border-black mx-4 w-auto" />
-                    <span className="my-2">Nữ</span>
-                    <span className="my-2">Nam</span>
-                    <span className="my-2">Cặp đôi</span>
-                    <span className="my-2">Trẻ em</span>
-                  </div>
-                  <div className="flex flex-col">
-                    <Button variant="outline" className="mx-4 w-auto bg-[#EDEDED] border border-black">
-                      Xem tất cả
-                    </Button>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <div className="flex items-center m-4 gap-4">
-              <Newspaper size={32} strokeWidth={1} />
-              <h2>Tin tức</h2>
-            </div>
-            <div className="flex items-center m-4 gap-4">
-              <UsersRound size={32} strokeWidth={1} />
-              <h2>Về chúng tôi</h2>
-            </div>
+
+            {/* Danh mục sản phẩm */}
+            {categoriesList.map((category, index) => (
+              <Accordion key={index} className="bg-[#EDEDED]" type="multiple">
+                <AccordionItem value={`item-${index}`}>
+                  <AccordionTrigger>
+                    <span className="grow">{category.title}</span>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {category.items.map(({ title, links }) => (
+                      <div key={title} className="flex flex-col">
+                        <h2 className="mt-3 mb-2">{title}</h2>
+                        <Divider className="border-black mx-4 w-auto" />
+                        {links.map(({ name, url }, idx) => (
+                          <a key={idx} href={url} className="my-2">
+                            {name}
+                          </a>
+                        ))}
+                      </div>
+                    ))}
+                    <div className="flex flex-col">
+                      <Button variant="outline" className="mx-4 w-auto bg-[#EDEDED] border border-black">
+                        Xem tất cả
+                      </Button>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            ))}
+
+            {/* Links */}
+            {[
+              { icon: Newspaper, label: "Tin tức", url: "/news" },
+              { icon: UsersRound, label: "Về chúng tôi", url: "/about-us" },
+            ].map(({ icon: Icon, label, url }, index) => (
+              <a key={index} href={url} className="flex items-center m-4 gap-4">
+                <Icon size={32} strokeWidth={1} />
+                <h2>{label}</h2>
+              </a>
+            ))}
           </SheetDescription>
         </SheetHeader>
       </SheetContent>
     </Sheet>
-
-  )
-}
+  );
+};

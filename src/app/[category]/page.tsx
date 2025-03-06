@@ -1,41 +1,17 @@
+import { notFound } from "next/navigation"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import ProductGrid from "./product-grid"
+interface Filter {
+  id: string
+  name: string
+  options: string[]
+}
 
-const categoryData = {
-  "day-chuyen": {
-    title: "DÂY CHUYỀN CAO CẤP",
-    description:
-      "Dây chuyền LILI mang đến cho bạn một vẻ đẹp hoàn hảo, góp phần tạo nên phong cách của riêng mình và là điểm nhấn nhẹ tuyệt vời mỗi khi bạn xuất hiện",
-    filters: [
-      {
-        id: "type",
-        name: "Loại dây chuyền",
-        options: ["Nữ", "Nam", "Cặp đôi", "Trẻ em"],
-      },
-      {
-        id: "material",
-        name: "Chất liệu",
-        options: ["Bạc", "Vàng", "Bạc mạ vàng"],
-      },
-    ],
-  },
-  "vong-lac": {
-    title: "VÒNG - LẮC CAO CẤP",
-    description: "Vòng và lắc LILI - Điểm nhấn tinh tế cho phong cách của bạn",
-    filters: [
-      {
-        id: "type",
-        name: "Loại vòng - lắc",
-        options: ["Vòng tay", "Lắc tay", "Vòng cổ", "Lắc chân"],
-      },
-      {
-        id: "material",
-        name: "Chất liệu",
-        options: ["Bạc", "Vàng", "Bạc mạ vàng"],
-      },
-    ],
-  },
+interface CategoryData {
+  title: string
+  description: string
+  filters?: Filter[]
 }
 
 const commonFilters = [
@@ -61,14 +37,35 @@ const sortOptions = [
   { label: "Tên sản phẩm", value: "name" },
 ]
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
-  const category = categoryData[params.category as keyof typeof categoryData]
+async function getCategoryData(categoryId: string): Promise<CategoryData | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${categoryId}`, {
+      next: { revalidate: 3600 }, 
+    })
 
-  if (!category) {
-    return <div>Danh mục không tồn tại</div>
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null
+      }
+      throw new Error(`Failed to fetch category data: ${response.statusText}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    console.error("Error fetching category data:", error)
+    throw error
+  }
+}
+
+export default async function CategoryPage({ params }: { params: { category: string } }) {
+  // Fetch category data from API
+  const categoryData = await getCategoryData(params.category)
+
+  if (!categoryData) {
+    notFound()
   }
 
-  const allFilters = [...(category.filters || []), ...commonFilters]
+  const allFilters = [...(categoryData.filters || []), ...commonFilters]
 
   return (
     <div>
@@ -76,8 +73,8 @@ export default function CategoryPage({ params }: { params: { category: string } 
       <div className="relative h-[400px] bg-[url('/placeholder.svg')] bg-cover bg-center">
         <div className="absolute inset-0 bg-black/40" />
         <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
-          <h1 className="text-4xl font-bold mb-4">{category.title}</h1>
-          <p className="max-w-2xl">{category.description}</p>
+          <h1 className="text-4xl font-bold mb-4">{categoryData.title}</h1>
+          <p className="max-w-2xl">{categoryData.description}</p>
         </div>
       </div>
 
@@ -93,7 +90,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
 
         <div className="mb-8">
           <h2 className="text-center font-medium mb-8 relative">
-            <span className="bg-white px-4 relative z-10">{category.title}</span>
+            <span className="bg-white px-4 relative z-10">{categoryData.title}</span>
             <div className="absolute left-0 right-0 h-px bg-gray-200 top-1/2 -z-[1]" />
           </h2>
 
@@ -133,4 +130,3 @@ export default function CategoryPage({ params }: { params: { category: string } 
     </div>
   )
 }
-

@@ -7,23 +7,30 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export const SliderBanner = () => {
+  const imgs = [SanPhamMoiNhatPc, TopSanPhamYeuThichPc];
+
   return (
     <Swiper
       className="h-full w-full bg-[#EDEDED]"
       slidesPerView={1}
-      navigation
+      navigation={{
+        nextEl: ".next-btn",
+        prevEl: ".prev-btn",
+      }}
+      pagination={{ clickable: true }}
       modules={[Autoplay]}
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
       }}
     >
-      <SwiperSlide>
-        <Image className="h-full" src={SanPhamMoiNhatPc} alt="" />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Image className="h-full" src={TopSanPhamYeuThichPc} alt="" />
-      </SwiperSlide>
+      {imgs.map((img, index) => {
+        return (
+          <SwiperSlide key={index}>
+            <Image className="h-full" src={img} alt="" />
+          </SwiperSlide>
+        );
+      })}
     </Swiper>
   );
 };

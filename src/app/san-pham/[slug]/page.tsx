@@ -10,8 +10,6 @@ import BenefitsSection from "../benefits-section";
 import MembershipBenefits from "../membership-benefits";
 import ProductTabs from "../product-tabs";
 import StickyCheckoutBar from "../sticky-checkout-bar";
-import { ProductActions } from "../product-action";
-import { ProductActionsNow } from "../product-action-now";
 
 interface PageProps {
   params: {
@@ -22,25 +20,32 @@ interface PageProps {
 export default function ProductPage({}: PageProps) {
   return (
     <>
-      <div className="max-w-[1420px] mx-auto px-4 py-6 pb-20">
+      <div className="max-w-[1420px] mx-auto px-1 lg:px-4 py-6 pb-20">
         {/* Breadcrumb */}
-        <nav className="flex items-center text-sm mb-6 text-gray-600">
-          <Link href="/" className="flex items-center">
-            <Home className="h-4 w-4 mr-1" />
-            Trang chủ
-          </Link>
-          <ChevronRight className="h-4 w-4 mx-1" />
-          <Link href="/vong-tay">Vòng - Lắc</Link>
-          <ChevronRight className="h-4 w-4 mx-1" />
-          <Link href="/vong-tay">Vòng - Lắc tay</Link>
-          <ChevronRight className="h-4 w-4 mx-1" />
-          <Link href="/vong-tay">Vòng - Lắc tay nữ</Link>
-          <ChevronRight className="h-4 w-4 mx-1 hidden sm:md:lg:block" />
-          <span className="text-gray-500 hidden sm:md:lg:block">
-            Lắc tay bạc nữ đính pha lê Swarovski trái tim của biển LILI_579467
-          </span>
-        </nav>
-
+        <div className="container mx-auto pl-3">
+          <nav className="flex items-center text-sm mb-6 text-gray-600 overflow-x-auto whitespace-nowrap scrollbar-hide">
+            <Link href="/" className="flex items-center shrink-0">
+              <Home className="h-4 w-4 mr-1" />
+              Trang chủ
+            </Link>
+            <Link href="/vong-tay" className="flex items-center shrink-0">
+              <ChevronRight className="h-4 w-4 mx-1" />
+              Vòng - Lắc
+            </Link>
+            <Link href="/vong-tay" className="flex items-center shrink-0">
+              <ChevronRight className="h-4 w-4 mx-1" />
+              Vòng - Lắc tay
+            </Link>
+            <Link href="/vong-tay" className="flex items-center shrink-0">
+              <ChevronRight className="h-4 w-4 mx-1" />
+              Vòng - Lắc tay nữ
+            </Link>
+            <ChevronRight className="h-4 w-4 mx-1 hidden sm:md:lg:block shrink-0" />
+            <span className="text-gray-500 hidden sm:md:lg:block shrink-0">
+              Lắc tay bạc nữ đính pha lê Swarovski trái tim của biển LILI_579467
+            </span>
+          </nav>
+        </div>
         <div className="grid grid-cols-1 sm:md:lg:grid-cols-2 gap-8">
           <div>
             <ProductImageGallery />
@@ -92,8 +97,8 @@ export default function ProductPage({}: PageProps) {
               </div>
             </div>
 
-            <div className="mb-6">
-              <h3 className="font-medium mb-2">Màu Sắc</h3>
+            <div className="mb-6 flex gap-14 items-center">
+              <div className="font-medium">Màu Sắc</div>
               <ColorSelector />
             </div>
 
@@ -149,13 +154,11 @@ export default function ProductPage({}: PageProps) {
             <BenefitsSection />
           </div>
         </div>
-
-        <div className="mt-12">
-          <ProductTabs />
-        </div>
-
         <div className="mt-12">
           <MembershipBenefits />
+        </div>
+        <div className="mt-12">
+          <ProductTabs />
         </div>
       </div>
       <StickyCheckoutBar />
