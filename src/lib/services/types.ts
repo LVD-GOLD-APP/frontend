@@ -52,5 +52,12 @@ export type SearchTrending = {
   id: number;
   slug: string;
   title: string;
-  image: string;
+  image: ImageProduct;
+};
+
+export type Blog = {
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
 };
