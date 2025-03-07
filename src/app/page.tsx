@@ -1,7 +1,6 @@
 "use client";
 import { useMemo } from "react";
 
-import LacTay from "@/assets/Lac-tay-cap-doi-bac-dinh-da-CZ-trai-tim-cua-bien-Erasmus-LILI_199377_3-400x400.jpg";
 import VeChungToi from "@/assets/Ve-chung-toi-banner_1f.jpg";
 import { SliderBanner } from "@/components/layout/SliderBanner";
 import ProductGrid from "@/components/ProductGrid";
@@ -36,7 +35,13 @@ export default function Home() {
             <Link key={index} href={`/${item.slug}`} className="group">
               <div className="flex flex-col items-center gap-4 group">
                 <div className="overflow-hidden rounded-xl transition-transform duration-300 group-hover:-translate-y-2">
-                  <Image src={LacTay} className="aspect-square rounded-xl lg:w-[150px]" alt={item.image} />
+                  <Image
+                    src={item.image.url}
+                    width={400}
+                    height={400}
+                    className="aspect-square rounded-xl lg:w-[150px]"
+                    alt={`${item.image.url}`}
+                  />
                   <div className="absolute bg-gray-50/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <span className="hover:text-[#c60018] uppercase">{item.title}</span>
