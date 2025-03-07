@@ -5,7 +5,30 @@ import ProductReviews from "./product-reviews"
 import RelatedProducts from "./related-products"
 import SimilarProducts from "./similar-products"
 
-export default function ProductTabs() {
+// Define the product interface
+interface Product {
+  id: string
+  name: string
+  description: string
+  details?: string
+  specifications?: Record<string, string>
+  relatedProducts?: any[]
+  similarProducts?: any[]
+  reviews?: any[]
+  // Add other product properties as needed
+}
+
+// Define the props interface
+interface ProductTabsProps {
+  product?: Product
+}
+
+export default function ProductTabs({ product }: ProductTabsProps) {
+  // Default description if product is not provided
+  const productDescription = product?.description || "Không có mô tả chi tiết cho sản phẩm này."
+  const productDetails = product?.details || ""
+  const productSpecifications = product?.specifications || {}
+
   return (
     <Tabs defaultValue="description" className="w-full mt-12">
       <TabsList className="w-full border-b rounded-none h-auto p-0">
@@ -31,13 +54,31 @@ export default function ProductTabs() {
 
       <TabsContent value="description" className="mt-6">
         <div className="prose max-w-none">
-          <h2>Thông tin chi tiết về sản phẩm</h2>
-          <p>
-            Sản phẩm được làm từ bạc 925 cao cấp được đính kèm viên pha lê của hãng đá quý nổi tiếng thế giới Swarovski
-            đến từ nước Áo. Là một trong những mẫu lắc tay đẹp nhất, với thiết kế là lựa chọn hoàn hảo cho bạn trong
-            những trang phục dự tiệc trang trọng.
-          </p>
-          {/* Add more product details here */}
+          <h2>Thông tin chi tiết về {product?.name || "sản phẩm"}</h2>
+          <p>{productDescription}</p>
+
+          {productDetails && (
+            <>
+              <h3>Chi tiết sản phẩm</h3>
+              <div dangerouslySetInnerHTML={{ __html: productDetails }} />
+            </>
+          )}
+
+          {Object.keys(productSpecifications).length > 0 && (
+            <>
+              <h3>Thông số kỹ thuật</h3>
+              <table className="w-full border-collapse">
+                <tbody>
+                  {Object.entries(productSpecifications).map(([key, value]) => (
+                    <tr key={key} className="border-b">
+                      <td className="py-2 font-medium">{key}</td>
+                      <td className="py-2">{value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          )}
         </div>
       </TabsContent>
 
@@ -54,7 +95,7 @@ export default function ProductTabs() {
 
           <section>
             <h2 className="text-xl font-semibold mb-6 text-center">SẢN PHẨM TƯƠNG TỰ</h2>
-            <RelatedProducts />
+            <RelatedProducts products={product?.relatedProducts} />
           </section>
         </div>
       </TabsContent>

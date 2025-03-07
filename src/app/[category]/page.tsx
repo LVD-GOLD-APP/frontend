@@ -1,18 +1,43 @@
-import { notFound } from "next/navigation"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import ProductGrid from "./product-grid"
+import { notFound } from "next/navigation";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import ProductGrid from "./product-grid";
+import instance from "@/lib/axios-interceptor";
+
 interface Filter {
-  id: string
-  name: string
-  options: string[]
+  id: string;
+  name: string;
+  options: string[];
 }
 
 interface CategoryData {
-  title: string
-  description: string
-  filters?: Filter[]
+  title: string;
+  description: string;
+  filters?: Filter[];
 }
+
+interface Category {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+interface Pagination {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+}
+
+interface Meta {
+  pagination: Pagination;
+}
+
+type CategoryResponse = Category[];
 
 const commonFilters = [
   {
@@ -25,7 +50,7 @@ const commonFilters = [
     name: "Khoảng giá",
     options: ["Dưới 500.000₫", "500.000₫ - 1.000.000₫", "Trên 1.000.000₫"],
   },
-]
+];
 
 const sortOptions = [
   { label: "Giá: từ thấp đến cao", value: "price-asc" },
@@ -35,37 +60,42 @@ const sortOptions = [
   { label: "Số sao trung bình", value: "rating" },
   { label: "Mới nhất", value: "newest" },
   { label: "Tên sản phẩm", value: "name" },
-]
+];
 
-async function getCategoryData(categoryId: string): Promise<CategoryData | null> {
+async function getCategoryData(categorySlug: string): Promise<CategoryData | null> {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/categories/${categoryId}`, {
-      next: { revalidate: 3600 }, 
-    })
+    const response = await instance.get<CategoryResponse>("/api/categories");
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null
-      }
-      throw new Error(`Failed to fetch category data: ${response.statusText}`)
+    if (!response || !response.data) {
+      console.error("Dữ liệu từ API không hợp lệ:", response);
+      return null;
     }
 
-    return await response.json()
-  } catch (error) {
-    console.error("Error fetching category data:", error)
-    throw error
+    const category = response.data.find((cat) => cat.slug === categorySlug);
+
+    console.log("Danh mục tìm thấy:", category);
+
+    return category
+      ? { title: category.title, description: category.title, filters: [] }
+      : null;
+  } catch (error: any) {
+    console.error("Lỗi khi gọi API:", error.message);
+    return null;
   }
 }
 
-export default async function CategoryPage({ params }: { params: { category: string } }) {
-  // Fetch category data from API
-  const categoryData = await getCategoryData(params.category)
 
+// Component chính
+export default async function CategoryPage({ params }: { params: { category: string } }) {
+  // Lấy dữ liệu category dựa trên slug
+  const categoryData = await getCategoryData(params.category);
+
+  // Nếu không tìm thấy category, hiển thị trang 404
   if (!categoryData) {
-    notFound()
+    notFound();
   }
 
-  const allFilters = [...(categoryData.filters || []), ...commonFilters]
+  const allFilters = [...(categoryData.filters || []), ...commonFilters];
 
   return (
     <div>
@@ -94,6 +124,7 @@ export default async function CategoryPage({ params }: { params: { category: str
             <div className="absolute left-0 right-0 h-px bg-gray-200 top-1/2 -z-[1]" />
           </h2>
 
+          {/* Bộ lọc và tìm kiếm */}
           <div className="flex flex-wrap items-center gap-4 mb-6">
             {allFilters.map((filter) => (
               <Select key={filter.id}>
@@ -125,8 +156,9 @@ export default async function CategoryPage({ params }: { params: { category: str
           </div>
         </div>
 
+        {/* Danh sách sản phẩm */}
         <ProductGrid />
       </div>
     </div>
-  )
+  );
 }

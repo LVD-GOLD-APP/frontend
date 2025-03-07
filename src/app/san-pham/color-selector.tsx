@@ -2,18 +2,45 @@
 
 import { useState } from "react"
 
-const colors = [
+// Define the color interface
+interface Color {
+  id: number | string
+  name: string
+  color: string
+}
+
+// Define the props interface
+interface ColorSelectorProps {
+  colors?: Color[] | string[]
+}
+
+// Default colors as fallback
+const defaultColors = [
   { id: 1, name: "Hồng", color: "#FF6B8E" },
   { id: 2, name: "Xanh dương", color: "#3B82F6" },
   { id: 3, name: "Tím", color: "#8B5CF6" },
 ]
 
-export default function ColorSelector() {
-  const [selectedColor, setSelectedColor] = useState(2) // Default to blue (Xanh dương)
+export default function ColorSelector({ colors: propColors }: ColorSelectorProps) {
+  const processedColors =
+    propColors && propColors.length > 0
+      ? propColors.map((color, index) => {
+          if (typeof color === "string") {
+            return {
+              id: index + 1,
+              name: color,
+              color: color,
+            }
+          }
+          return color as Color
+        })
+      : defaultColors
+
+  const [selectedColor, setSelectedColor] = useState(processedColors[0]?.id || 1)
 
   return (
     <div className="flex gap-2">
-      {colors.map((color) => (
+      {processedColors.map((color) => (
         <button
           key={color.id}
           onClick={() => setSelectedColor(color.id)}
