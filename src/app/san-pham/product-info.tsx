@@ -15,7 +15,7 @@ type Props = {
 };
 
 function ProductInfo({ productDetail, onSelectedVariant, selectedVariant }: Props) {
-  const { title, description, images, variants = [], related_products = [], price } = productDetail || {};
+  const { title, description, images, variants = [], related_products = [], price, sub_title } = productDetail || {};
 
   const displayedPrice = useMemo(() => {
     if (!variants.length) return null;
@@ -34,7 +34,7 @@ function ProductInfo({ productDetail, onSelectedVariant, selectedVariant }: Prop
       <h1 className="text-2xl font-bold mb-4">{title}</h1>
       <hr className="my-4 border-t border-gray-300" />
 
-      <div className="text-sm mb-6" dangerouslySetInnerHTML={{ __html: description ?? "" }} />
+      <div className="text-sm mb-6" dangerouslySetInnerHTML={{ __html: sub_title ?? "" }} />
 
       {/* Price */}
       {displayedPrice && <div className="text-2xl font-bold text-red-600 mb-6">{displayedPrice}</div>}

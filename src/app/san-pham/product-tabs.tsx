@@ -1,14 +1,19 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RelatedProductsProps } from "@/lib/services/types";
+import { Product } from "@/lib/services/types";
 import ProductReviews from "./product-reviews";
 import SimilarProducts from "./similar-products";
 
-export default function ProductTabs({}: RelatedProductsProps) {
+type Props = {
+  description: string;
+  related_products: Product[];
+};
+
+export default function ProductTabs({ description }: Props) {
   return (
     <Tabs defaultValue="description" className="w-full mt-12">
-      <TabsList className="w-full border-b rounded-none h-auto p-0">
+      <TabsList className="w-full h-auto p-0 border-b rounded-none">
         <TabsTrigger
           value="description"
           className="rounded-none flex-1 h-12 data-[state=active]:border-b-2 data-[state=active]:border-red-600"
@@ -31,13 +36,7 @@ export default function ProductTabs({}: RelatedProductsProps) {
 
       <TabsContent value="description" className="mt-6">
         <div className="prose max-w-none">
-          <h2>Thông tin chi tiết về sản phẩm</h2>
-          <p>
-            Sản phẩm được làm từ bạc 925 cao cấp được đính kèm viên pha lê của hãng đá quý nổi tiếng thế giới Swarovski
-            đến từ nước Áo. Là một trong những mẫu lắc tay đẹp nhất, với thiết kế là lựa chọn hoàn hảo cho bạn trong
-            những trang phục dự tiệc trang trọng.
-          </p>
-          {/* Add more product details here */}
+          <div className="mb-6 text-sm" dangerouslySetInnerHTML={{ __html: description ?? "" }} />
         </div>
       </TabsContent>
 
@@ -48,12 +47,12 @@ export default function ProductTabs({}: RelatedProductsProps) {
       <TabsContent value="similar" className="mt-6">
         <div className="space-y-12">
           <section>
-            <h2 className="text-xl font-semibold mb-6 text-center">CÓ THỂ BẠN THÍCH...</h2>
+            <h2 className="mb-6 text-xl font-semibold text-center">CÓ THỂ BẠN THÍCH...</h2>
             <SimilarProducts />
           </section>
 
           <section>
-            <h2 className="text-xl font-semibold mb-6 text-center">SẢN PHẨM TƯƠNG TỰ</h2>
+            <h2 className="mb-6 text-xl font-semibold text-center">SẢN PHẨM TƯƠNG TỰ</h2>
             <SimilarProducts />
           </section>
         </div>

@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { Product, RelatedProductsProps } from "@/lib/services/types";
+import { Product } from "@/lib/services/types";
 import { formatCurrency } from "@/lib/utils";
 import { CheckSquare, Plus, Square } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function RelatedProducts({ related_products }: RelatedProductsProps) {
+export interface Props {
+  related_products: Product[];
+}
+
+export default function RelatedProducts({ related_products }: Props) {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<
@@ -45,21 +49,21 @@ export default function RelatedProducts({ related_products }: RelatedProductsPro
   const savings = originalTotalPrice - totalPrice;
 
   return (
-    <div className="p-4 border rounded-lg bg-white shadow-md">
+    <div className="p-4 bg-white border rounded-lg shadow-md">
       {selectedProducts.length > 0 && (
-        <div className="text-center mb-4">
+        <div className="mb-4 text-center">
           <span className="text-lg font-semibold">Tổng giá: </span>
-          <span className="text-gray-500 line-through text-sm">{formatCurrency(originalTotalPrice)}</span>
-          <span className="text-red-600 font-bold text-lg mx-2">{formatCurrency(totalPrice)}</span>
-          <span className="text-green-600 text-sm">Tiết kiệm {formatCurrency(savings)}</span>
+          <span className="text-sm text-gray-500 line-through">{formatCurrency(originalTotalPrice)}</span>
+          <span className="mx-2 text-lg font-bold text-red-600">{formatCurrency(totalPrice)}</span>
+          <span className="text-sm text-green-600">Tiết kiệm {formatCurrency(savings)}</span>
         </div>
       )}
 
       <div className="flex items-center justify-center gap-2 mb-4">
         {selectedItems.map((product, index) => (
           <div key={product.id} className="flex items-center">
-            {index > 0 && <Plus className="h-6 w-6 text-gray-400 mx-2" />}
-            <div className="relative w-24 h-24 border rounded-md overflow-hidden">
+            {index > 0 && <Plus className="w-6 h-6 mx-2 text-gray-400" />}
+            <div className="relative w-24 h-24 overflow-hidden border rounded-md">
               <Image
                 src={product.images[0]?.url || "/placeholder.svg"}
                 alt={product.title}
@@ -72,7 +76,7 @@ export default function RelatedProducts({ related_products }: RelatedProductsPro
       </div>
 
       {selectedProducts.length > 0 && (
-        <Button className="w-full bg-red-600 hover:bg-red-700 text-white py-6 mb-6">BẤM ĐỂ MUA NGAY ƯU ĐÃI</Button>
+        <Button className="w-full py-6 mb-6 text-white bg-red-600 hover:bg-red-700">BẤM ĐỂ MUA NGAY ƯU ĐÃI</Button>
       )}
 
       <div className="mt-4 text-sm">
@@ -83,15 +87,15 @@ export default function RelatedProducts({ related_products }: RelatedProductsPro
             <div key={product.id} className="flex items-start gap-2">
               <button onClick={() => toggleSelectProduct(product.id)}>
                 {isSelected ? (
-                  <CheckSquare className="h-5 w-5 text-red-500" />
+                  <CheckSquare className="w-5 h-5 text-red-500" />
                 ) : (
-                  <Square className="h-5 w-5 text-gray-400" />
+                  <Square className="w-5 h-5 text-gray-400" />
                 )}
               </button>
-              <div className="flex items-center flex-wrap gap-x-1">
+              <div className="flex flex-wrap items-center gap-x-1">
                 <span className={isSelected ? "text-black" : "text-gray-500 line-through"}>
                   {product.title} -{" "}
-                  <span className="text-red-600 font-semibold">{formatCurrency(getProductPrice(product))}</span>{" "}
+                  <span className="font-semibold text-red-600">{formatCurrency(getProductPrice(product))}</span>{" "}
                   {hasVariants && <span>- Màu sắc: {getTitleProductColor(product)}</span>}
                 </span>
                 {hasVariants && (
@@ -106,9 +110,9 @@ export default function RelatedProducts({ related_products }: RelatedProductsPro
       </div>
 
       {showModal && selectedProduct && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded-lg w-[400px]">
-            <h2 className="text-center font-bold text-lg mb-4">CHỌN THÔNG SỐ SẢN PHẨM</h2>
+            <h2 className="mb-4 text-lg font-bold text-center">CHỌN THÔNG SỐ SẢN PHẨM</h2>
             <div className="flex justify-center mb-4">
               <Image
                 src={selectedProduct.images[0]?.url || "/placeholder.svg"}
@@ -118,8 +122,8 @@ export default function RelatedProducts({ related_products }: RelatedProductsPro
                 className="rounded-md"
               />
             </div>
-            <p className="text-center text-gray-700 mb-2">{selectedProduct.title}</p>
-            <div className="text-center text-lg font-bold text-red-600">
+            <p className="mb-2 text-center text-gray-700">{selectedProduct.title}</p>
+            <div className="text-lg font-bold text-center text-red-600">
               {formatCurrency(getProductPrice(selectedProduct))}
             </div>
             <div className="text-center text-gray-700">Màu sắc: {getTitleProductColor(selectedProduct)}</div>
@@ -135,7 +139,7 @@ export default function RelatedProducts({ related_products }: RelatedProductsPro
                 />
               ))}
             </div>
-            <button onClick={() => setShowModal(false)} className="w-full bg-red-600 text-white py-2 mt-4 rounded-lg">
+            <button onClick={() => setShowModal(false)} className="w-full py-2 mt-4 text-white bg-red-600 rounded-lg">
               XÁC NHẬN
             </button>
           </div>

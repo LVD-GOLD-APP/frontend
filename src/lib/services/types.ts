@@ -39,6 +39,7 @@ export type Product = {
   url: string;
   images: ImageType[];
   description: string;
+  sub_title: string;
   isDiscount: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -76,7 +77,3 @@ export type GiftCombo = {
   title: string;
   image: ImageType;
 };
-
-export interface RelatedProductsProps {
-  related_products: Product[];
-}
