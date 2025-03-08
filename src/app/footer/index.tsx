@@ -9,51 +9,6 @@ import Link from "next/link";
 
 const Footer = () => {
   const { blogs } = useFetchData();
-  console.log(blogs);
-
-  const sections = [
-    {
-      title: "DỊCH VỤ KHÁCH HÀNG",
-      links: [
-        { text: "Điều khoản và điều kiện", href: "/dieu-khoan-va-dieu-kien" },
-        { text: "Chính sách trả hàng hoàn tiền", href: "#" },
-        { text: "Chính sách giao hàng", href: "#" },
-        { text: "Chính sách quyền riêng tư", href: "#" },
-        { text: "Hướng dẫn mua hàng online", href: "#" },
-      ],
-    },
-    {
-      title: "CẨM NANG SỬ DỤNG",
-      links: [
-        { text: "Tại sao nên chọn bạc cao cấp?", href: "#" },
-        { text: "Cách làm trắng bạc tại nhà", href: "#" },
-        { text: "Chính sách giao hàng", href: "#" },
-        { text: "Phân biệt các loại bạc S925, S999,...", href: "#" },
-        { text: "Những tác dụng của bạc", href: "#" },
-        { text: "Cách bảo quản trang sức bạc", href: "#" },
-      ],
-    },
-    {
-      title: "THÔNG TIN CHUNG",
-      links: [
-        { text: "Tin trang sức", href: "#" },
-        { text: "Quyền lợi thành viên", href: "#" },
-        { text: "Tiếp thị liên kết LiLi", href: "#" },
-        { text: "Ưu đãi khi đánh giá", href: "#" },
-        { text: "Nhận quà tri ân", href: "#" },
-        { text: "Liên hệ", href: "#" },
-      ],
-    },
-    {
-      title: "Ý KIẾN ĐÓNG GÓP",
-      links: [
-        {
-          text: "LiLi luôn mong nhận được ý kiến đóng góp từ bạn để nâng cấp dịch vụ và sản phẩm tốt hơn.",
-        },
-        { text: "Nếu bạn có ý kiến, đừng ngần ngại đóng góp cho LiLi nhé. LiLi xin cảm ơn!" },
-      ],
-    },
-  ];
 
   return (
     <footer className="border-t-1 border-[#C4001F] p-4 max-w-[1420px] mx-auto">
@@ -131,6 +86,33 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-x-2 gap-y-6 w-full md:w-2/3">
           <div className="w-full">
             <h3 className="font-semibold text-sm">DỊCH VỤ KHÁCH HÀNG</h3>
+            <Divider className="my-2 w-1/2" />
+            <ul className="flex flex-col gap-1">
+              {blogs.map((blog, idx) => (
+                <li key={idx}>
+                  {blog.slug !== undefined ? (
+                    <Link
+                      href={`/blog/${blog.slug}`}
+                      className="text-sm text-gray-700 transition-colors hover:text-red-500 hover:no-underline group"
+                    >
+                      {blog.title}
+                    </Link>
+                  ) : (
+                    <span className="text-sm text-gray-500">{blog.title}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+            {/* {section.title === "Ý KIẾN ĐÓNG GÓP" && (
+                <div className="mt-4 w-full">
+                  <Button variant="black" className="w-full text-center">
+                    Gửi ý kiến
+                  </Button>
+                </div>
+              )} */}
+          </div>
+          <div className="w-full">
+            <h3 className="font-semibold text-sm">CẨM NANG SỬ DỤNG</h3>
             <Divider className="my-2 w-1/2" />
             <ul className="flex flex-col gap-1">
               {blogs.map((blog, idx) => (
