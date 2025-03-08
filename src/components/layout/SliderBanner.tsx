@@ -1,13 +1,25 @@
 "use client";
-import SanPhamMoiNhatPc from "@/assets/Banner-San-pham-moi-nhat-PC.jpg";
-import TopSanPhamYeuThichPc from "@/assets/Banner-Top-san-pham-yeu-thich-PC.jpg";
+import { useFetchData } from "@/lib/hooks/useFetchData";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 export const SliderBanner = () => {
-  const imgs = [SanPhamMoiNhatPc, TopSanPhamYeuThichPc];
+  const { banners } = useFetchData();
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <Swiper
@@ -18,19 +30,26 @@ export const SliderBanner = () => {
         prevEl: ".prev-btn",
       }}
       pagination={{ clickable: true }}
+      loop
       modules={[Autoplay]}
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
       }}
     >
-      {imgs.map((img, index) => {
-        return (
-          <SwiperSlide key={index}>
-            <Image className="h-full" src={img} alt="" />
-          </SwiperSlide>
-        );
-      })}
+      {banners.map((img, index) => (
+        <SwiperSlide key={index}>
+          <Link href={img.slug}>
+            <Image
+              src={isLargeScreen ? img.image.url : img.image_mobile.url}
+              alt=""
+              width={1920}
+              height={1080}
+              objectFit="contain"
+            />
+          </Link>
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };

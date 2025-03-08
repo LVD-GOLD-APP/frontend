@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-[34rem] md:h-[40rem]">
+      <div className="relative w-full">
         <SliderBanner />
       </div>
 
