@@ -7,7 +7,7 @@ export const listProducts = async (): Promise<Product[]> => {
     const params = {
       populate: {
         variants: {
-          fields: ["id", "color", "price", "price_2"],
+          fields: ["id", "color", "price", "price_2", "title"],
           populate: {
             image: {
               fields: ["url"],

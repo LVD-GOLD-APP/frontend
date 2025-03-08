@@ -2,8 +2,10 @@
 import ProductImageGallery from "@/app/san-pham/product-image-gallery";
 import { Button } from "@/components/ui/button";
 import { useFetchData } from "@/lib/hooks/useFetchData";
+import { VariantProduct } from "@/lib/services/types";
 import { Check, ChevronRight, Home } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 import BenefitsSection from "../benefits-section";
 import ColorSelector from "../color-selector";
 import GiftBoxSection from "../gift-box-section";
@@ -22,6 +24,15 @@ interface PageProps {
 export default function ProductPage({ params }: PageProps) {
   const { productDetail } = useFetchData(params.slug);
   console.log(productDetail);
+
+  const variants = Array.isArray(productDetail?.variants) ? productDetail.variants : [];
+  const [selectedVariant, setSelectedVariant] = useState<VariantProduct | null>(null);
+
+  const handleColorSelect = (colorId: number | null) => {
+    const selected = variants.find((variant) => variant.id === colorId) || null;
+    setSelectedVariant(selected);
+  };
+
   return (
     <>
       <div className="max-w-[1420px] mx-auto px-1 lg:px-4 py-6 pb-20">
@@ -52,7 +63,10 @@ export default function ProductPage({ params }: PageProps) {
         </div>
         <div className="grid grid-cols-1 sm:md:lg:grid-cols-2 gap-8">
           <div>
-            <ProductImageGallery imageList={productDetail?.images} />
+            <ProductImageGallery
+              imageList={productDetail?.images}
+              selectedImage={selectedVariant?.image?.url || null}
+            />
           </div>
 
           <div>
@@ -103,7 +117,7 @@ export default function ProductPage({ params }: PageProps) {
 
             <div className="mb-6 flex gap-14 items-center">
               <div className="font-medium">Màu Sắc</div>
-              <ColorSelector />
+              <ColorSelector variants={variants} onSelectColor={handleColorSelect} />
             </div>
 
             <div className="flex flex-wrap items-center gap-4 mb-6 justify-start xl:justify-between">

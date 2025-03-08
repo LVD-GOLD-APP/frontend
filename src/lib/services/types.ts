@@ -25,6 +25,7 @@ export type ImageType = {
 export type VariantProduct = {
   id: number;
   color: string;
+  title: string;
   price: number;
   price_2: number;
   image: ImageType;

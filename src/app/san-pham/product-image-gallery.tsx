@@ -1,9 +1,6 @@
-"use client";
-
-import { ImageType } from "@/lib/services/types";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Swiper as SwiperType } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -11,34 +8,44 @@ import "swiper/css/thumbs";
 import { Navigation, Pagination, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function ProductImageGallery({ imageList }: { imageList?: ImageType[] }) {
-  const [currentImage, setCurrentImage] = useState(0);
-  console.log(imageList);
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev === (imageList?.length ?? 0) - 1 ? 0 : prev + 1));
-  };
+export default function ProductImageGallery({
+  imageList = [],
+  selectedImage,
+}: {
+  imageList?: { url: string }[];
+  selectedImage?: string | null;
+}) {
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+  const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev === 0 ? (imageList?.length ?? 0) - 1 : prev - 1));
-  };
+  const imagesToShow = useMemo(() => {
+    if (selectedImage) {
+      return [{ url: selectedImage }, ...imageList.filter((img) => img.url !== selectedImage)];
+    }
+    return imageList;
+  }, [selectedImage, imageList]);
 
-  const selectImage = (index: number) => {
-    setCurrentImage(index);
-  };
+  useEffect(() => {
+    if (mainSwiper) {
+      mainSwiper.slideTo(0);
+      setCurrentIndex(0);
+    }
+  }, [selectedImage, mainSwiper]);
+
   return (
     <div>
       <div className="relative rounded-md overflow-hidden mb-4">
         <Swiper
           modules={[Navigation, Pagination, Thumbs]}
-          navigation={{
-            nextEl: ".next-btn",
-            prevEl: ".prev-btn",
-          }}
+          navigation={{ nextEl: ".next-btn", prevEl: ".prev-btn" }}
           pagination={{ clickable: true }}
-          thumbs={{ swiper: imageList?.[currentImage]?.url || "/placeholder.svg" }}
+          thumbs={{ swiper: thumbsSwiper }}
+          onSwiper={setMainSwiper}
+          onSlideChange={(swiper) => setCurrentIndex(swiper.activeIndex)}
           className="relative"
         >
-          {imageList?.map((image, index) => (
+          {imagesToShow.map((image, index) => (
             <SwiperSlide key={index}>
               <div className="aspect-square relative">
                 <Image
@@ -52,31 +59,24 @@ export default function ProductImageGallery({ imageList }: { imageList?: ImageTy
             </SwiperSlide>
           ))}
         </Swiper>
-        <button
-          className="prev-btn absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-1 shadow-md"
-          aria-label="Previous image"
-          onClick={prevImage}
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <button
-          className="next-btn absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-1 shadow-md"
-          aria-label="Next image"
-          onClick={nextImage}
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
       </div>
-      <Swiper spaceBetween={10} slidesPerView={4} freeMode watchSlidesProgress className="w-full">
-        {imageList?.map((image, index) => (
-          <SwiperSlide key={index} className="cursor-pointer" onClick={() => selectImage(index)}>
-            <div className="aspect-square relative border rounded-md overflow-hidden">
-              <Image
-                src={image.url || "/placeholder.svg"}
-                alt={`Product thumbnail ${index + 1}`}
-                fill
-                className="object-cover"
-              />
+
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={4}
+        freeMode
+        watchSlidesProgress
+        className="w-full"
+        onSwiper={setThumbsSwiper}
+      >
+        {imagesToShow.map((image, index) => (
+          <SwiperSlide key={index} className="cursor-pointer">
+            <div
+              className={`aspect-square relative border-2 rounded-md overflow-hidden ${
+                index === currentIndex ? "border-red-500" : "border-gray-300"
+              }`}
+            >
+              <Image src={image.url || "/placeholder.svg"} alt="Thumbnail" fill className="object-cover" />
             </div>
           </SwiperSlide>
         ))}
