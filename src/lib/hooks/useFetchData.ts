@@ -1,4 +1,4 @@
- // 👈 Thêm dòng này vào đầu file
+// 👈 Thêm dòng này vào đầu file
 
 import { Banner } from "./../services/types";
 import { useEffect, useState } from "react";
@@ -8,7 +8,7 @@ import { SearchTrending, Product, Blog } from "@/lib/services/types";
 import { listBlogs } from "@/lib/services/blog";
 import { listBanner } from "@/lib/services/banner";
 
-export const useFetchData = (slug: string) => {
+export const useFetchData = (slug: string = "") => {
   const [searchTrending, setSearchTrending] = useState<SearchTrending[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [blogs, setBlogs] = useState<Blog[]>([]);

@@ -17,6 +17,21 @@ export const listProducts = async (): Promise<Product[]> => {
         images: {
           fields: ["url"],
         },
+        related_products: {
+          populate: {
+            variants: {
+              fields: ["id", "color", "price", "price_2", "title"],
+              populate: {
+                image: {
+                  fields: ["url"],
+                },
+              },
+            },
+            images: {
+              fields: ["url"],
+            },
+          },
+        },
       },
     };
 

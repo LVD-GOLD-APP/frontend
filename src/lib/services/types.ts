@@ -47,6 +47,7 @@ export type Product = {
   material: Material;
   targetCustomers: TargetCustomers;
   variants: VariantProduct[];
+  related_products: Product[];
 };
 
 export type SearchTrending = {
