@@ -17,7 +17,7 @@ export type TargetCustomers = {
   slug: string;
 };
 
-export type Image = {
+export type ImageType = {
   id: number;
   url: string;
 };
@@ -27,7 +27,7 @@ export type VariantProduct = {
   color: string;
   price: number;
   price_2: number;
-  image: Image;
+  image: ImageType;
 };
 
 export type Product = {
@@ -36,7 +36,7 @@ export type Product = {
   price: number;
   slug: string;
   url: string;
-  images: Image[];
+  images: ImageType[];
   description: string;
   isDiscount: boolean;
   createdAt: Date;
@@ -52,7 +52,7 @@ export type SearchTrending = {
   id: number;
   slug: string;
   title: string;
-  image: Image;
+  image: ImageType;
 };
 
 export type Blog = {
@@ -65,6 +65,6 @@ export type Blog = {
 export type Banner = {
   id: number;
   slug: string;
-  image: Image;
-  image_mobile: Image;
+  image: ImageType;
+  image_mobile: ImageType;
 };

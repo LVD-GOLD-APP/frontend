@@ -30,3 +30,16 @@ export const listProducts = async (): Promise<Product[]> => {
     return [];
   }
 };
+
+export const listProductDetail = async (slug: string): Promise<Product | null> => {
+  try {
+    const products = await listProducts();
+
+    const product = products.find((item) => item.slug === slug);
+
+    return product || null;
+  } catch (error) {
+    console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
+    return null;
+  }
+};

@@ -12,7 +12,7 @@ const ProductCardHomeScreen = ({ item }: { item: Product }) => {
 
   return (
     <div className="flex flex-col items-center gap-1 rounded-xl bg-[#F3F3F3] pb-2 hover:shadow-lg transition-transform duration-300">
-      <Link href={`/${item.slug}`} className="group">
+      <Link href={`/san-pham/${item.slug}`} className="group">
         <div className="overflow-hidden rounded-t-xl">
           <Image
             src={selectedVariant?.image?.url || item.images[0]?.url || "/default-image.png"}
@@ -24,7 +24,7 @@ const ProductCardHomeScreen = ({ item }: { item: Product }) => {
         </div>
       </Link>
 
-      <Link href={`/${item.slug}`} className="group">
+      <Link href={`/san-pham/${item.slug}`} className="group">
         <span className="line-clamp-2 text-center md:px-2 hover:text-[#c60018]">{item.title}</span>
       </Link>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { ImageType } from "@/lib/services/types";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -9,20 +10,16 @@ import "swiper/css/pagination";
 import "swiper/css/thumbs";
 import { Navigation, Pagination, Thumbs } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SanPhamMoiNhatPc from "@/assets/Banner-San-pham-moi-nhat-PC.jpg";
-import TopSanPhamYeuThichPc from "@/assets/Banner-Top-san-pham-yeu-thich-PC.jpg";
 
-const images = [SanPhamMoiNhatPc, TopSanPhamYeuThichPc];
-
-export default function ProductImageGallery() {
+export default function ProductImageGallery({ imageList }: { imageList?: ImageType[] }) {
   const [currentImage, setCurrentImage] = useState(0);
-  console.log(currentImage);
+  console.log(imageList);
   const nextImage = () => {
-    setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurrentImage((prev) => (prev === (imageList?.length ?? 0) - 1 ? 0 : prev + 1));
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrentImage((prev) => (prev === 0 ? (imageList?.length ?? 0) - 1 : prev - 1));
   };
 
   const selectImage = (index: number) => {
@@ -38,14 +35,14 @@ export default function ProductImageGallery() {
             prevEl: ".prev-btn",
           }}
           pagination={{ clickable: true }}
-          thumbs={{ swiper: images[currentImage].src || "/placeholder.svg" }}
+          thumbs={{ swiper: imageList?.[currentImage]?.url || "/placeholder.svg" }}
           className="relative"
         >
-          {images.map((image, index) => (
+          {imageList?.map((image, index) => (
             <SwiperSlide key={index}>
               <div className="aspect-square relative">
                 <Image
-                  src={image || "/placeholder.svg"}
+                  src={image.url || "/placeholder.svg"}
                   alt={`Product image ${index + 1}`}
                   fill
                   className="object-cover"
@@ -71,11 +68,11 @@ export default function ProductImageGallery() {
         </button>
       </div>
       <Swiper spaceBetween={10} slidesPerView={4} freeMode watchSlidesProgress className="w-full">
-        {images.map((image, index) => (
+        {imageList?.map((image, index) => (
           <SwiperSlide key={index} className="cursor-pointer" onClick={() => selectImage(index)}>
             <div className="aspect-square relative border rounded-md overflow-hidden">
               <Image
-                src={image || "/placeholder.svg"}
+                src={image.url || "/placeholder.svg"}
                 alt={`Product thumbnail ${index + 1}`}
                 fill
                 className="object-cover"

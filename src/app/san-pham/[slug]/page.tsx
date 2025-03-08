@@ -1,14 +1,16 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Home, ChevronRight, Check } from "lucide-react";
+"use client";
 import ProductImageGallery from "@/app/san-pham/product-image-gallery";
-import QuantitySelector from "../quantity-selector";
-import ColorSelector from "../color-selector";
-import RelatedProducts from "../related-products";
-import GiftBoxSection from "../gift-box-section";
+import { Button } from "@/components/ui/button";
+import { useFetchData } from "@/lib/hooks/useFetchData";
+import { Check, ChevronRight, Home } from "lucide-react";
+import Link from "next/link";
 import BenefitsSection from "../benefits-section";
+import ColorSelector from "../color-selector";
+import GiftBoxSection from "../gift-box-section";
 import MembershipBenefits from "../membership-benefits";
 import ProductTabs from "../product-tabs";
+import QuantitySelector from "../quantity-selector";
+import RelatedProducts from "../related-products";
 import StickyCheckoutBar from "../sticky-checkout-bar";
 
 interface PageProps {
@@ -17,7 +19,9 @@ interface PageProps {
   };
 }
 
-export default function ProductPage({}: PageProps) {
+export default function ProductPage({ params }: PageProps) {
+  const { productDetail } = useFetchData(params.slug);
+  console.log(productDetail);
   return (
     <>
       <div className="max-w-[1420px] mx-auto px-1 lg:px-4 py-6 pb-20">
@@ -48,7 +52,7 @@ export default function ProductPage({}: PageProps) {
         </div>
         <div className="grid grid-cols-1 sm:md:lg:grid-cols-2 gap-8">
           <div>
-            <ProductImageGallery />
+            <ProductImageGallery imageList={productDetail?.images} />
           </div>
 
           <div>
