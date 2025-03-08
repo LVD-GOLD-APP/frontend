@@ -9,7 +9,7 @@ import { DrawerFilter } from "./DrawerFilter";
 
 interface CategoryPageProps {
   params: {
-    category: string;
+    slug: string;
   };
 }
 
@@ -85,7 +85,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     },
   };
 
-  const category = categories[params.category as keyof typeof categories];
+  const category = categories[params.slug as keyof typeof categories];
 
   if (!category) {
     notFound();
