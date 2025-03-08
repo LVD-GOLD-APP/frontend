@@ -88,7 +88,7 @@ export default function RelatedProducts({ related_products }: RelatedProductsPro
                   <Square className="h-5 w-5 text-gray-400" />
                 )}
               </button>
-              <div className="flex items-center flex-wrap">
+              <div className="flex items-center flex-wrap gap-x-1">
                 <span className={isSelected ? "text-black" : "text-gray-500 line-through"}>
                   {product.title} -{" "}
                   <span className="text-red-600 font-semibold">{formatCurrency(getProductPrice(product))}</span>{" "}

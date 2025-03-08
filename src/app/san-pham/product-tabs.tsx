@@ -1,12 +1,11 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ProductReviews from "./product-reviews";
-import RelatedProducts from "./related-products";
-import SimilarProducts from "./similar-products";
 import { RelatedProductsProps } from "@/lib/services/types";
+import ProductReviews from "./product-reviews";
+import SimilarProducts from "./similar-products";
 
-export default function ProductTabs({ related_products }: RelatedProductsProps) {
+export default function ProductTabs({}: RelatedProductsProps) {
   return (
     <Tabs defaultValue="description" className="w-full mt-12">
       <TabsList className="w-full border-b rounded-none h-auto p-0">
@@ -55,7 +54,7 @@ export default function ProductTabs({ related_products }: RelatedProductsProps) 
 
           <section>
             <h2 className="text-xl font-semibold mb-6 text-center">SẢN PHẨM TƯƠNG TỰ</h2>
-            <RelatedProducts related_products={related_products} />
+            <SimilarProducts />
           </section>
         </div>
       </TabsContent>

@@ -11,7 +11,7 @@ const ProductCardCustom = ({ item }: { item: Product }) => {
   );
 
   return (
-    <div className="flex flex-col items-center gap-1 rounded-xl bg-[#F3F3F3] pb-2 hover:shadow-lg transition-transform duration-300">
+    <div className="flex flex-col items-center gap-1 rounded-xl bg-[#F3F3F3] pb-2 hover:shadow-lg transition-transform duration-300 h-full">
       <Link href={`/san-pham/${item.slug}`} className="group">
         <div className="overflow-hidden rounded-t-xl">
           <Image
@@ -24,26 +24,30 @@ const ProductCardCustom = ({ item }: { item: Product }) => {
         </div>
       </Link>
 
-      <Link href={`/san-pham/${item.slug}`} className="group">
-        <span className="line-clamp-2 text-center md:px-2 hover:text-[#c60018]">{item.title}</span>
-      </Link>
+      <div className="flex flex-col flex-1 justify-between items-center w-full px-2">
+        <Link href={`/san-pham/${item.slug}`} className="group">
+          <span className="line-clamp-2 text-center hover:text-[#c60018] min-h-[48px]">{item.title}</span>
+        </Link>
 
-      <span className="text-[#c60018] font-semibold">{formatCurrency(selectedVariant?.price || item.price)}</span>
+        <span className="text-[#c60018] font-semibold">{formatCurrency(selectedVariant?.price || item.price)}</span>
 
-      {variants.length > 1 && (
-        <div className="flex gap-2 mt-2">
-          {variants.map((variant) => (
-            <button
-              key={variant.id}
-              className={`w-6 h-6 rounded-full border ${
-                selectedVariant?.id === variant.id ? "border-[#c60018]" : "border-gray-300"
-              }`}
-              style={{ backgroundColor: variant.color }}
-              onClick={() => setSelectedVariant(variant)}
-            />
-          ))}
+        <div className="min-h-[32px] flex items-center">
+          {variants.length > 1 && (
+            <div className="flex gap-2 mt-2">
+              {variants.map((variant) => (
+                <button
+                  key={variant.id}
+                  className={`w-6 h-6 rounded-full border ${
+                    selectedVariant?.id === variant.id ? "border-[#c60018]" : "border-gray-300"
+                  }`}
+                  style={{ backgroundColor: variant.color }}
+                  onClick={() => setSelectedVariant(variant)}
+                />
+              ))}
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };
