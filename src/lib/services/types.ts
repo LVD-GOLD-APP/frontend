@@ -77,3 +77,37 @@ export type GiftCombo = {
   title: string;
   image: ImageType;
 };
+
+export type FooterLink = {
+  url: string;
+  label: string;
+};
+
+export type FooterSection = {
+  title: string;
+  links: FooterLink[];
+};
+
+export type ContactInfo = {
+  logo: string;
+  phones: { number: string; note: string }[];
+  email: string;
+  address: string;
+  note: string;
+  working_hours: string;
+  social_links: { platform: string; icon: string; url: string }[];
+};
+
+export type FeedbackSection = {
+  title: string;
+  button_url: string;
+  button_text: string;
+  description: string;
+};
+
+export type FooterData = {
+  guides: FooterSection;
+  contact_info: FooterSection;
+  general_info: FooterSection;
+  feedback_section: FeedbackSection;
+};

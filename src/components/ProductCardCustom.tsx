@@ -1,14 +1,21 @@
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { Product, VariantProduct } from "@/lib/services/types";
 import { formatCurrency } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 
 const ProductCardCustom = ({ item }: { item: Product }) => {
   const variants = Array.isArray(item.variants) ? item.variants : [];
   const [selectedVariant, setSelectedVariant] = useState<VariantProduct | null>(
     variants.length > 0 ? variants[0] : null
   );
+
+  const displayedPrice = useMemo(() => {
+    if (!variants.length) return formatCurrency(item.price);
+    return variants[0].price_2
+      ? `${formatCurrency(variants[0].price)} - ${formatCurrency(variants[0].price_2)}`
+      : formatCurrency(variants[0].price);
+  }, [variants]);
 
   return (
     <div className="flex flex-col items-center gap-1 rounded-xl bg-[#F3F3F3] pb-2 hover:shadow-lg transition-transform duration-300 h-full">
@@ -29,7 +36,7 @@ const ProductCardCustom = ({ item }: { item: Product }) => {
           <span className="line-clamp-2 text-center hover:text-[#c60018] min-h-[48px]">{item.title}</span>
         </Link>
 
-        <span className="text-[#c60018] font-semibold">{formatCurrency(selectedVariant?.price || item.price)}</span>
+        <span className="text-[#c60018] font-semibold">{displayedPrice}</span>
 
         <div className="min-h-[32px] flex items-center">
           {variants.length > 1 && (

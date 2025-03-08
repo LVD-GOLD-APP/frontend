@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation";
-import { ProductCard } from "@/components/product-card";
-import { SectionTitle } from "@/components/ui/section-title";
 import { CategoryBanner } from "@/components/category-banner";
+import { ProductCard } from "@/components/product-card";
 import { ProductFilter } from "@/components/product-filter";
+import { SectionTitle } from "@/components/ui/section-title";
 import { ChevronRight, Home } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { DrawerFilter } from "./DrawerFilter";
 
 interface CategoryPageProps {
@@ -16,7 +16,6 @@ interface CategoryPageProps {
 export default function CategoryPage({ params }: CategoryPageProps) {
   // Trong thực tế, bạn sẽ lấy dữ liệu danh mục từ API dựa vào params.category
   // Đây là dữ liệu mẫu cho danh mục "bong-tai"
-
   const categories = {
     "bong-tai": {
       id: "bong-tai",
@@ -80,6 +79,86 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           price: 950000,
           image: "/placeholder.svg?height=400&width=400",
           slug: "bong-tai-bac-nu-dinh-da-xanh-la-lili_890123",
+        },
+      ],
+    },
+    "vong-lac": {
+      id: "vong-lac",
+      name: "VÒNG - LẮC CAO CẤP",
+      description:
+        "Tô điểm cho đôi tay, đôi chân của bạn bằng những chiếc lắc tay, vòng chân LiLi đẹp tinh xảo, góp phần tăng thêm nét sang trọng và thanh lịch cho mỗi bước đi của bạn",
+      bannerImage: "/placeholder.svg?height=400&width=1200",
+      products: [
+        {
+          id: "LILI_123456",
+          name: "Bông tai bạc nữ đính đá xanh dương",
+          price: 850000,
+          image: "/placeholder.svg?height=400&width=400",
+          slug: "bong-tai-bac-nu-dinh-da-xanh-duong-lili_123456",
+        },
+      ],
+    },
+    nhan: {
+      id: "nhan",
+      name: "NHẪN CAO CẤP",
+      description:
+        "Hãy thể hiện sự cuốn hút của bạn với những chiếc nhẫn LiLi đẹp cao cấp đầy quyến rũ. Bạn đã sẵn sàng để tỏa sáng và thu hút mọi ánh nhìn cùng em nó chưa nào!",
+      bannerImage: "/placeholder.svg?height=400&width=1200",
+      products: [
+        {
+          id: "LILI_123456",
+          name: "Bông tai bạc nữ đính đá xanh dương",
+          price: 850000,
+          image: "/placeholder.svg?height=400&width=400",
+          slug: "bong-tai-bac-nu-dinh-da-xanh-duong-lili_123456",
+        },
+      ],
+    },
+    "day-chuyen": {
+      id: "day-chuyen",
+      name: "DÂY CHUYỀN CAO CẤP",
+      description:
+        "Dây chuyền LiLi mang đến cho bạn một vẻ đẹp hoàn hảo, góp phần tạo nên phong cách của riêng mình và là điểm nhấn nhá tuyệt vời mỗi khi bạn xuất hiện",
+      bannerImage: "/placeholder.svg?height=400&width=1200",
+      products: [
+        {
+          id: "LILI_123456",
+          name: "Bông tai bạc nữ đính đá xanh dương",
+          price: 850000,
+          image: "/placeholder.svg?height=400&width=400",
+          slug: "bong-tai-bac-nu-dinh-da-xanh-duong-lili_123456",
+        },
+      ],
+    },
+    "khuyen-xo": {
+      id: "khuyen-xo",
+      name: "KHUYÊN XỎ CAO CẤP",
+      description:
+        "Cũng khám phá bộ sưu tập khuyên xỏ LiLi đẹp cao cấp với thiết kế vô cùng phù hợp với những bạn cá tính. Em nó khi kết hợp với bạn chắc chắn sẽ khiến bạn vô cùng đặc biệt đấy!",
+      bannerImage: "/placeholder.svg?height=400&width=1200",
+      products: [
+        {
+          id: "LILI_123456",
+          name: "Bông tai bạc nữ đính đá xanh dương",
+          price: 850000,
+          image: "/placeholder.svg?height=400&width=400",
+          slug: "bong-tai-bac-nu-dinh-da-xanh-duong-lili_123456",
+        },
+      ],
+    },
+    "vong-charm-pandora-hat-charm-bac": {
+      id: "vong-charm-pandora-hat-charm-bac",
+      name: "VÒNG - LẮC CAO CẤP",
+      description:
+        "Tô điểm cho đôi tay của bạn bằng những chiếc vòng pandora, hạt charm LiLi đẹp tinh xảo, góp phần tăng thêm nét sang trọng và thanh lịch cho mỗi bước đi của bạn",
+      bannerImage: "/placeholder.svg?height=400&width=1200",
+      products: [
+        {
+          id: "LILI_123456",
+          name: "Bông tai bạc nữ đính đá xanh dương",
+          price: 850000,
+          image: "/placeholder.svg?height=400&width=400",
+          slug: "bong-tai-bac-nu-dinh-da-xanh-duong-lili_123456",
         },
       ],
     },

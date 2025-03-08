@@ -8,45 +8,28 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
-  const { blogs } = useFetchData();
+  const { footerData } = useFetchData();
 
   const sections = [
     {
-      title: "DỊCH VỤ KHÁCH HÀNG",
-      links: blogs,
+      title: footerData?.contact_info.title,
+      links: footerData?.contact_info.links,
     },
     {
-      title: "CẨM NANG SỬ DỤNG",
-      links: [
-        { title: "Tại sao nên chọn bạc cao cấp?", slug: "#" },
-        { title: "Cách làm trắng bạc tại nhà", slug: "#" },
-        { title: "Chính sách giao hàng", slug: "#" },
-        { title: "Phân biệt các loại bạc S925, S999,...", slug: "#" },
-        { title: "Những tác dụng của bạc", slug: "#" },
-        { title: "Cách bảo quản trang sức bạc", slug: "#" },
-      ],
+      title: footerData?.guides.title,
+      links: footerData?.guides.links,
     },
     {
-      title: "THÔNG TIN CHUNG",
-      links: [
-        { title: "Tin trang sức", slug: "#" },
-        { title: "Quyền lợi thành viên", slug: "#" },
-        { title: "Tiếp thị liên kết LiLi", slug: "#" },
-        { title: "Ưu đãi khi đánh giá", slug: "#" },
-        { title: "Nhận quà tri ân", slug: "#" },
-        { title: "Liên hệ", slug: "#" },
-      ],
+      title: footerData?.general_info.title,
+      links: footerData?.general_info.links,
     },
     {
-      title: "Ý KIẾN ĐÓNG GÓP",
-      links: [
-        {
-          title: "LiLi luôn mong nhận được ý kiến đóng góp từ bạn để nâng cấp dịch vụ và sản phẩm tốt hơn.",
-        },
-        { title: "Nếu bạn có ý kiến, đừng ngần ngại đóng góp cho LiLi nhé. LiLi xin cảm ơn!" },
-      ],
+      title: footerData?.feedback_section.title,
+      description: footerData?.feedback_section.description,
+      button_text: footerData?.feedback_section.button_text,
     },
   ];
+
   return (
     <footer className="border-t-1 border-[#C4001F] p-4">
       <div className="max-w-[1420px] mx-auto">
@@ -121,27 +104,27 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-x-2 gap-y-6 w-full md:w-2/3">
+          <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-x-2 gap-y-6 w-full md:w-3/4">
             {sections.map((item, index) => {
               return (
                 <div className="w-full" key={index}>
                   <h3 className="font-semibold text-sm">{item.title}</h3>
                   <Divider className="my-2 w-1/2" />
                   <ul className="flex flex-col gap-1">
-                    {item.links.map((blog, idx) => (
-                      <li key={idx}>
-                        {"slug" in blog ? (
+                    {item.links ? (
+                      item?.links?.map((blog, idx) => (
+                        <li key={idx}>
                           <Link
-                            href={`/blog/${blog.slug}`}
+                            href={`${blog.url}`}
                             className="text-sm text-gray-700 transition-colors hover:text-red-500 hover:no-underline group"
                           >
-                            {blog.title}
+                            {blog.label}
                           </Link>
-                        ) : (
-                          <span className="text-sm text-gray-500">{blog.title}</span>
-                        )}
-                      </li>
-                    ))}
+                        </li>
+                      ))
+                    ) : (
+                      <span className="text-sm text-gray-500">{item.description}</span>
+                    )}
                   </ul>
                   {item.title === "Ý KIẾN ĐÓNG GÓP" && (
                     <div className="mt-4 w-full">
