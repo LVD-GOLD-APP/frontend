@@ -15,7 +15,7 @@ type Props = {
 };
 
 function ProductInfo({ productDetail, onSelectedVariant, selectedVariant }: Props) {
-  const { title, description, images, variants = [], related_products = [], price, sub_title } = productDetail || {};
+  const { title, variants = [], related_products = [], price, sub_title } = productDetail || {};
 
   const displayedPrice = useMemo(() => {
     if (!variants.length) return null;
