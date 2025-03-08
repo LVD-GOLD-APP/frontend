@@ -31,17 +31,17 @@ function ProductInfo({ productDetail, onSelectedVariant, selectedVariant }: Prop
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">{title}</h1>
+      <h1 className="mb-4 text-2xl font-bold">{title}</h1>
       <hr className="my-4 border-t border-gray-300" />
 
-      <div className="text-sm mb-6" dangerouslySetInnerHTML={{ __html: sub_title ?? "" }} />
+      <div className="mb-6 text-sm" dangerouslySetInnerHTML={{ __html: sub_title ?? "" }} />
 
       {/* Price */}
-      {displayedPrice && <div className="text-2xl font-bold text-red-600 mb-6">{displayedPrice}</div>}
+      {displayedPrice && <div className="mb-6 text-2xl font-bold text-red-600">{displayedPrice}</div>}
 
       {/* Color Selection */}
       {variants.length ? (
-        <div className="flex gap-14 items-center mb-6">
+        <div className="flex items-center mb-6 gap-14">
           <div className="font-medium">Màu Sắc</div>
           <ColorSelector variants={variants} onSelectColor={handleColorSelect} />
           {selectedVariant && (
@@ -53,7 +53,7 @@ function ProductInfo({ productDetail, onSelectedVariant, selectedVariant }: Prop
       )}
 
       {/* Discount Section */}
-      <div className="bg-gray-50 p-3 rounded-md mb-6 flex items-center">
+      <div className="flex items-center p-3 mb-6 rounded-md bg-gray-50">
         <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M20 7H4C2.9 7 2 7.9 2 9V15C2 16.1 2.9 17 4 17H20C21.1 17 22 16.1 22 15V9C22 7.9 21.1 7 20 7Z"
@@ -74,10 +74,10 @@ function ProductInfo({ productDetail, onSelectedVariant, selectedVariant }: Prop
       </div>
 
       {/* Purchase Buttons */}
-      <div className="flex flex-wrap items-center gap-4 mb-6">
+      <div className="flex flex-wrap items-center gap-4 mb-6 justify-between">
         <QuantitySelector />
-        <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-6 w-1/2 md:w-1/3">MUA NGAY</Button>
-        <Button variant="black" className="border-gray-300 px-6 py-6 w-full md:w-1/3">
+        <Button className="w-1/2 px-8 py-6 text-white bg-red-600 hover:bg-red-700 md:w-1/3">MUA NGAY</Button>
+        <Button variant="black" className="w-full px-6 py-6 border-gray-300 md:w-1/3">
           GỌI TƯ VẤN MIỄN PHÍ
         </Button>
       </div>
@@ -85,7 +85,7 @@ function ProductInfo({ productDetail, onSelectedVariant, selectedVariant }: Prop
       {/* Related Products */}
       {related_products.length ? (
         <div className="mb-6">
-          <h3 className="font-medium mb-4">Bộ Sản Phẩm Thường Được Chọn Cùng</h3>
+          <h3 className="mb-4 font-medium">Bộ Sản Phẩm Thường Được Chọn Cùng</h3>
           <RelatedProducts related_products={related_products} />
         </div>
       ) : (

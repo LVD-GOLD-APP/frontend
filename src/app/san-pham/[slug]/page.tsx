@@ -88,7 +88,7 @@ export default function ProductPage({ params }: PageProps) {
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="fixed bottom-0 left-0 w-full"
             >
-              <StickyCheckoutBar productDetail={productDetail} />
+              {productDetail && <StickyCheckoutBar productDetail={productDetail} />}
             </motion.div>
           )}
         </AnimatePresence>
