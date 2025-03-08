@@ -10,6 +10,43 @@ import Link from "next/link";
 const Footer = () => {
   const { blogs } = useFetchData();
 
+  const sections = [
+    {
+      title: "DỊCH VỤ KHÁCH HÀNG",
+      links: blogs,
+    },
+    {
+      title: "CẨM NANG SỬ DỤNG",
+      links: [
+        { title: "Tại sao nên chọn bạc cao cấp?", slug: "#" },
+        { title: "Cách làm trắng bạc tại nhà", slug: "#" },
+        { title: "Chính sách giao hàng", slug: "#" },
+        { title: "Phân biệt các loại bạc S925, S999,...", slug: "#" },
+        { title: "Những tác dụng của bạc", slug: "#" },
+        { title: "Cách bảo quản trang sức bạc", slug: "#" },
+      ],
+    },
+    {
+      title: "THÔNG TIN CHUNG",
+      links: [
+        { title: "Tin trang sức", slug: "#" },
+        { title: "Quyền lợi thành viên", slug: "#" },
+        { title: "Tiếp thị liên kết LiLi", slug: "#" },
+        { title: "Ưu đãi khi đánh giá", slug: "#" },
+        { title: "Nhận quà tri ân", slug: "#" },
+        { title: "Liên hệ", slug: "#" },
+      ],
+    },
+    {
+      title: "Ý KIẾN ĐÓNG GÓP",
+      links: [
+        {
+          title: "LiLi luôn mong nhận được ý kiến đóng góp từ bạn để nâng cấp dịch vụ và sản phẩm tốt hơn.",
+        },
+        { title: "Nếu bạn có ý kiến, đừng ngần ngại đóng góp cho LiLi nhé. LiLi xin cảm ơn!" },
+      ],
+    },
+  ];
   return (
     <footer className="border-t-1 border-[#C4001F] p-4 max-w-[1420px] mx-auto">
       <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-4 max-w-[1420px] mx-auto">
@@ -84,60 +121,37 @@ const Footer = () => {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-x-2 gap-y-6 w-full md:w-2/3">
-          <div className="w-full">
-            <h3 className="font-semibold text-sm">DỊCH VỤ KHÁCH HÀNG</h3>
-            <Divider className="my-2 w-1/2" />
-            <ul className="flex flex-col gap-1">
-              {blogs.map((blog, idx) => (
-                <li key={idx}>
-                  {blog.slug !== undefined ? (
-                    <Link
-                      href={`/blog/${blog.slug}`}
-                      className="text-sm text-gray-700 transition-colors hover:text-red-500 hover:no-underline group"
-                    >
-                      {blog.title}
-                    </Link>
-                  ) : (
-                    <span className="text-sm text-gray-500">{blog.title}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-            {/* {section.title === "Ý KIẾN ĐÓNG GÓP" && (
-                <div className="mt-4 w-full">
-                  <Button variant="black" className="w-full text-center">
-                    Gửi ý kiến
-                  </Button>
-                </div>
-              )} */}
-          </div>
-          <div className="w-full">
-            <h3 className="font-semibold text-sm">CẨM NANG SỬ DỤNG</h3>
-            <Divider className="my-2 w-1/2" />
-            <ul className="flex flex-col gap-1">
-              {blogs.map((blog, idx) => (
-                <li key={idx}>
-                  {blog.slug !== undefined ? (
-                    <Link
-                      href={`/blog/${blog.slug}`}
-                      className="text-sm text-gray-700 transition-colors hover:text-red-500 hover:no-underline group"
-                    >
-                      {blog.title}
-                    </Link>
-                  ) : (
-                    <span className="text-sm text-gray-500">{blog.title}</span>
-                  )}
-                </li>
-              ))}
-            </ul>
-            {/* {section.title === "Ý KIẾN ĐÓNG GÓP" && (
-                <div className="mt-4 w-full">
-                  <Button variant="black" className="w-full text-center">
-                    Gửi ý kiến
-                  </Button>
-                </div>
-              )} */}
-          </div>
+          {sections.map((item, index) => {
+            return (
+              <div className="w-full" key={index}>
+                <h3 className="font-semibold text-sm">{item.title}</h3>
+                <Divider className="my-2 w-1/2" />
+                <ul className="flex flex-col gap-1">
+                  {item.links.map((blog, idx) => (
+                    <li key={idx}>
+                      {"slug" in blog ? (
+                        <Link
+                          href={`/blog/${blog.slug}`}
+                          className="text-sm text-gray-700 transition-colors hover:text-red-500 hover:no-underline group"
+                        >
+                          {blog.title}
+                        </Link>
+                      ) : (
+                        <span className="text-sm text-gray-500">{blog.title}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                {item.title === "Ý KIẾN ĐÓNG GÓP" && (
+                  <div className="mt-4 w-full">
+                    <Button variant="black" className="w-full text-center">
+                      Gửi ý kiến
+                    </Button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
