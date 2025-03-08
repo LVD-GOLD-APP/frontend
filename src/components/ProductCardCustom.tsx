@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Product, VariantProduct } from "@/lib/services/types";
 import { formatCurrency } from "@/lib/utils";
 
-const ProductCardHomeScreen = ({ item }: { item: Product }) => {
+const ProductCardCustom = ({ item }: { item: Product }) => {
   const variants = Array.isArray(item.variants) ? item.variants : [];
   const [selectedVariant, setSelectedVariant] = useState<VariantProduct | null>(
     variants.length > 0 ? variants[0] : null
@@ -48,4 +48,4 @@ const ProductCardHomeScreen = ({ item }: { item: Product }) => {
   );
 };
 
-export default ProductCardHomeScreen;
+export default ProductCardCustom;

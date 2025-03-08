@@ -132,7 +132,7 @@ export default function ProductPage({ params }: PageProps) {
         </div>
 
         <MembershipBenefits />
-        <ProductTabs />
+        <ProductTabs related_products={related_products} />
       </div>
 
       <StickyCheckoutBar />

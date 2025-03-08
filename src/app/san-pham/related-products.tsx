@@ -1,13 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Product } from "@/lib/services/types";
+import { Product, RelatedProductsProps } from "@/lib/services/types";
 import { formatCurrency } from "@/lib/utils";
 import { CheckSquare, Plus, Square } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
-interface RelatedProductsProps {
-  related_products: Product[];
-}
 
 export default function RelatedProducts({ related_products }: RelatedProductsProps) {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);

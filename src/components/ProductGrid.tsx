@@ -2,7 +2,7 @@ import { Divider } from "@heroui/divider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Product } from "@/lib/services/types";
-import ProductCardHomeScreen from "./ProductCardHomeScreen";
+import ProductCardCustom from "./ProductCardCustom";
 
 const ProductGrid = ({
   title,
@@ -23,7 +23,7 @@ const ProductGrid = ({
     </div>
     <div className="max-w-[1420px] mx-auto grid grid-cols-2 gap-4 p-4 text-sm md:grid-cols-3 xl:grid-cols-4">
       {items.map((item) => (
-        <ProductCardHomeScreen key={item.id} item={item} />
+        <ProductCardCustom key={item.id} item={item} />
       ))}
       {showViewAll && (
         <Button variant="black" className="col-span-full bg-white border border-black place-self-center">

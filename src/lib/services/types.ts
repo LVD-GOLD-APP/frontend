@@ -76,3 +76,7 @@ export type GiftCombo = {
   title: string;
   image: ImageType;
 };
+
+export interface RelatedProductsProps {
+  related_products: Product[];
+}

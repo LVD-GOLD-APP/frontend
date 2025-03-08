@@ -22,34 +22,30 @@ export const SliderBanner = () => {
   }, []);
 
   return (
-    <Swiper
-      className="h-full w-full bg-[#EDEDED]"
-      slidesPerView={1}
-      navigation={{
-        nextEl: ".next-btn",
-        prevEl: ".prev-btn",
-      }}
-      pagination={{ clickable: true }}
-      loop
-      modules={[Autoplay]}
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false,
-      }}
-    >
-      {banners.map((img, index) => (
-        <SwiperSlide key={index}>
-          <Link href={img.slug}>
-            <Image
-              src={isLargeScreen ? img.image.url : img.image_mobile.url}
-              alt=""
-              width={1920}
-              height={1080}
-              objectFit="contain"
-            />
-          </Link>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="swiper-custom">
+      <Swiper
+        className="h-full w-full bg-[#EDEDED]"
+        slidesPerView={1}
+        navigation={{
+          nextEl: ".next-btn",
+          prevEl: ".prev-btn",
+        }}
+        pagination={{ clickable: true }}
+        loop
+        modules={[Autoplay]}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+      >
+        {banners.map((img, index) => (
+          <SwiperSlide key={index}>
+            <Link href={img.slug}>
+              <Image src={isLargeScreen ? img.image.url : img.image_mobile.url} alt="" width={1920} height={1080} />
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
