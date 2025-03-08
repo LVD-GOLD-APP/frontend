@@ -1,8 +1,8 @@
 import { Divider } from "@heroui/divider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Product } from "@/lib/services/types";
 import ProductCardCustom from "./ProductCardCustom";
+import { IProduct } from "@/lib/types/iProduct";
 
 const ProductGrid = ({
   title,
@@ -11,7 +11,7 @@ const ProductGrid = ({
   urlAll,
 }: {
   title: string;
-  items: Product[];
+  items: IProduct[];
   showViewAll?: boolean;
   urlAll?: string;
 }) => (

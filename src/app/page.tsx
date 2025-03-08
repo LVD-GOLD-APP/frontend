@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import { useMemo } from "react";
 
 import VeChungToi from "@/assets/Ve-chung-toi-banner_1f.jpg";
@@ -10,10 +10,68 @@ import { Divider } from "@heroui/divider";
 import Image from "next/image";
 import Link from "next/link";
 import MembershipBenefits from "./san-pham/membership-benefits";
+import qs from 'qs'
+import axios from "@/lib/axios-interceptor";
+import { IMeta } from "@/lib/types/IPagination";
+import { ISearchTrend } from "@/lib/types/ISearchTrend";
+import { IProduct } from "@/lib/types/iProduct";
 
-export default function Home() {
-  const { searchTrending, products } = useFetchData();
-  const featuredProducts = useMemo(() => products.slice(0, 4), [products]);
+interface ISearchTrends {
+  data: ISearchTrend[]
+  meta: IMeta
+}
+
+interface IProducts {
+  data: IProduct[]
+  meta: IMeta
+}
+
+
+export default async function Home() {
+  const querySearchTrends = qs.stringify({
+    populate: {
+      thumbnail: {
+        populate: "*",
+      }
+    },
+    pagination: {
+      page: 1,
+      pageSize: 6,
+    },
+  });
+
+  const queryFavoriteProducts = qs.stringify({
+    populate: '*',
+    pagination: {
+      page: 1,
+      pageSize: 8,
+    },
+  });
+
+  const queryNewProducts = qs.stringify({
+    populate: '*',
+    pagination: {
+      page: 1,
+      pageSize: 8,
+    },
+  });
+
+  const queryPromotionalProducts = qs.stringify({
+    populate: '*',
+    pagination: {
+      page: 1,
+      pageSize: 8,
+    },
+  });
+
+  const searchTrend: ISearchTrends = await axios(`/api/search-trends?${querySearchTrends}`)
+  const favoriteProducts: IProducts = await axios(`/api/search-trends?${queryFavoriteProducts}`)
+  const newProducts: IProducts = await axios(`/api/search-trends?${queryNewProducts}`)
+  const promotionalProducts: IProducts = await axios(`/api/search-trends?${queryPromotionalProducts}`)
+
+
+  // const { searchTrending, products } = useFetchData();
+  // const featuredProducts = useMemo(() => products.slice(0, 4), [products]);
 
   return (
     <>
@@ -29,18 +87,17 @@ export default function Home() {
           <p className="whitespace-nowrap text-xl">XU HƯỚNG TÌM KIẾM</p>
           <Divider className="my-4 shrink" />
         </div>
-
         <div className="max-w-[1420px] lg:px-[100px] mx-auto grid grid-cols-2 gap-4 p-4 md:grid-cols-3 xl:grid-cols-6">
-          {searchTrending.map((item, index) => (
-            <Link key={index} href={`category/${item.slug}`} className="group">
+          {searchTrend.data.map((item, index) => (
+            <Link key={index} href={`san-pham?searchTrend=${item.documentId}`} className="group">
               <div className="flex flex-col items-center gap-4 group">
                 <div className="overflow-hidden rounded-xl transition-transform duration-300 group-hover:-translate-y-2">
                   <Image
-                    src={item.image.url}
+                    src={item.thumbnail.url}
                     width={400}
                     height={400}
                     className="aspect-square rounded-xl lg:w-[150px]"
-                    alt={`${item.image.url}`}
+                    alt={`${item.title}`}
                   />
                   <div className="absolute bg-gray-50/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -51,9 +108,9 @@ export default function Home() {
         </div>
       </div>
 
-      <ProductGrid title="Sản phẩm yêu thích nhất" items={products} showViewAll urlAll="san-pham-duoc-yeu-thich-nhat" />
-      <ProductGrid title="Sản phẩm mới" items={featuredProducts} showViewAll />
-      <ProductGrid title="Sản phẩm khuyến mãi" items={featuredProducts} showViewAll />
+      {/* <ProductGrid title="Sản phẩm yêu thích nhất" items={favoriteProducts.data} showViewAll urlAll="san-pham-duoc-yeu-thich-nhat" />
+      <ProductGrid title="Sản phẩm mới" items={newProducts.data} showViewAll />
+      <ProductGrid title="Sản phẩm khuyến mãi" items={promotionalProducts.data} showViewAll /> */}
 
       <div
         className="size-full flex flex-col justify-center gap-4 p-4"

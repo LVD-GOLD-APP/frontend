@@ -1,15 +1,16 @@
-import { Product, VariantProduct } from "@/lib/services/types";
+import { VariantProduct } from "@/lib/services/types";
+import { IProduct } from "@/lib/types/iProduct";
 import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-
-const ProductCardCustom = ({ item }: { item: Product }) => {
+const ProductCardCustom = ({ item }: { item: IProduct }) => {
   const variants = Array.isArray(item.variants) ? item.variants : [];
   const [selectedVariant, setSelectedVariant] = useState<VariantProduct | null>(
     variants.length > 0 ? variants[0] : null
   );
 
+  //TODO: trong api có variants lấy giá thấp nhất và giá cao nhật trong mảng để hiển thị nếu có 1 thì chỉ cần 1 giá
   const displayedPrice = useMemo(() => {
     if (!variants.length) return formatCurrency(item.price);
     return variants[0].price_2
@@ -44,9 +45,8 @@ const ProductCardCustom = ({ item }: { item: Product }) => {
               {variants.map((variant) => (
                 <button
                   key={variant.id}
-                  className={`w-6 h-6 rounded-full border ${
-                    selectedVariant?.id === variant.id ? "border-[#c60018]" : "border-gray-300"
-                  }`}
+                  className={`w-6 h-6 rounded-full border ${selectedVariant?.id === variant.id ? "border-[#c60018]" : "border-gray-300"
+                    }`}
                   style={{ backgroundColor: variant.color }}
                   onClick={() => setSelectedVariant(variant)}
                 />
