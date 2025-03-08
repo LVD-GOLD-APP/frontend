@@ -70,3 +70,9 @@ export type Banner = {
   image: ImageType;
   image_mobile: ImageType;
 };
+
+export type GiftCombo = {
+  id: number;
+  title: string;
+  image: ImageType;
+};
