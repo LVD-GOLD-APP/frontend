@@ -7,9 +7,12 @@ import { Clock4, Headset, Mail, MapPin, Medal, Package, Phone, Smile } from "luc
 import Image from "next/image";
 import Link from "next/link";
 import { useFooter } from "./useFooter";
+import { usePathname } from "next/navigation";
 
 const FooterComponent = () => {
   const { footerData } = useFooter();
+  const pathname = usePathname();
+  const isProductPage = pathname.startsWith("/san-pham/");
 
   const { contact_info, feedback_section, general_info, guides } = (footerData ?? {}) as IFooterData;
 
@@ -34,7 +37,7 @@ const FooterComponent = () => {
   ];
 
   return (
-    <footer className="border-t-1 border-[#C4001F] p-4 pb-10">
+    <footer className={`border-t-1 border-[#C4001F] p-4 ${isProductPage ? "mb-24" : ""}`}>
       <div className="max-w-[1420px] mx-auto">
         <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-4 max-w-[1420px] mx-auto">
           <div className="flex flex-col items-center justify-center gap-2 p-2">

@@ -17,9 +17,8 @@ export const useFooter = () => {
     const fetchFooter = async () => {
       const response = await instance(`/api/footers?populate=*`);
       const footers: IFooters = response.data;
-      console.log(response);
-      const footer = Array.isArray(footers.data) ? footers.data[0]?.footer_data : footers.data?.footer_data || null;
-      setFooterData(footer);
+
+      setFooterData(response.data[0].footer_data);
     };
 
     fetchFooter();
