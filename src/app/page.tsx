@@ -1,38 +1,39 @@
-// "use client";
-import { useMemo } from "react";
-
 import VeChungToi from "@/assets/Ve-chung-toi-banner_1f.jpg";
 import { SliderBanner } from "@/components/layout/SliderBanner";
-import ProductGrid from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
-import { useFetchData } from "@/lib/hooks/useFetchData";
+import axios from "@/lib/axios-interceptor";
+import { IMeta } from "@/lib/types/IPagination";
+import { IProduct } from "@/lib/types/iProduct";
+import { ISearchTrend } from "@/lib/types/ISearchTrend";
 import { Divider } from "@heroui/divider";
 import Image from "next/image";
 import Link from "next/link";
+import qs from "qs";
 import MembershipBenefits from "./san-pham/membership-benefits";
-import qs from 'qs'
-import axios from "@/lib/axios-interceptor";
-import { IMeta } from "@/lib/types/IPagination";
-import { ISearchTrend } from "@/lib/types/ISearchTrend";
-import { IProduct } from "@/lib/types/iProduct";
+import { IBanner } from "@/lib/types/IBanner";
+import ProductGrid from "@/components/ProductGrid";
 
 interface ISearchTrends {
-  data: ISearchTrend[]
-  meta: IMeta
+  data: ISearchTrend[];
+  meta: IMeta;
 }
 
 interface IProducts {
-  data: IProduct[]
-  meta: IMeta
+  data: IProduct[];
+  meta: IMeta;
 }
 
+interface IBanners {
+  data: IBanner[];
+  meta: IMeta;
+}
 
 export default async function Home() {
   const querySearchTrends = qs.stringify({
     populate: {
       thumbnail: {
         populate: "*",
-      }
+      },
     },
     pagination: {
       page: 1,
@@ -41,7 +42,7 @@ export default async function Home() {
   });
 
   const queryFavoriteProducts = qs.stringify({
-    populate: '*',
+    populate: "*",
     pagination: {
       page: 1,
       pageSize: 8,
@@ -49,7 +50,7 @@ export default async function Home() {
   });
 
   const queryNewProducts = qs.stringify({
-    populate: '*',
+    populate: "*",
     pagination: {
       page: 1,
       pageSize: 8,
@@ -57,26 +58,31 @@ export default async function Home() {
   });
 
   const queryPromotionalProducts = qs.stringify({
-    populate: '*',
+    populate: "*",
     pagination: {
       page: 1,
       pageSize: 8,
     },
   });
 
-  const searchTrend: ISearchTrends = await axios(`/api/search-trends?${querySearchTrends}`)
-  const favoriteProducts: IProducts = await axios(`/api/search-trends?${queryFavoriteProducts}`)
-  const newProducts: IProducts = await axios(`/api/search-trends?${queryNewProducts}`)
-  const promotionalProducts: IProducts = await axios(`/api/search-trends?${queryPromotionalProducts}`)
+  const queryBanners = qs.stringify({
+    populate: "*",
+    pagination: {
+      page: 1,
+      pageSize: 6,
+    },
+  });
 
-
-  // const { searchTrending, products } = useFetchData();
-  // const featuredProducts = useMemo(() => products.slice(0, 4), [products]);
+  const searchTrend: ISearchTrends = await axios(`/api/search-trends?${querySearchTrends}`);
+  const favoriteProducts: IProducts = await axios(`/api/products?${queryFavoriteProducts}`);
+  const newProducts: IProducts = await axios(`/api/products?${queryNewProducts}`);
+  const promotionalProducts: IProducts = await axios(`/api/products?${queryPromotionalProducts}`);
+  const banners: IBanners = await axios(`/api/banners?${queryBanners}`);
 
   return (
     <>
       <div className="relative w-full">
-        <SliderBanner />
+        <SliderBanner data={banners.data} />
       </div>
 
       <MembershipBenefits />
@@ -108,9 +114,14 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* <ProductGrid title="Sản phẩm yêu thích nhất" items={favoriteProducts.data} showViewAll urlAll="san-pham-duoc-yeu-thich-nhat" />
+      <ProductGrid
+        title="Sản phẩm yêu thích nhất"
+        items={favoriteProducts.data}
+        showViewAll
+        urlAll="san-pham-duoc-yeu-thich-nhat"
+      />
       <ProductGrid title="Sản phẩm mới" items={newProducts.data} showViewAll />
-      <ProductGrid title="Sản phẩm khuyến mãi" items={promotionalProducts.data} showViewAll /> */}
+      <ProductGrid title="Sản phẩm khuyến mãi" items={promotionalProducts.data} showViewAll />
 
       <div
         className="size-full flex flex-col justify-center gap-4 p-4"

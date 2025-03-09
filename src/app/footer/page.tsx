@@ -1,32 +1,35 @@
 "use client";
 import VLogo from "@/assets/VLogo_LiLi_Horizontal.svg";
 import { Button } from "@/components/ui/button";
-import { useFetchData } from "@/lib/hooks/useFetchData";
+import { IFooter } from "@/lib/types/IFooter";
 import { Divider } from "@heroui/divider";
 import { Clock4, Headset, Mail, MapPin, Medal, Package, Phone, Smile } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Footer = () => {
-  const { footerData } = useFetchData();
+interface Props {
+  footer_data: IFooter;
+}
 
+const FooterComponent = ({ footer_data }: Props) => {
+  const { contact_info, feedback_section, general_info, guides } = footer_data;
   const sections = [
     {
-      title: footerData?.contact_info.title,
-      links: footerData?.contact_info.links,
+      title: contact_info?.title,
+      links: contact_info?.links,
     },
     {
-      title: footerData?.guides.title,
-      links: footerData?.guides.links,
+      title: guides?.title,
+      links: guides?.links,
     },
     {
-      title: footerData?.general_info.title,
-      links: footerData?.general_info.links,
+      title: general_info?.title,
+      links: general_info?.links,
     },
     {
-      title: footerData?.feedback_section.title,
-      description: footerData?.feedback_section.description,
-      button_text: footerData?.feedback_section.button_text,
+      title: feedback_section?.title,
+      description: feedback_section?.description,
+      button_text: feedback_section?.button_text,
     },
   ];
 
@@ -192,4 +195,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default FooterComponent;

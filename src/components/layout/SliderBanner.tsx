@@ -1,5 +1,5 @@
 "use client";
-import { useFetchData } from "@/lib/hooks/useFetchData";
+import { IBanner } from "@/lib/types/IBanner";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -9,9 +9,12 @@ import "swiper/css/navigation";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export const SliderBanner = () => {
-  const { banners } = useFetchData();
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+interface Props {
+  data: IBanner[];
+}
+
+export const SliderBanner = ({ data }: Props) => {
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
   const swiperRef = useRef<SwiperType | null>(null);
 
   useEffect(() => {
@@ -51,7 +54,7 @@ export const SliderBanner = () => {
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         modules={[Autoplay, Navigation]}
       >
-        {banners.map((img, index) => (
+        {data.map((img, index) => (
           <SwiperSlide key={index}>
             <Link href={img.slug}>
               <Image
