@@ -30,11 +30,7 @@ interface IBanners {
 
 export default async function Home() {
   const querySearchTrends = qs.stringify({
-    populate: {
-      thumbnail: {
-        populate: "*",
-      },
-    },
+    populate: "*",
     pagination: {
       page: 1,
       pageSize: 6,
@@ -95,7 +91,7 @@ export default async function Home() {
         </div>
         <div className="max-w-[1420px] lg:px-[100px] mx-auto grid grid-cols-2 gap-4 p-4 md:grid-cols-3 xl:grid-cols-6">
           {searchTrend.data.map((item, index) => (
-            <Link key={index} href={`san-pham?searchTrend=${item.documentId}`} className="group">
+            <Link key={index} href={`category/${item.slug}`} className="group">
               <div className="flex flex-col items-center gap-4 group">
                 <div className="overflow-hidden rounded-xl transition-transform duration-300 group-hover:-translate-y-2">
                   <Image

@@ -29,7 +29,7 @@ export default function ProductPage({ params }: PageProps) {
   return (
     <div>
       <Breadcrumbs
-        title={productDetail?.data?.title ?? ""}
+        title={productDetail?.title ?? ""}
         links={[
           { text: "Vòng - Lắc", href: "/vong-lac" },
           { text: "Vòng - Lắc tay", href: "/vong-lac-tay" },

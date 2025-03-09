@@ -6,6 +6,7 @@ import { ChevronRight, Home } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DrawerFilter } from "./DrawerFilter";
+import ProductCardCustom from "@/components/ProductCardCustom";
 
 interface CategoryPageProps {
   params: {
@@ -228,14 +229,15 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
             {category.products.map((product) => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                image={product.image}
-                slug={product.slug}
-              />
+              // <ProductCard
+              //   key={product.id}
+              //   id={product.id}
+              //   name={product.name}
+              //   price={product.price}
+              //   image={product.image}
+              //   slug={product.slug}
+              // />
+              <ProductCardCustom item={product} />
             ))}
           </div>
         </div>
