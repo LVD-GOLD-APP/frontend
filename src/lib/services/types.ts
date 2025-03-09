@@ -17,7 +17,7 @@ export type TargetCustomers = {
   slug: string;
 };
 
-export type ImageProduct = {
+export type ImageType = {
   id: number;
   url: string;
 };
@@ -25,9 +25,10 @@ export type ImageProduct = {
 export type VariantProduct = {
   id: number;
   color: string;
+  title: string;
   price: number;
   price_2: number;
-  image: ImageProduct;
+  image: ImageType;
 };
 
 export type Product = {
@@ -36,8 +37,9 @@ export type Product = {
   price: number;
   slug: string;
   url: string;
-  images: ImageProduct[];
+  images: ImageType[];
   description: string;
+  sub_title: string;
   isDiscount: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -46,13 +48,14 @@ export type Product = {
   material: Material;
   targetCustomers: TargetCustomers;
   variants: VariantProduct[];
+  related_products: Product[];
 };
 
 export type SearchTrending = {
   id: number;
   slug: string;
   title: string;
-  image: ImageProduct;
+  image: ImageType;
 };
 
 export type Blog = {
@@ -60,4 +63,51 @@ export type Blog = {
   title: string;
   description: string;
   slug: string;
+};
+
+export type Banner = {
+  id: number;
+  slug: string;
+  image: ImageType;
+  image_mobile: ImageType;
+};
+
+export type GiftCombo = {
+  id: number;
+  title: string;
+  image: ImageType;
+};
+
+export type FooterLink = {
+  url: string;
+  label: string;
+};
+
+export type FooterSection = {
+  title: string;
+  links: FooterLink[];
+};
+
+export type ContactInfo = {
+  logo: string;
+  phones: { number: string; note: string }[];
+  email: string;
+  address: string;
+  note: string;
+  working_hours: string;
+  social_links: { platform: string; icon: string; url: string }[];
+};
+
+export type FeedbackSection = {
+  title: string;
+  button_url: string;
+  button_text: string;
+  description: string;
+};
+
+export type FooterData = {
+  guides: FooterSection;
+  contact_info: FooterSection;
+  general_info: FooterSection;
+  feedback_section: FeedbackSection;
 };

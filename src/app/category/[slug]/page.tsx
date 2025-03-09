@@ -3,6 +3,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input";
 import ProductGrid from "./product-grid";
 import instance from "@/lib/axios-interceptor";
+import { Category } from "@/lib/services/types";
+import { listCategories } from "@/lib/services/categories";
 
 interface Filter {
   id: string;
@@ -16,28 +18,12 @@ interface CategoryData {
   filters?: Filter[];
 }
 
-interface Category {
-  id: number;
-  documentId: string;
-  title: string;
-  slug: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-}
-
 interface Pagination {
   page: number;
   pageSize: number;
   pageCount: number;
   total: number;
 }
-
-interface Meta {
-  pagination: Pagination;
-}
-
-type CategoryResponse = Category[];
 
 const commonFilters = [
   {
@@ -62,16 +48,15 @@ const sortOptions = [
   { label: "Tên sản phẩm", value: "name" },
 ];
 
-async function getCategoryData(categorySlug: string): Promise<CategoryData | null> {
+async function getCategoryData(slug: string): Promise<CategoryData | null> {
   try {
-    const response = await instance.get<CategoryResponse>("/api/categories");
+    const response = await instance.get<Category[]>("/api/categories");
 
     if (!response || !response.data) {
       console.error("Dữ liệu từ API không hợp lệ:", response);
       return null;
     }
-
-    const category = response.data.find((cat) => cat.slug === categorySlug);
+    const category = response.data.find((cat) => cat.slug === slug);
 
     console.log("Danh mục tìm thấy:", category);
 
@@ -85,12 +70,9 @@ async function getCategoryData(categorySlug: string): Promise<CategoryData | nul
 }
 
 
-// Component chính
-export default async function CategoryPage({ params }: { params: { category: string } }) {
-  // Lấy dữ liệu category dựa trên slug
-  const categoryData = await getCategoryData(params.category);
+export default async function CategoryPage({ params }: { params: { slug: string } }) {
+  const categoryData = await getCategoryData(params.slug);
 
-  // Nếu không tìm thấy category, hiển thị trang 404
   if (!categoryData) {
     notFound();
   }
@@ -99,12 +81,16 @@ export default async function CategoryPage({ params }: { params: { category: str
 
   return (
     <div>
-      {/* Hero Section */}
-      <div className="relative h-[400px] bg-[url('/placeholder.svg')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-center text-white">
-          <h1 className="text-4xl font-bold mb-4">{categoryData.title}</h1>
-          <p className="max-w-2xl">{categoryData.description}</p>
+      <div className="relative h-[400px] mt-10 bg-[url('http://localhost:9000/gold/Mat_day_chuyen_bac_nu_dinh_da_CZ_co_4_la_LILI_426865_30_996f012a63.jpg')] bg-contain bg-no-repeat bg-right">
+        <div className="absolute inset-0 bg-[#F7F0E9]/60" />
+        <div className="relative container mx-auto px-4 h-full flex flex-col items-start justify-center text-left text-black pl-16">
+          <h1 className="text-4xl font-bold mb-4 hover:text-gray-700 transition duration-300">
+            DÂY CHUYỀN CAO CẤP
+          </h1>
+          <hr className="w-96 border-gray-700 mb-4" />
+          <p className="max-w-2xl hover:scale-105 transition duration-300">
+            Dây chuyền LiLi mang đến cho bạn một vẻ đẹp hoàn hảo, góp phần tạo nên phong cách của riêng mình và là điểm nhấn nhá tuyệt vời mỗi khi bạn xuất hiện.
+          </p>
         </div>
       </div>
 
@@ -112,20 +98,22 @@ export default async function CategoryPage({ params }: { params: { category: str
         {/* Featured Products */}
         <div className="mb-12">
           <h2 className="text-center font-medium mb-8 relative">
-            <span className="bg-white px-4 relative z-10">SẢN PHẨM ĐỀ XUẤT</span>
+            <span className="bg-white px-4 relative z-10 text-2xl font-bold text-blue-600">SẢN PHẨM ĐỀ XUẤT</span>
             <div className="absolute left-0 right-0 h-px bg-gray-200 top-1/2 -z-[1]" />
           </h2>
           <ProductGrid />
         </div>
 
         <div className="mb-8">
-          <h2 className="text-center font-medium mb-8 relative">
-            <span className="bg-white px-4 relative z-10">{categoryData.title}</span>
+          <h2 className="text-center font-semibold mb-8 relative">
+            <span className="bg-white px-4 relative z-10 text-3xl font-bold text-gray-800 uppercase tracking-wide">
+              {categoryData.title}
+            </span>
             <div className="absolute left-0 right-0 h-px bg-gray-200 top-1/2 -z-[1]" />
           </h2>
 
           {/* Bộ lọc và tìm kiếm */}
-          <div className="flex flex-wrap items-center gap-4 mb-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-6">
             {allFilters.map((filter) => (
               <Select key={filter.id}>
                 <SelectTrigger className="w-[180px]">
@@ -156,7 +144,6 @@ export default async function CategoryPage({ params }: { params: { category: str
           </div>
         </div>
 
-        {/* Danh sách sản phẩm */}
         <ProductGrid />
       </div>
     </div>

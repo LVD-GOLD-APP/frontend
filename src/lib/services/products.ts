@@ -7,7 +7,7 @@ export const listProducts = async (): Promise<Product[]> => {
     const params = {
       populate: {
         variants: {
-          fields: ["id", "color", "price", "price_2"],
+          fields: ["id", "color", "price", "price_2", "title"],
           populate: {
             image: {
               fields: ["url"],
@@ -16,6 +16,21 @@ export const listProducts = async (): Promise<Product[]> => {
         },
         images: {
           fields: ["url"],
+        },
+        related_products: {
+          populate: {
+            variants: {
+              fields: ["id", "color", "price", "price_2", "title"],
+              populate: {
+                image: {
+                  fields: ["url"],
+                },
+              },
+            },
+            images: {
+              fields: ["url"],
+            },
+          },
         },
       },
     };
@@ -28,5 +43,18 @@ export const listProducts = async (): Promise<Product[]> => {
   } catch (error) {
     console.error("Lỗi khi lấy danh sách sản phẩm:", error);
     return [];
+  }
+};
+
+export const listProductDetail = async (slug: string): Promise<Product | null> => {
+  try {
+    const products = await listProducts();
+
+    const product = products.find((item) => item.slug === slug);
+
+    return product || null;
+  } catch (error) {
+    console.error("Lỗi khi lấy chi tiết sản phẩm:", error);
+    return null;
   }
 };
