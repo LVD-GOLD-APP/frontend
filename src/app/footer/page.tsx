@@ -1,18 +1,18 @@
 "use client";
 import VLogo from "@/assets/VLogo_LiLi_Horizontal.svg";
 import { Button } from "@/components/ui/button";
-import { IFooter } from "@/lib/types/IFooter";
+import { IFooterData } from "@/lib/types/IFooter";
 import { Divider } from "@heroui/divider";
 import { Clock4, Headset, Mail, MapPin, Medal, Package, Phone, Smile } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useFooter } from "./useFooter";
 
-interface Props {
-  footer_data: IFooter;
-}
+const FooterComponent = () => {
+  const { footerData } = useFooter();
 
-const FooterComponent = ({ footer_data }: Props) => {
-  const { contact_info, feedback_section, general_info, guides } = footer_data;
+  const { contact_info, feedback_section, general_info, guides } = (footerData ?? {}) as IFooterData;
+
   const sections = [
     {
       title: contact_info?.title,
@@ -34,7 +34,7 @@ const FooterComponent = ({ footer_data }: Props) => {
   ];
 
   return (
-    <footer className="border-t-1 border-[#C4001F] p-4">
+    <footer className="border-t-1 border-[#C4001F] p-4 pb-10">
       <div className="max-w-[1420px] mx-auto">
         <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-4 max-w-[1420px] mx-auto">
           <div className="flex flex-col items-center justify-center gap-2 p-2">

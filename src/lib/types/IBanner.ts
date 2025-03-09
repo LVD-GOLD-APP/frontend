@@ -1,4 +1,4 @@
-import { ImageType } from "../services/types";
+import { ImageType } from "./types";
 
 export type IBanner = {
   id: number;

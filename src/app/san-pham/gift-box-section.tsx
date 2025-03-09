@@ -1,9 +1,16 @@
-import { useFetchData } from "@/lib/hooks/useFetchData";
 import { Gift } from "lucide-react";
 import Image from "next/image";
 
 export default function GiftBoxSection() {
-  const { giftCombo } = useFetchData();
+  interface GiftCombo {
+    id: number;
+    title: string;
+    image: {
+      url: string;
+    };
+  }
+
+  const giftCombo: GiftCombo[] = [];
   return (
     <section className="mb-8 border border-gray-100 rounded-md">
       <header className="bg-gray-100 p-2 rounded-t-md flex items-center gap-2 text-gray-800 font-medium">

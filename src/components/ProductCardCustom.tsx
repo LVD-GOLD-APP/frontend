@@ -1,11 +1,13 @@
-import { VariantProduct } from "@/lib/services/types";
-import { IProduct } from "@/lib/types/iProduct";
+"use client";
+
+import { IProduct, VariantProduct } from "@/lib/types/IProduct";
 import { formatCurrency } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+
 const ProductCardCustom = ({ item }: { item: IProduct }) => {
-  const variants = Array.isArray(item.variants) ? item.variants : [];
+  const variants = useMemo(() => (Array.isArray(item.variants) ? item.variants : []), [item.variants]);
   const [selectedVariant, setSelectedVariant] = useState<VariantProduct | null>(
     variants.length > 0 ? variants[0] : null
   );
@@ -16,7 +18,7 @@ const ProductCardCustom = ({ item }: { item: IProduct }) => {
     return variants[0].price_2
       ? `${formatCurrency(variants[0].price)} - ${formatCurrency(variants[0].price_2)}`
       : formatCurrency(variants[0].price);
-  }, [variants]);
+  }, [item.price, variants]);
 
   return (
     <div className="flex flex-col items-center gap-1 rounded-xl bg-[#F3F3F3] pb-2 hover:shadow-lg transition-transform duration-300 h-full">
@@ -45,8 +47,9 @@ const ProductCardCustom = ({ item }: { item: IProduct }) => {
               {variants.map((variant) => (
                 <button
                   key={variant.id}
-                  className={`w-6 h-6 rounded-full border ${selectedVariant?.id === variant.id ? "border-[#c60018]" : "border-gray-300"
-                    }`}
+                  className={`w-6 h-6 rounded-full border ${
+                    selectedVariant?.id === variant.id ? "border-[#c60018]" : "border-gray-300"
+                  }`}
                   style={{ backgroundColor: variant.color }}
                   onClick={() => setSelectedVariant(variant)}
                 />

@@ -4,10 +4,10 @@ import Image from "next/image";
 import { Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Product } from "@/lib/services/types";
+import { IProduct } from "@/lib/types/IProduct";
 
 type Props = {
-  productDetail: Product;
+  productDetail: IProduct;
 };
 
 export default function StickyCheckoutBar({ productDetail }: Props) {
@@ -27,10 +27,10 @@ export default function StickyCheckoutBar({ productDetail }: Props) {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="relative flex-shrink-0 w-16 h-16 overflow-hidden border rounded-md">
-              <Image src={productDetail.images[0].url} alt="Product thumbnail" fill className="object-cover" />
+              <Image src={productDetail?.images[0]?.url} alt="Product thumbnail" fill className="object-cover" />
             </div>
             <div className="hidden sm:block">
-              <h3 className="mb-1 text-sm font-medium line-clamp-3">{productDetail.title}</h3>
+              <h3 className="mb-1 text-sm font-medium line-clamp-3">{productDetail?.title}</h3>
               {/* <div className="font-medium text-red-600">1.139.000₫</div> */}
             </div>
             <div className="flex items-center border rounded-md">

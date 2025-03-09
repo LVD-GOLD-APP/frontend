@@ -15,11 +15,9 @@ export type FeedbackSection = {
   description: string;
 };
 
-export type IFooter = {
-  // footer_data: {
+export type IFooterData = {
   guides: FooterSection;
   contact_info: FooterSection;
   general_info: FooterSection;
   feedback_section: FeedbackSection;
-  // };
 };

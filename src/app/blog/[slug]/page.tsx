@@ -1,5 +1,5 @@
 "use client";
-import { useFetchData } from "@/lib/hooks/useFetchData";
+
 import { Blog } from "@/lib/services/types";
 import React from "react";
 
@@ -10,7 +10,7 @@ interface BlogPageProps {
 }
 
 function BlogPage({ params }: BlogPageProps) {
-  const { blogs } = useFetchData();
+  const blogs: Blog[] = [];
 
   const blogData = blogs.find((blog: Blog) => blog.slug === params.slug);
 

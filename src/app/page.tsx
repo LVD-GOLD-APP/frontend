@@ -1,17 +1,17 @@
 import VeChungToi from "@/assets/Ve-chung-toi-banner_1f.jpg";
 import { SliderBanner } from "@/components/layout/SliderBanner";
+import ProductGrid from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
 import axios from "@/lib/axios-interceptor";
+import { IBanner } from "@/lib/types/IBanner";
 import { IMeta } from "@/lib/types/IPagination";
-import { IProduct } from "@/lib/types/iProduct";
+import { IProduct } from "@/lib/types/IProduct";
 import { ISearchTrend } from "@/lib/types/ISearchTrend";
 import { Divider } from "@heroui/divider";
 import Image from "next/image";
 import Link from "next/link";
 import qs from "qs";
 import MembershipBenefits from "./san-pham/membership-benefits";
-import { IBanner } from "@/lib/types/IBanner";
-import ProductGrid from "@/components/ProductGrid";
 
 interface ISearchTrends {
   data: ISearchTrend[];

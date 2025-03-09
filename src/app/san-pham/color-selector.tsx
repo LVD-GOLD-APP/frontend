@@ -1,6 +1,7 @@
-import { useState } from "react";
+"use client";
+import { VariantProduct } from "@/lib/types/IProduct";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { VariantProduct } from "@/lib/services/types";
+import { useState } from "react";
 
 export default function ColorSelector({
   variants = [],

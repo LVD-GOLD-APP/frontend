@@ -1,17 +1,19 @@
+"use client";
 import { Button } from "@/components/ui/button";
-import { Product } from "@/lib/services/types";
+import { IProduct } from "@/lib/types/IProduct";
+
 import { formatCurrency } from "@/lib/utils";
 import { CheckSquare, Plus, Square } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export interface Props {
-  related_products: Product[];
+  related_products: IProduct[];
 }
 
 export default function RelatedProducts({ related_products }: Props) {
   const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<IProduct | null>(null);
   const [selectedVariant, setSelectedVariant] = useState<
     Record<number, { price: number; title: string; color: string }>
   >({});
@@ -25,7 +27,7 @@ export default function RelatedProducts({ related_products }: Props) {
     setSelectedProducts((prev) => (prev.includes(id) ? prev.filter((pid) => pid !== id) : [...prev, id]));
   };
 
-  const openVariantModal = (product: Product) => {
+  const openVariantModal = (product: IProduct) => {
     setSelectedProduct(product);
     setSelectedVariant((prev) => ({
       ...prev,
@@ -39,9 +41,9 @@ export default function RelatedProducts({ related_products }: Props) {
   };
 
   const selectedItems = related_products.filter((p) => selectedProducts.includes(p.id));
-  const getProductPrice = (product: Product) =>
+  const getProductPrice = (product: IProduct) =>
     selectedVariant[product.id]?.price || product.variants[0]?.price || product.price;
-  const getTitleProductColor = (product: Product) =>
+  const getTitleProductColor = (product: IProduct) =>
     selectedVariant[product.id]?.title || product.variants[0]?.title || "N/A";
 
   const totalPrice = selectedItems.reduce((sum, product) => sum + getProductPrice(product), 0);

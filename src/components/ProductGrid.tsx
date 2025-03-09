@@ -3,7 +3,7 @@ import { Divider } from "@heroui/divider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProductCardCustom from "./ProductCardCustom";
-import { IProduct } from "@/lib/types/iProduct";
+import { IProduct } from "@/lib/types/IProduct";
 
 const ProductGrid = ({
   title,

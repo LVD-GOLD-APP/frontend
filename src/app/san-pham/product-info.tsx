@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { Product, VariantProduct } from "@/lib/services/types";
 import { formatCurrency } from "@/lib/utils";
 import { useMemo } from "react";
 import BenefitsSection from "./benefits-section";
@@ -7,9 +6,10 @@ import ColorSelector from "./color-selector";
 import GiftBoxSection from "./gift-box-section";
 import QuantitySelector from "./quantity-selector";
 import RelatedProducts from "./related-products";
+import { IProduct, VariantProduct } from "@/lib/types/IProduct";
 
 type Props = {
-  productDetail: Product;
+  productDetail: IProduct;
   selectedVariant: VariantProduct | null;
   onSelectedVariant?: (variant: VariantProduct | null) => void;
 };

@@ -1,15 +1,11 @@
-"use client";
-
 import ProductCardCustom from "@/components/ProductCardCustom";
-import { useFetchData } from "@/lib/hooks/useFetchData";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { IProduct } from "@/lib/types/IProduct";
 import "swiper/css";
 import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function SimilarProducts() {
-  const { products } = useFetchData();
-
+export default function SimilarProducts({ products }: { products: IProduct[] }) {
   return (
     <div className="relative">
       <button className="prev-btn absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-gray-200 p-2 rounded-full shadow-lg hover:bg-gray-300">
