@@ -2,7 +2,7 @@ import VeChungToi from "@/assets/Ve-chung-toi-banner_1f.jpg";
 import { SliderBanner } from "@/components/layout/SliderBanner";
 import ProductGrid from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
-import axios from "@/lib/axios-interceptor";
+import instance from "@/lib/axios-interceptor";
 import { IBanner } from "@/lib/types/IBanner";
 import { IMeta } from "@/lib/types/IPagination";
 import { IProduct } from "@/lib/types/IProduct";
@@ -73,11 +73,11 @@ export default async function Home() {
     },
   });
 
-  const searchTrend: ISearchTrends = await axios(`/api/search-trends?${querySearchTrends}`);
-  const favoriteProducts: IProducts = await axios(`/api/products?${queryFavoriteProducts}`);
-  const newProducts: IProducts = await axios(`/api/products?${queryNewProducts}`);
-  const promotionalProducts: IProducts = await axios(`/api/products?${queryPromotionalProducts}`);
-  const banners: IBanners = await axios(`/api/banners?${queryBanners}`);
+  const searchTrend: ISearchTrends = await instance(`/api/search-trends?${querySearchTrends}`);
+  const favoriteProducts: IProducts = await instance(`/api/products?${queryFavoriteProducts}`);
+  const newProducts: IProducts = await instance(`/api/products?${queryNewProducts}`);
+  const promotionalProducts: IProducts = await instance(`/api/products?${queryPromotionalProducts}`);
+  const banners: IBanners = await instance(`/api/banners?${queryBanners}`);
 
   return (
     <>

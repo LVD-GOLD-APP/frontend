@@ -1,22 +1,61 @@
+import instance from "@/lib/axios-interceptor";
+import { IMeta } from "@/lib/types/IPagination";
 import { IProduct } from "@/lib/types/IProduct";
-import axios from "axios";
+import qs from "qs";
 import { useEffect, useState } from "react";
+
+interface IProducts {
+  data: IProduct[];
+  meta: IMeta;
+}
 
 export function useProductDetail(slug: string) {
   const [productDetail, setProductDetail] = useState<IProduct | null>(null);
 
   useEffect(() => {
     const fetchProductBySlug = async () => {
-      try {
-        const response = await axios(`http://localhost:1337/api/products`, {
-          params: {
-            filters: { slug: { $eq: slug } },
-            populate: "*",
+      const queryParams = qs.stringify(
+        {
+          filters: { slug: { $eq: slug } },
+          populate: {
+            variants: {
+              fields: ["id", "color", "price", "price_2", "title"],
+              populate: {
+                image: {
+                  fields: ["url"],
+                },
+              },
+            },
+            images: {
+              fields: ["url"],
+            },
+            related_products: {
+              populate: {
+                variants: {
+                  fields: ["id", "color", "price", "price_2", "title"],
+                  populate: {
+                    image: {
+                      fields: ["url"],
+                    },
+                  },
+                },
+                images: {
+                  fields: ["url"],
+                },
+              },
+            },
           },
-        });
+        },
+        {
+          encodeValuesOnly: true,
+        }
+      );
 
-        if (response.data?.data?.length > 0) {
-          setProductDetail(response.data.data[0]);
+      try {
+        const response: IProducts = await instance(`/api/products?${queryParams}`);
+        console.log(response);
+        if (response.data.length > 0) {
+          setProductDetail(response.data[0]);
         } else {
           throw new Error("Product not found");
         }

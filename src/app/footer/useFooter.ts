@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import instance from "@/lib/axios-interceptor";
 import { IFooterData } from "@/lib/types/IFooter";
 import { IMeta } from "@/lib/types/IPagination";
-import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface IFooters {
   data: {
@@ -15,7 +15,7 @@ export const useFooter = () => {
 
   useEffect(() => {
     const fetchFooter = async () => {
-      const response = await axios(`/api/footers?populate=*`);
+      const response = await instance(`/api/footers?populate=*`);
       const footers: IFooters = response.data;
       console.log(response);
       const footer = Array.isArray(footers.data) ? footers.data[0]?.footer_data : footers.data?.footer_data || null;
