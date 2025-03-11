@@ -5,13 +5,14 @@ import { SliderTop } from "@/components/layout/SliderTop";
 import { Button } from "@/components/ui/button";
 import { Input } from "@heroui/input";
 
-import { EyeIcon, ShoppingCart, UserIcon } from "lucide-react";
+import { EyeIcon, UserIcon } from "lucide-react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Image from "next/image";
 import Link from "next/link";
 import FooterComponent from "./footer/page";
 import "./globals.css";
+import { ShoppingCartComponent } from "@/components/layout/ShoppingCartComponent";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,7 +38,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}>
         <div className="h-9">
           <SliderTop />
         </div>
@@ -60,13 +61,13 @@ export default async function RootLayout({
                 <EyeIcon />
                 Sản phẩm đã xem
               </Button>
-              <ShoppingCart strokeWidth={1} size={28} color="black" />
+              <ShoppingCartComponent />
               <div className="flex lg:hidden">
                 <DrawerCustom />
               </div>
             </div>
           </div>
-          <div className="max-w-[1420px] pt-4 px-10 mx-auto lg:flex hidden">
+          <div className="max-w-[1420px] px-10 mx-auto lg:flex hidden">
             <MenuHeader />
           </div>
         </div>

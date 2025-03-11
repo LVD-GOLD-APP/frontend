@@ -1,11 +1,17 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Divider } from "@heroui/divider";
+
+import ImgMenu from "@/assets/Lac-tay-bac-nu-ma-bach-kim-dinh-pha-le-co-bon-la-LILI_612672_34.jpg";
+import Image from "next/image";
 
 const categoriesList = [
   {
     title: "VÒNG - LẮC",
     url: "",
+    image: ImgMenu,
     items: [
       {
         title: "XU HƯỚNG TÌM KIẾM",
@@ -15,6 +21,13 @@ const categoriesList = [
           { name: "Lắc tay bạc đôi", url: "/bracelets/couples" },
           { name: "Lắc chân bạc nữ", url: "/anklets/women" },
           { name: "Vòng pandora - Hạt charm bạc", url: "/pandora-charms" },
+        ],
+      },
+      {
+        title: "LOẠI",
+        links: [
+          { name: "Vòng - Lắc tay", url: "" },
+          { name: "Vòng - Lắc chân", url: "" },
         ],
       },
       {
@@ -40,6 +53,7 @@ const categoriesList = [
   {
     title: "NHẪN",
     url: "",
+    image: ImgMenu,
     items: [
       {
         title: "XU HƯỚNG TÌM KIẾM",
@@ -110,34 +124,50 @@ function MenuHeader() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div>
-      <div className="flex flex-wrap relative gap-4 justify-center">
-        {categoriesList.map((category, index) => (
-          <div
-            key={index}
-            className="relative hover:text-red-400 duration-100 rounded-md max-w-[150px] text-center"
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <Link href={category.url} className="block truncate text-[14px] mr-5">
-              {category.title}
-            </Link>
-            {category.items?.length && hoveredIndex === index && (
-              <div className="flex gap-10 absolute top-3 left-0 w-fit bg-white shadow-md p-3 transition-transform duration-300 ease-out transform translate-y-2 z-50">
-                {category.items?.map(({ title, links }) => (
-                  <div key={title} className="flex flex-col w-full">
-                    <h2 className="mt-3 mb-2 font-bold truncate">{title}</h2>
-                    {links.map(({ name, url }, idx) => (
-                      <Link key={idx} href={url} className="my-2 block hover:text-blue-500">
-                        {name}
-                      </Link>
+    <div className="relative">
+      <div className="flex flex-wrap gap-4 justify-center">
+        {categoriesList.map((category, index) => {
+          const hasItems = category.items && category.items.length > 0;
+
+          return (
+            <div
+              key={index}
+              className="duration-100 rounded-md text-center relative pt-4"
+              onMouseEnter={() => hasItems && setHoveredIndex(index)}
+              onMouseLeave={() => hasItems && setHoveredIndex(null)}
+            >
+              <Link href={category.url} className="block truncate text-[14px] mr-5">
+                {category.title}
+              </Link>
+
+              {hasItems && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={hoveredIndex === index ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="fixed left-0 w-full bg-white shadow-md z-50 border-b border-t border-[#C4001F] overflow-hidden"
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                >
+                  <div className="max-w-[1420px] mx-auto flex gap-10 p-3">
+                    {category.items.map(({ title, links }) => (
+                      <div key={title} className="flex flex-col items-start w-full">
+                        <h2 className="mt-3 mb-2 font-bold truncate">{title}</h2>
+                        <Divider />
+                        {links.map(({ name, url }, idx) => (
+                          <Link key={idx} href={url} className="my-2 block hover:text-blue-500">
+                            {name}
+                          </Link>
+                        ))}
+                      </div>
                     ))}
+                    {category.image && <Image src={category.image.src} alt="" width={300} height={300} />}
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+                </motion.div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
