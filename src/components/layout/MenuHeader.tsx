@@ -132,11 +132,11 @@ function MenuHeader() {
           return (
             <div
               key={index}
-              className="duration-100 rounded-md text-center relative pt-4"
+              className="duration-100 rounded-md text-center relative"
               onMouseEnter={() => hasItems && setHoveredIndex(index)}
               onMouseLeave={() => hasItems && setHoveredIndex(null)}
             >
-              <Link href={category.url} className="block truncate text-[14px] mr-5">
+              <Link href={category.url} className="block truncate text-[14px] pt-4 pb-2 mr-5">
                 {category.title}
               </Link>
 

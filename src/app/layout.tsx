@@ -1,18 +1,8 @@
-import Logo from "@/assets/Logo.svg";
-import { DrawerCustom } from "@/components/layout/DrawerCustom";
-import MenuHeader from "@/components/layout/MenuHeader";
-import { SliderTop } from "@/components/layout/SliderTop";
-import { Button } from "@/components/ui/button";
-import { Input } from "@heroui/input";
-
-import { EyeIcon, UserIcon } from "lucide-react";
+import Header from "@/components/layout/Header";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import Image from "next/image";
-import Link from "next/link";
 import FooterComponent from "./footer/page";
 import "./globals.css";
-import { ShoppingCartComponent } from "@/components/layout/ShoppingCartComponent";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -39,38 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}>
-        <div className="h-9">
-          <SliderTop />
-        </div>
-        <div className="sticky top-0 z-20 bg-white border-b-1 border-[#C4001F]">
-          <div className="flex justify-between w-full max-w-[1420px] mx-auto">
-            <div className="px-2">
-              <Link href={"/"}>
-                <Image className="h-14 max-w-24 " src={Logo} alt="" />
-              </Link>
-            </div>
-            <div className="px-2 flex items-center w-[500px]">
-              <Input type="search" variant="bordered" radius={"sm"} placeholder="Tìm sản phẩm" />
-            </div>
-            <div className="px-2 gap-4 flex justify-end items-center">
-              <Button variant="black" className="bg-white border border-black lg:flex hidden">
-                <UserIcon />
-                Tài khoản
-              </Button>
-              <Button variant="black" className="bg-white border border-black lg:flex hidden">
-                <EyeIcon />
-                Sản phẩm đã xem
-              </Button>
-              <ShoppingCartComponent />
-              <div className="flex lg:hidden">
-                <DrawerCustom />
-              </div>
-            </div>
-          </div>
-          <div className="max-w-[1420px] px-10 mx-auto lg:flex hidden">
-            <MenuHeader />
-          </div>
-        </div>
+        <Header />
         {children}
         <FooterComponent />
       </body>
