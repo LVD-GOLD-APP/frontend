@@ -13,16 +13,12 @@ interface IFooters {
 export const useFooter = () => {
   const [footerData, setFooterData] = useState<IFooterData | null>(null);
 
-  useEffect(() => {
-    const fetchFooter = async () => {
-      const response = await instance(`/api/footers?populate=*`);
-      const footers: IFooters = response.data;
-
-      setFooterData(response.data[0].footer_data);
-    };
-
-    fetchFooter();
-  }, []);
+  // useEffect(() => {
+  //   // Thay vì fetch từ API, sử dụng mock data
+  //   import("").then(({ mockFooterData }) => {
+  //     setFooterData(mockFooterData);
+  //   });
+  // }, []);
 
   return { footerData };
 };

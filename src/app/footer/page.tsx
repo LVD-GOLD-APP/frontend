@@ -1,16 +1,17 @@
 "use client";
 import VLogo from "@/assets/VLogo_LiLi_Horizontal.svg";
 import { Button } from "@/components/ui/button";
+import { mockFooterData } from "@/lib/services/mock-data";
 import { IFooterData } from "@/lib/types/IFooter";
 import { Divider } from "@heroui/divider";
 import { Clock4, Headset, Mail, MapPin, Medal, Package, Phone, Smile } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useFooter } from "./useFooter";
 import { usePathname } from "next/navigation";
 
 const FooterComponent = () => {
-  const { footerData } = useFooter();
+  // const { footerData } = useFooter();
+  const footerData = mockFooterData;
   const pathname = usePathname();
   const isProductPage = pathname.startsWith("/san-pham/");
 

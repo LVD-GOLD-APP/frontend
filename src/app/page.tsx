@@ -2,79 +2,13 @@ import VeChungToi from "@/assets/Ve-chung-toi-banner_1f.jpg";
 import { SliderBanner } from "@/components/layout/SliderBanner";
 import ProductGrid from "@/components/ProductGrid";
 import { Button } from "@/components/ui/button";
-import instance from "@/lib/axios-interceptor";
-import { IBanner } from "@/lib/types/IBanner";
-import { IMeta } from "@/lib/types/IPagination";
-import { IProduct } from "@/lib/types/IProduct";
-import { ISearchTrend } from "@/lib/types/ISearchTrend";
+import { banners, favoriteProducts, searchTrend } from "@/lib/services/mock-data";
 import { Divider } from "@heroui/divider";
 import Image from "next/image";
 import Link from "next/link";
-import qs from "qs";
 import MembershipBenefits from "./san-pham/membership-benefits";
 
-interface ISearchTrends {
-  data: ISearchTrend[];
-  meta: IMeta;
-}
-
-interface IProducts {
-  data: IProduct[];
-  meta: IMeta;
-}
-
-interface IBanners {
-  data: IBanner[];
-  meta: IMeta;
-}
-
 export default async function Home() {
-  const querySearchTrends = qs.stringify({
-    populate: "*",
-    pagination: {
-      page: 1,
-      pageSize: 6,
-    },
-  });
-
-  const queryFavoriteProducts = qs.stringify({
-    populate: "*",
-    pagination: {
-      page: 1,
-      pageSize: 8,
-    },
-  });
-
-  const queryNewProducts = qs.stringify({
-    populate: "*",
-    pagination: {
-      page: 1,
-      pageSize: 8,
-    },
-  });
-
-  const queryPromotionalProducts = qs.stringify({
-    populate: "*",
-    pagination: {
-      page: 1,
-      pageSize: 8,
-    },
-  });
-
-  const queryBanners = qs.stringify({
-    populate: "*",
-    pagination: {
-      page: 1,
-      pageSize: 6,
-    },
-  });
-
-  const searchTrend: ISearchTrends = await instance(`/api/search-trends?${querySearchTrends}`);
-  const favoriteProducts: IProducts = await instance(`/api/products?${queryFavoriteProducts}`);
-  const newProducts: IProducts = await instance(`/api/products?${queryNewProducts}`);
-  const promotionalProducts: IProducts = await instance(`/api/products?${queryPromotionalProducts}`);
-  const banners: IBanners = await instance(`/api/banners?${queryBanners}`);
-
   return (
     <>
       <div className="relative w-full">
@@ -116,8 +50,8 @@ export default async function Home() {
         showViewAll
         urlAll="san-pham-duoc-yeu-thich-nhat"
       />
-      <ProductGrid title="Sản phẩm mới" items={newProducts.data} showViewAll />
-      <ProductGrid title="Sản phẩm khuyến mãi" items={promotionalProducts.data} showViewAll />
+      <ProductGrid title="Sản phẩm mới" items={favoriteProducts.data} showViewAll />
+      <ProductGrid title="Sản phẩm khuyến mãi" items={favoriteProducts.data} showViewAll />
 
       <div
         className="size-full flex flex-col justify-center gap-4 p-4"
