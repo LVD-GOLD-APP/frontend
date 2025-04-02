@@ -3,7 +3,7 @@ import { codeInspectorPlugin } from "code-inspector-plugin";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["localhost", "example.com"],
+    domains: ["localhost", "example.com", "lili.vn"],
   },
   webpack: (config) => {
     config.plugins.push(

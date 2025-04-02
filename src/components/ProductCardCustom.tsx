@@ -25,7 +25,7 @@ const ProductCardCustom = ({ item }: { item: IProduct }) => {
       <Link href={`/san-pham/${item.slug}`} className="group">
         <div className="overflow-hidden rounded-t-xl">
           <Image
-            src={selectedVariant?.image?.url || item.images[0]?.url || "/default-image.png"}
+            src={selectedVariant?.image?.url || item?.images?.[0]?.url || "/default-image.png"}
             width={400}
             height={400}
             className="aspect-square rounded-t-xl hover:scale-105 transition-transform duration-300"

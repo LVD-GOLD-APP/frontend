@@ -1,7 +1,7 @@
 import { ImageType } from "./types";
 
 export interface IProduct {
-  [x: string]: any;
+  [x: string]: unknown;
   id: number;
   documentId: string;
   title: string;

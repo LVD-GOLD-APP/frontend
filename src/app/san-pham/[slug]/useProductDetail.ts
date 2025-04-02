@@ -1,4 +1,5 @@
 import instance from "@/lib/axios-interceptor";
+import { favoriteProducts } from "@/lib/services/mock-data";
 import { IMeta } from "@/lib/types/IPagination";
 import { IProduct } from "@/lib/types/IProduct";
 import qs from "qs";
@@ -52,8 +53,9 @@ export function useProductDetail(slug: string) {
       );
 
       try {
-        const response: IProducts = await instance(`/api/products?${queryParams}`);
-        console.log(response);
+        // const response: IProducts = await instance(`/api/products?${queryParams}`);
+        const response = favoriteProducts;
+
         if (response.data.length > 0) {
           setProductDetail(response.data[0]);
         } else {
