@@ -1,21 +1,21 @@
-import Image from "next/image"
-import Link from "next/link"
-import { formatCurrency } from "@/lib/utils"
+import Image from "next/image";
+import Link from "next/link";
+import { formatCurrency } from "@/lib/utils";
 
 import BoTrangSuc from "@/assets/Bo-trang-suc-bac-dinh-da-pha-le-hinh-trai-tim-LILI_941338-10.jpg";
 
-
 interface ProductCardProps {
-  id: string
-  name: string
-  price: number
-  priceRange?: [number, number]
-  image: string
-  slug: string
-  colors?: string[]
+  id: string;
+  name: string;
+  price: number;
+  priceRange?: [number, number];
+  image: string;
+  slug: string;
+  colors?: string[];
 }
 
 export function ProductCard({ id, name, price, priceRange, image, slug, colors }: ProductCardProps) {
+  console.log(slug);
   return (
     <Link href={`/san-pham/${slug}`} className="group">
       <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
@@ -51,14 +51,14 @@ export function ProductCard({ id, name, price, priceRange, image, slug, colors }
                       color === "white"
                         ? "#f8f8f8"
                         : color === "pink"
-                          ? "#ec4899"
-                          : color === "purple"
-                            ? "#a855f7"
-                            : color === "blue"
-                              ? "#3b82f6"
-                              : color === "green"
-                                ? "#22c55e"
-                                : color,
+                        ? "#ec4899"
+                        : color === "purple"
+                        ? "#a855f7"
+                        : color === "blue"
+                        ? "#3b82f6"
+                        : color === "green"
+                        ? "#22c55e"
+                        : color,
                   }}
                 />
               ))}
@@ -67,6 +67,5 @@ export function ProductCard({ id, name, price, priceRange, image, slug, colors }
         </div>
       </div>
     </Link>
-  )
+  );
 }
-

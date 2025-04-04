@@ -1,79 +1,134 @@
-"use client"
+"use client";
+import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Swiper as SwiperType } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/thumbs";
+import { FreeMode, Pagination, Thumbs } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { useState } from "react"
-import Image from "next/image"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+export default function ProductImageGallery({
+  imageList = [],
+  selectedImage,
+}: {
+  imageList?: { url: string }[];
+  selectedImage?: string | null;
+}) {
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+  const [mainSwiper, setMainSwiper] = useState<SwiperType | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const prevBtnRef = useRef<HTMLButtonElement | null>(null);
+  const nextBtnRef = useRef<HTMLButtonElement | null>(null);
 
-const images = [
-  "/placeholder.svg?height=500&width=500",
-  "/placeholder.svg?height=500&width=500&text=Image+2",
-  "/placeholder.svg?height=500&width=500&text=Image+3",
-  "/placeholder.svg?height=500&width=500&text=Image+4",
-]
+  const imagesToShow = useMemo(() => {
+    if (selectedImage) {
+      return [{ url: selectedImage }, ...imageList.filter((img) => img.url !== selectedImage)];
+    }
+    return imageList;
+  }, [selectedImage, imageList]);
 
-export default function ProductImageGallery() {
-  const [currentImage, setCurrentImage] = useState(0)
+  useEffect(() => {
+    if (mainSwiper) {
+      mainSwiper.slideTo(0);
+      setCurrentIndex(0);
+    }
+  }, [selectedImage, mainSwiper]);
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev === images.length - 1 ? 0 : prev + 1))
-  }
+  const goToPrevSlide = () => {
+    if (mainSwiper && currentIndex > 0) {
+      mainSwiper.slideTo(currentIndex - 1);
+    }
+  };
 
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev === 0 ? images.length - 1 : prev - 1))
-  }
-
-  const selectImage = (index: number) => {
-    setCurrentImage(index)
-  }
+  const goToNextSlide = () => {
+    if (mainSwiper && currentIndex < imagesToShow.length - 1) {
+      mainSwiper.slideTo(currentIndex + 1);
+    }
+  };
 
   return (
     <div>
       <div className="relative rounded-md overflow-hidden mb-4">
-        <div className="aspect-square relative">
-          <Image
-            src={images[currentImage] || "/placeholder.svg"}
-            alt="Product image"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
         <button
-          onClick={prevImage}
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-1 shadow-md"
-          aria-label="Previous image"
+          ref={prevBtnRef}
+          onClick={goToPrevSlide}
+          disabled={currentIndex === 0}
+          className={`absolute left-2 top-1/2 z-10 -translate-y-1/2 bg-white/60 p-3 rounded-full shadow-lg hover:bg-white transition ${
+            currentIndex === 0 ? "opacity-50 cursor-not-allowed" : "opacity-100"
+          }`}
         >
-          <ChevronLeft className="h-6 w-6" />
+          ❮
         </button>
         <button
-          onClick={nextImage}
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 rounded-full p-1 shadow-md"
-          aria-label="Next image"
+          ref={nextBtnRef}
+          onClick={goToNextSlide}
+          disabled={currentIndex === imagesToShow.length - 1}
+          className={`absolute right-2 top-1/2 z-10 -translate-y-1/2 bg-white/60 p-3 rounded-full shadow-lg hover:bg-white transition ${
+            currentIndex === imagesToShow.length - 1 ? "opacity-50 cursor-not-allowed" : "opacity-100"
+          }`}
         >
-          <ChevronRight className="h-6 w-6" />
+          ❯
         </button>
-      </div>
-      <div className="grid grid-cols-4 gap-2">
-        {images.map((image, index) => (
-          <button
-            key={index}
-            onClick={() => selectImage(index)}
-            className={`border rounded-md overflow-hidden ${
-              currentImage === index ? "border-primary" : "border-gray-200"
-            }`}
-          >
-            <div className="aspect-square relative">
-              <Image
-                src={image || "/placeholder.svg"}
-                alt={`Product thumbnail ${index + 1}`}
-                fill
-                className="object-cover"
-              />
-            </div>
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
 
+        <Swiper
+          modules={[Pagination, Thumbs]}
+          pagination={{ clickable: true }}
+          thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
+          onSwiper={setMainSwiper}
+          onSlideChange={(swiper) => {
+            setCurrentIndex(swiper.activeIndex);
+            thumbsSwiper?.slideTo(swiper.activeIndex); // Đồng bộ thumbnail
+          }}
+          loop={false} // Không cho phép lặp lại vô hạn
+          className="relative"
+        >
+          {imagesToShow.map((image, index) => (
+            <SwiperSlide key={index}>
+              <div className="aspect-square relative">
+                <Image
+                  src={image.url || "/placeholder.svg"}
+                  alt={`Product image ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <Swiper
+        modules={[FreeMode, Thumbs]}
+        spaceBetween={10}
+        slidesPerView={4}
+        freeMode
+        watchSlidesProgress
+        onSwiper={setThumbsSwiper}
+        onSlideChange={(swiper) => {
+          setCurrentIndex(swiper.activeIndex);
+          mainSwiper?.slideTo(swiper.activeIndex); // Đồng bộ ảnh chính
+        }}
+        className="w-full"
+      >
+        {imagesToShow.map((image, index) => (
+          <SwiperSlide key={index} className="cursor-pointer">
+            <div
+              onClick={() => {
+                mainSwiper?.slideTo(index);
+                thumbsSwiper?.slideTo(index);
+              }}
+              className={`aspect-square relative border-2 rounded-md overflow-hidden cursor-pointer transition-opacity ${
+                index === currentIndex ? "border-red-500 opacity-100" : "border-gray-300 opacity-50"
+              }`}
+            >
+              <Image src={image.url || "/placeholder.svg"} alt="Thumbnail" fill className="object-cover" />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+}

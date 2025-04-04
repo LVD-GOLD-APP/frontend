@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
 
 const TIMEOUT = 1 * 60 * 1000;
 axios.defaults.timeout = TIMEOUT;
@@ -14,7 +14,7 @@ const onRequestSuccess = (config: any) => {
   return config;
 };
 const onResponseSuccess = (response: AxiosResponse) => {
-  return response.data
+  return response.data;
 };
 
 const onResponseError = (err: any) => {
