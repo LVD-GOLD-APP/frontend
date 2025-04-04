@@ -11,9 +11,11 @@ import { EyeIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCartComponent } from "@/components/layout/ShoppingCartComponent";
+import { useDisclosure } from "@heroui/react";
 
 export default function Header() {
   const [hideSlider, setHideSlider] = useState(false);
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +60,7 @@ export default function Header() {
             <EyeIcon />
             Sản phẩm đã xem
           </Button>
-          <ShoppingCartComponent />
+          <ShoppingCartComponent isOpen={isOpen} onOpenChange={onOpenChange} onOpen={onOpen} />
           <div className="flex lg:hidden">
             <DrawerCustom />
           </div>
