@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import instance from "@/lib/axios-interceptor";
 import { IFooterData } from "@/lib/types/IFooter";
 import { IMeta } from "@/lib/types/IPagination";
