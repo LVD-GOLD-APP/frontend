@@ -1,6 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import ProductImageGallery from "@/app/san-pham/product-image-gallery";
+import ProductImageGallery from "@/app/(main)/san-pham/product-image-gallery";
 import Breadcrumbs from "@/components/breadcrumbs";
 import MembershipBenefits from "../membership-benefits";
 import ProductInfo from "../product-info";

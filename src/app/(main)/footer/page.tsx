@@ -1,10 +1,11 @@
 "use client";
 import VLogo from "@/assets/VLogo_LiLi_Horizontal.svg";
+import SubFooter from "@/components/layout/SubFooter";
 import { Button } from "@/components/ui/button";
 import { mockFooterData } from "@/lib/services/mock-data";
 import { IFooterData } from "@/lib/types/IFooter";
 import { Divider } from "@heroui/divider";
-import { Clock4, Headset, Mail, MapPin, Medal, Package, Phone, Smile } from "lucide-react";
+import { Clock4, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -40,34 +41,7 @@ const FooterComponent = () => {
   return (
     <footer className={`border-t-1 border-[#C4001F] p-4 ${isProductPage ? "mb-24" : ""}`}>
       <div className="max-w-[1420px] mx-auto">
-        <div className="grid grid-cols-1 gap-2 p-4 md:grid-cols-4 max-w-[1420px] mx-auto">
-          <div className="flex flex-col items-center justify-center gap-2 p-2">
-            <Smile size={48} strokeWidth={1} />
-            <h3>KHÁCH HÀNG HÀI LÒNG</h3>
-            <p className="text-center text-sm">
-              Đặt sự hài lòng của khách hàng là ưu tiên số 1 trong mọi suy nghĩ hành động
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-2 p-2">
-            <Medal size={48} strokeWidth={1} />
-            <h3>CHẤT LƯỢNG CAO CẤP</h3>
-            <p className="text-center text-sm">Mọi sản phẩm đều được thiết kế và chế tác bởi các nghệ nhân hàng đầu</p>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-2 p-2">
-            <Package size={48} strokeWidth={1} />
-            <h3>ĐỔI TRẢ DỄ DÀNG</h3>
-            <p className="text-center text-sm">
-              10 ngày đổi trả (LiLi đến tận nơi nhận hàng). Hoàn tiền nếu không hài lòng
-            </p>
-          </div>
-          <div className="flex flex-col items-center justify-center gap-2 p-2">
-            <Headset size={48} strokeWidth={1} />
-            <h3>HỖ TRỢ NHIỆT TÌNH</h3>
-            <p className="text-center text-sm">
-              Tất cả câu hỏi đều được các chuyên viên của LiLi tư vấn, giải đáp kỹ càng
-            </p>
-          </div>
-        </div>
+        <SubFooter />
         <Divider className="my-8" />
 
         <div className="md:flex md:justify-between md:items-start">

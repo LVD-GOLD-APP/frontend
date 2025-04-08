@@ -1,15 +1,16 @@
 "use client";
 
-import QuantitySelector from "@/app/san-pham/quantity-selector";
+import QuantitySelector from "@/app/(main)/san-pham/quantity-selector";
 import { Divider } from "@heroui/divider";
-import { useDisclosure } from "@heroui/react";
 import { ShoppingBag, Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import DrawerHeroUI from "./DrawerHeroUI";
+import Link from "next/link";
+import { useDisclosure } from "@heroui/react";
 
 export const ShoppingCartComponent = () => {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const mockData = [
     {
       url: "https://lili.vn/wp-content/uploads/2021/12/Bong-tai-bac-nu-tron-hinh-bong-hoa-5-canh-Cute-LILI_749976_1.jpg",
@@ -93,8 +94,10 @@ export const ShoppingCartComponent = () => {
               <div className="text-[20px]">Tổng giá</div>
               <div className="text-[20px] text-[#C60018]">8.861.000₫</div>
             </div>
-            <div className="pt-2">
-              <Button className="text-[20px] bg-[#C60018] border-none text-white w-full">THANH TOÁN</Button>
+            <div className="pt-2" onClick={onClose}>
+              <Link href={`/checkout`}>
+                <Button className="text-[20px] bg-[#C60018] border-none text-white w-full">THANH TOÁN</Button>
+              </Link>
             </div>
           </div>
         }
