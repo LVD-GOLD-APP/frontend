@@ -60,7 +60,7 @@ export default function Header() {
             <EyeIcon />
             Sản phẩm đã xem
           </Button>
-          <ShoppingCartComponent isOpen={isOpen} onOpenChange={onOpenChange} onOpen={onOpen} />
+          <ShoppingCartComponent />
           <div className="flex lg:hidden">
             <DrawerMenu isOpen={isOpen} onOpenChange={onOpenChange} onOpen={onOpen} />
           </div>
