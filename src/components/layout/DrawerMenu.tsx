@@ -83,12 +83,15 @@ interface Props {
   isOpen: boolean;
   onOpenChange: () => void;
   onOpen: () => void;
+  fromStickyMenuBar?: boolean;
 }
 
-export const DrawerMenu = ({ isOpen, onOpenChange, onOpen }: Props) => {
+export const DrawerMenu = ({ isOpen, onOpenChange, onOpen, fromStickyMenuBar = false }: Props) => {
   return (
     <div>
-      <Menu strokeWidth={1} size={28} color="black" onClick={onOpen} className="cursor-pointer" />
+      {!fromStickyMenuBar && (
+        <Menu strokeWidth={1} size={28} color="black" onClick={onOpen} className="cursor-pointer" />
+      )}
       <DrawerHeroUI
         isOpen={isOpen}
         onOpenChange={onOpenChange}

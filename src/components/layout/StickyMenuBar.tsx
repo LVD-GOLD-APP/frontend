@@ -35,7 +35,7 @@ function StickyMenuBar() {
   return (
     <>
       <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50">
-        <div className="max-w-[1420px] mx-auto px-4 py-2 flex justify-between items-center">
+        <div className="max-w-[1420px] mx-auto p-1 flex justify-between items-center">
           {menuItems.map((item, index) => (
             <div
               key={index}
@@ -50,7 +50,7 @@ function StickyMenuBar() {
           ))}
         </div>
       </div>
-      <DrawerMenu isOpen={isOpen} onOpenChange={onOpenChange} onOpen={onOpen} />
+      <DrawerMenu isOpen={isOpen} onOpenChange={onOpenChange} onOpen={onOpen} fromStickyMenuBar />
     </>
   );
 }
