@@ -2,18 +2,14 @@
 
 import QuantitySelector from "@/app/san-pham/quantity-selector";
 import { Divider } from "@heroui/divider";
+import { useDisclosure } from "@heroui/react";
 import { ShoppingBag, Trash2Icon } from "lucide-react";
 import Image from "next/image";
-import DrawerHeroUI from "./DrawerHeroUI";
 import { Button } from "../ui/button";
+import DrawerHeroUI from "./DrawerHeroUI";
 
-interface Props {
-  isOpen: boolean;
-  onOpenChange: () => void;
-  onOpen: () => void;
-}
-
-export const ShoppingCartComponent = ({ isOpen, onOpenChange, onOpen }: Props) => {
+export const ShoppingCartComponent = () => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const mockData = [
     {
       url: "https://lili.vn/wp-content/uploads/2021/12/Bong-tai-bac-nu-tron-hinh-bong-hoa-5-canh-Cute-LILI_749976_1.jpg",
