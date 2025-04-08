@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import FooterComponent from "./footer/page";
 import "./globals.css";
+import StickyMenuBar from "@/components/layout/StickyMenuBar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +33,9 @@ export default async function RootLayout({
         <Header />
         {children}
         <FooterComponent />
+        <div className="mt-16 lg:hidden">
+          <StickyMenuBar />
+        </div>
       </body>
     </html>
   );

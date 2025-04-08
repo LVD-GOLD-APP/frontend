@@ -3,10 +3,10 @@ import { ReactNode } from "react";
 
 interface Props {
   isOpen: boolean;
-  onOpenChange: () => void;
-  header: ReactNode;
-  body: ReactNode;
-  footer: ReactNode;
+  onOpenChange?: () => void;
+  header?: ReactNode;
+  body?: ReactNode;
+  footer?: ReactNode;
   placement?: "left" | "right" | "top" | "bottom";
 }
 
@@ -17,7 +17,7 @@ export default function DrawerHeroUI({ isOpen, onOpenChange, header, body, foote
         <DrawerContent>
           {(onClose: () => void) => (
             <>
-              <DrawerHeader className="flex flex-col gap-1">{header || "Drawer Title"}</DrawerHeader>
+              <DrawerHeader className="flex flex-col gap-1">{header}</DrawerHeader>
               <DrawerBody className="p-0">
                 {body || (
                   <>
@@ -38,18 +38,7 @@ export default function DrawerHeroUI({ isOpen, onOpenChange, header, body, foote
                   </>
                 )}
               </DrawerBody>
-              <DrawerFooter>
-                {footer || (
-                  <>
-                    <Button color="danger" variant="light" onPress={onClose}>
-                      Close
-                    </Button>
-                    <Button color="primary" onPress={onClose}>
-                      Action
-                    </Button>
-                  </>
-                )}
-              </DrawerFooter>
+              <DrawerFooter>{footer}</DrawerFooter>
             </>
           )}
         </DrawerContent>

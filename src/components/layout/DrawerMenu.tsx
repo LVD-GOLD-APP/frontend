@@ -1,19 +1,19 @@
 "use client";
 
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Divider } from "@heroui/divider";
 import { Gift, Handshake, IdCard, Menu, Newspaper, ThumbsUp, UsersRound } from "lucide-react";
 import { Button } from "../ui/button";
-import { Divider } from "@heroui/divider";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import DrawerHeroUI from "./DrawerHeroUI";
 
-const features = [
+export const features = [
   { icon: IdCard, label: "Ưu đãi thành viên", url: "/member-benefits" },
   { icon: ThumbsUp, label: "Đánh giá từ Google", url: "/google-reviews" },
   { icon: Gift, label: "Quà tặng miễn phí", url: "/free-gifts" },
   { icon: Handshake, label: "Ưu đãi affiliate", url: "/affiliate-deals" },
 ];
 
-const categoriesList = [
+export const categoriesList = [
   {
     title: "VÒNG - LẮC",
     items: [
@@ -79,32 +79,36 @@ const categoriesList = [
   },
 ];
 
-export const DrawerCustom = () => {
+interface Props {
+  isOpen: boolean;
+  onOpenChange: () => void;
+  onOpen: () => void;
+}
+
+export const DrawerMenu = ({ isOpen, onOpenChange, onOpen }: Props) => {
   return (
-    <Sheet>
-      <SheetTrigger>
-        <Menu strokeWidth={1} size={28} color="black" />
-      </SheetTrigger>
-      <SheetContent side="left">
-        <SheetHeader>
-          <SheetDescription className="text-black">
-            <Button variant="outline" className="bg-white border border-black">
-              Sản phẩm đã xem
-            </Button>
-            <Divider className="my-4" />
-
-            {/* Icons Grid */}
-            <div className="grid grid-cols-4">
-              {features.map(({ icon: Icon, label, url }, index) => (
-                <a key={index} href={url} className="flex flex-col items-center p-1 aspect-square">
-                  <Icon size={42} strokeWidth={1} />
-                  <h3 className="text-xs font-bold">{label}</h3>
-                </a>
-              ))}
+    <div>
+      <Menu strokeWidth={1} size={28} color="black" onClick={onOpen} className="cursor-pointer" />
+      <DrawerHeroUI
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        body={
+          <div className="h-full overflow-y-auto">
+            <div>
+              <Button variant="outline" className="bg-white border border-black">
+                Sản phẩm đã xem
+              </Button>
+              <Divider className="my-4" />
+              {/* Icons Grid */}
+              <div className="grid grid-cols-4">
+                {features.map(({ icon: Icon, label, url }, index) => (
+                  <a key={index} href={url} className="flex flex-col items-center p-1 aspect-square">
+                    <Icon size={42} strokeWidth={1} />
+                    <h3 className="text-xs font-bold">{label}</h3>
+                  </a>
+                ))}
+              </div>
             </div>
-
-            <Divider className="my-4" />
-
             {/* Danh mục sản phẩm */}
             {categoriesList.map((category, index) => (
               <Accordion key={index} className="bg-[#EDEDED]" type="multiple">
@@ -144,9 +148,9 @@ export const DrawerCustom = () => {
                 <h2>{label}</h2>
               </a>
             ))}
-          </SheetDescription>
-        </SheetHeader>
-      </SheetContent>
-    </Sheet>
+          </div>
+        }
+      />
+    </div>
   );
 };

@@ -1,17 +1,17 @@
-"use client"; // Đây là một Client Component
+"use client";
 
-import { useState, useEffect } from "react";
 import Logo from "@/assets/Logo.svg";
-import { DrawerCustom } from "@/components/layout/DrawerCustom";
 import MenuHeader from "@/components/layout/MenuHeader";
+import { ShoppingCartComponent } from "@/components/layout/ShoppingCartComponent";
 import { SliderTop } from "@/components/layout/SliderTop";
 import { Button } from "@/components/ui/button";
 import { Input } from "@heroui/input";
+import { useDisclosure } from "@heroui/react";
 import { EyeIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCartComponent } from "@/components/layout/ShoppingCartComponent";
-import { useDisclosure } from "@heroui/react";
+import { useEffect, useState } from "react";
+import { DrawerMenu } from "./DrawerMenu";
 
 export default function Header() {
   const [hideSlider, setHideSlider] = useState(false);
@@ -62,7 +62,7 @@ export default function Header() {
           </Button>
           <ShoppingCartComponent isOpen={isOpen} onOpenChange={onOpenChange} onOpen={onOpen} />
           <div className="flex lg:hidden">
-            <DrawerCustom />
+            <DrawerMenu isOpen={isOpen} onOpenChange={onOpenChange} onOpen={onOpen} />
           </div>
         </div>
       </div>

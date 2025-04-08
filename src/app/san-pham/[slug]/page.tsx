@@ -60,19 +60,21 @@ export default function ProductPage({ params }: PageProps) {
       </div>
 
       {/* StickyCheckoutBar - Animation */}
-      <AnimatePresence>
-        {isStickyVisible && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed bottom-0 left-0 w-full"
-          >
-            <StickyCheckoutBar productDetail={productDetail} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className="lg:block hidden">
+        <AnimatePresence>
+          {isStickyVisible && (
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 100, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="fixed bottom-0 left-0 w-full"
+            >
+              <StickyCheckoutBar productDetail={productDetail} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
