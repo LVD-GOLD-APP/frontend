@@ -8,9 +8,18 @@ interface Props {
   body?: ReactNode;
   footer?: ReactNode;
   placement?: "left" | "right" | "top" | "bottom";
+  showFooter?: boolean;
 }
 
-export default function DrawerHeroUI({ isOpen, onOpenChange, header, body, footer, placement = "left" }: Props) {
+export default function DrawerHeroUI({
+  isOpen,
+  onOpenChange,
+  header,
+  body,
+  footer,
+  placement = "left",
+  showFooter = false,
+}: Props) {
   return (
     <>
       <Drawer isOpen={isOpen} onOpenChange={onOpenChange} placement={placement}>
@@ -38,7 +47,19 @@ export default function DrawerHeroUI({ isOpen, onOpenChange, header, body, foote
                   </>
                 )}
               </DrawerBody>
-              <DrawerFooter>{footer}</DrawerFooter>
+              <DrawerFooter>
+                {footer ||
+                  (showFooter && (
+                    <>
+                      <Button color="danger" variant="light" onPress={onClose}>
+                        Close
+                      </Button>
+                      <Button color="primary" onPress={onClose}>
+                        Action
+                      </Button>
+                    </>
+                  ))}
+              </DrawerFooter>
             </>
           )}
         </DrawerContent>
