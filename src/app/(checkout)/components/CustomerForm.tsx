@@ -10,26 +10,26 @@ export default function CustomerForm() {
       <h2 className="text-xl">THÔNG TIN KHÁCH HÀNG</h2>
       {/* Thông tin cơ bản */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Input isRequired label="Họ tên" placeholder="Nhập họ tên" />
-        <Input isRequired label="Số điện thoại" placeholder="Nhập số điện thoại" />
-        <Input isRequired label="Email" placeholder="Nhập email" type="email" />
+        <Input size="sm" isRequired label="Họ tên" />
+        <Input size="sm" isRequired label="Số điện thoại" />
+        <Input size="sm" isRequired label="Email" />
       </div>
       {/* Địa chỉ */}
       <div>
         <AddressForm />
       </div>
       {/* Ghi chú */}
-      <Textarea label="Ghi chú" placeholder="Nhập ghi chú (nếu có)" />
+      <Textarea size="sm" label="Ghi chú" />
       {/* Checkbox */}
-      <Checkbox isSelected={sendToOther} onValueChange={setSendToOther}>
-        Gửi người khác nhận hàng (nếu có)
+      <Checkbox size="sm" isSelected={sendToOther} onValueChange={setSendToOther}>
+        <div className="text-[#737373] text-[14px]">Gửi người khác nhận hàng (nếu có)</div>
       </Checkbox>
       {/* Thông tin người nhận khác */}
       {sendToOther && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input isRequired label="Họ tên người nhận" placeholder="Nhập họ tên người nhận" />
-            <Input isRequired label="Số điện thoại người nhận" placeholder="Nhập số điện thoại người nhận" />
+            <Input size="sm" isRequired label="Họ tên người nhận" />
+            <Input size="sm" isRequired label="Số điện thoại người nhận" />
           </div>
           <div>
             <AddressForm />
