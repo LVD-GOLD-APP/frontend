@@ -60,7 +60,7 @@ const AddressForm: React.FC = () => {
     <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
       {/* Tỉnh/Thành phố */}
       <Autocomplete
-        required
+        isRequired
         label="Tỉnh/Thành phố"
         selectedKey={selectedProvince || undefined}
         isClearable={false}
@@ -73,7 +73,7 @@ const AddressForm: React.FC = () => {
 
       {/* Quận/Huyện */}
       <Autocomplete
-        required
+        isRequired
         label="Quận/Huyện"
         isDisabled={!selectedProvince}
         selectedKey={selectedDistrict || undefined}
@@ -87,7 +87,7 @@ const AddressForm: React.FC = () => {
 
       {/* Phường/Xã */}
       <Autocomplete
-        required
+        isRequired
         label="Phường/Xã"
         isDisabled={!selectedDistrict}
         selectedKey={selectedWard || undefined}
@@ -100,7 +100,7 @@ const AddressForm: React.FC = () => {
       </Autocomplete>
 
       {/* Địa chỉ chi tiết */}
-      <Input label="Địa chỉ" placeholder="Nhập địa chỉ chi tiết" />
+      <Input isRequired label="Địa chỉ" placeholder="Nhập địa chỉ chi tiết" />
     </div>
   );
 };

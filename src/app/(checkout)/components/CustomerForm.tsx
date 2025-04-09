@@ -10,9 +10,9 @@ export default function CustomerForm() {
       <h2 className="text-xl">THÔNG TIN KHÁCH HÀNG</h2>
       {/* Thông tin cơ bản */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Input required label="Họ tên" placeholder="Nhập họ tên" />
-        <Input required label="Số điện thoại" placeholder="Nhập số điện thoại" />
-        <Input required label="Email" placeholder="Nhập email" type="email" />
+        <Input isRequired label="Họ tên" placeholder="Nhập họ tên" />
+        <Input isRequired label="Số điện thoại" placeholder="Nhập số điện thoại" />
+        <Input isRequired label="Email" placeholder="Nhập email" type="email" />
       </div>
       {/* Địa chỉ */}
       <div>
@@ -28,8 +28,8 @@ export default function CustomerForm() {
       {sendToOther && (
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input required label="Họ tên người nhận" placeholder="Nhập họ tên người nhận" />
-            <Input required label="Số điện thoại người nhận" placeholder="Nhập số điện thoại người nhận" />
+            <Input isRequired label="Họ tên người nhận" placeholder="Nhập họ tên người nhận" />
+            <Input isRequired label="Số điện thoại người nhận" placeholder="Nhập số điện thoại người nhận" />
           </div>
           <div>
             <AddressForm />
