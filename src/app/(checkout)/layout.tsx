@@ -1,6 +1,6 @@
 import CheckoutFooter from "@/components/checkout/CheckoutFooter";
-import "../globals.css";
 import { Metadata } from "next";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "Thanh toan",
@@ -9,11 +9,8 @@ export const metadata: Metadata = {
 
 export default function CheckoutLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi">
+    <html lang="en">
       <body>
-        <div className="border-b-1 border-[#C4001F]">
-          <h2 className="text-center text-lg font-bold">Trang Thanh Toán</h2>
-        </div>
         <main>{children}</main>
         <CheckoutFooter />
       </body>
