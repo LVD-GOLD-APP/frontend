@@ -13,7 +13,7 @@ interface Props {
 
 function CheckoutStep1({ onNextStep }: Props) {
   return (
-    <div className="flex flex-col-reverse lg:grid lg:grid-cols-2  gap-2">
+    <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2">
       <div className="flex flex-col gap-2 p-4 text-[14px]">
         <div className="flex flex-col items-center my-2">
           <div className="text-[20px]">THÔNG TIN ĐẶT HÀNG</div>
