@@ -1,4 +1,6 @@
 import MembershipBenefits from "@/app/(main)/san-pham/membership-benefits";
+import { Button } from "@heroui/button";
+import Link from "next/link";
 import React from "react";
 
 function CheckoutStep3() {
@@ -11,7 +13,7 @@ function CheckoutStep3() {
         </span>
         <div className="flex-grow h-px bg-black mx-2 sm:mx-4"></div>
       </div>
-      <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-2">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 gap-2">
         <div className="flex flex-col gap-2 p-4">
           <h2 className="text-lg font-semibold border-b pb-2 mb-4">MÃ ĐƠN HÀNG: 170757</h2>
           <div>
@@ -118,7 +120,7 @@ function CheckoutStep3() {
           </div>
         </div>
         <div className="flex flex-col gap-2 p-4">
-          <div className="p-4 border-b text-sm leading-relaxed">
+          <div className="pb-4 border-b text-sm leading-relaxed">
             <p className="font-semibold mb-2">LƯU Ý:</p>
             <ul className="space-y-1 list-disc list-inside">
               <li>
@@ -141,6 +143,14 @@ function CheckoutStep3() {
             </ul>
           </div>
           <MembershipBenefits />
+          <div className="p-4 mx-auto">
+            <Link href="/">
+              <Button className="flex items-center gap-2 px-4 py-2 bg-black text-white text-sm font-semibold rounded">
+                <span className="text-lg">»</span>
+                TIẾP TỤC MUA SẮM
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
