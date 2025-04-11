@@ -2,6 +2,7 @@ import MembershipBenefits from "@/app/(main)/san-pham/membership-benefits";
 import { Button } from "@heroui/button";
 import Link from "next/link";
 import React from "react";
+import PaymentQR from "./PaymentQR";
 
 function CheckoutStep3() {
   return (
@@ -61,15 +62,28 @@ function CheckoutStep3() {
                   <span>Giao nhận hàng:</span>
                   <span>Giao nhanh chóng (1-4 ngày)</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Phương thức thanh toán:</span>
-                  <span>Thanh toán tiền mặt khi nhận hàng (COD)</span>
-                </div>
+                <>
+                  <div className="flex justify-between">
+                    <span>Phương thức thanh toán:</span>
+                    <span>Thanh toán tiền mặt khi nhận hàng (COD)</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Thanh toán Online:</span>
+                    <span>-20.000₫</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Phương thức thanh toán:</span>
+                    <span>Chuyển khoản ngân hàng hoặc ví điện tử MoMo, VNPAY,... (Tiết Kiệm 20.000đ)</span>
+                  </div>
+                </>
               </div>
 
               <div className="mt-4 border-t pt-4 flex justify-between items-center text-base font-semibold text-red-600">
                 <span>TỔNG CỘNG:</span>
                 <span>1.751.000₫</span>
+              </div>
+              <div className="py-2">
+                <PaymentQR />
               </div>
             </div>
           </div>
