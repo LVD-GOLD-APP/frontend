@@ -1,9 +1,10 @@
 import Header from "@/components/layout/Header";
+import StickyMenuBar from "@/components/layout/StickyMenuBar";
+import { getMenuCategories } from "@/lib/api/menu";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import FooterComponent from "./footer/page";
 import "../globals.css";
-import StickyMenuBar from "@/components/layout/StickyMenuBar";
+import FooterComponent from "./footer/page";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,10 +28,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const categories = await getMenuCategories();
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}>
-        <Header />
+        <Header categories={categories} />
         {children}
         <FooterComponent />
         <div className="mt-16 lg:hidden">

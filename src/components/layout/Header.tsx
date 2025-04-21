@@ -12,8 +12,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DrawerMenu } from "./DrawerMenu";
+import { Category } from "@/lib/api/menu";
 
-export default function Header() {
+interface MenuHeaderProps {
+  categories: Category[];
+}
+
+export default function Header({ categories }: MenuHeaderProps) {
   const [hideSlider, setHideSlider] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -67,7 +72,7 @@ export default function Header() {
         </div>
       </div>
       <div className="max-w-[1420px] px-10 mx-auto lg:flex hidden">
-        <MenuHeader />
+        <MenuHeader categories={categories} />
       </div>
     </div>
   );

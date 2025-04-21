@@ -2,17 +2,42 @@
 
 import instance from "../axios-interceptor";
 
-export interface Category {
-  id: number;
+interface LinkItem {
   name: string;
-  // Bạn có thể thêm các field khác tùy theo dữ liệu thực tế
+  url: string;
+}
+
+export interface MenuItem {
+  id: string;
+  name: string;
+  links: LinkItem[];
+}
+
+export interface Category {
+  id: string;
+  code: string;
+  creationTime: string;
+  creatorId: string;
+  description: string;
+  images: string;
+  items: MenuItem[];
+  lastModificationTime: string | null;
+  lastModifierId: string | null;
+  meta: string;
+  name: string;
+  order: number;
+  parentCode: string | null;
+  showFooter: boolean;
+  showHomePage: boolean;
+  tags: string;
+  url: string;
 }
 
 export const getMenuCategories = async (): Promise<Category[]> => {
   try {
-    const response = await instance<Category[]>("/api/app/menu/categories");
-    const data = response.data;
-    return data;
+    const response = await instance<Category[]>("/menu/categories");
+
+    return response.data;
   } catch (error) {
     console.error("Lỗi gọi API getMenuCategories:", error);
     throw error;

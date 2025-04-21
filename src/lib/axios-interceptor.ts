@@ -14,7 +14,7 @@ const onRequestSuccess = (config: any) => {
   return config;
 };
 const onResponseSuccess = (response: AxiosResponse) => {
-  return response.data;
+  return response;
 };
 
 const onResponseError = (err: any) => {
