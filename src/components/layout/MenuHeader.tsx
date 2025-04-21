@@ -3,8 +3,9 @@ import { Divider } from "@heroui/divider";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImgMenu from "@/assets/Lac-tay-bac-nu-ma-bach-kim-dinh-pha-le-co-bon-la-LILI_612672_34.jpg";
+import { Category, getMenuCategories } from "@/lib/api/menu";
 
 interface LinkItem {
   name: string;
@@ -177,6 +178,21 @@ function MenuHeader() {
       url: "",
     },
   ];
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  console.log(categories);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await getMenuCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error("Lỗi khi tải danh mục menu:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   return (
     <div className="relative">
