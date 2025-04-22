@@ -35,7 +35,7 @@ export interface Category {
 
 export const getMenuCategories = async (): Promise<Category[]> => {
   try {
-    const response = await instance<Category[]>("/menu/categories");
+    const response = await instance<Category[]>("/app/menu/categories");
 
     return response.data;
   } catch (error) {
