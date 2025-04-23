@@ -33,19 +33,23 @@ const DropdownMenu = ({ title, url = "", image, items }: DropdownMenuProps) => {
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="fixed left-0 w-full bg-white shadow-md z-50 border-b border-t border-[#C4001F] overflow-hidden"
         >
-          <div className="max-w-[1420px] mx-auto flex gap-10 p-3">
-            {items.map(({ name, links }) => (
-              <div key={name} className="flex flex-col items-start w-full">
+          <div className="max-w-[1420px] mx-auto flex gap-10 p-3 h-fit">
+            {items?.map(({ name, items }) => (
+              <div key={name} className="flex flex-col items-start w-full h-fit">
                 <h2 className="mt-3 mb-2 font-bold truncate">{name}</h2>
                 <Divider />
-                {links.map(({ name, url }, idx) => (
+                {items?.map(({ name, url }, idx) => (
                   <Link key={idx} href={url} className="my-2 block hover:text-blue-500">
                     {name}
                   </Link>
                 ))}
               </div>
             ))}
-            {image && <Image src={image} alt="" width={300} height={300} />}
+            {image && (
+              <div className="h-fit">
+                <Image src={`/${image}`} alt="" width={200} height={200} />
+              </div>
+            )}
           </div>
         </motion.div>
       )}

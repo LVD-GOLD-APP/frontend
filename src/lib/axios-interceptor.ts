@@ -11,6 +11,10 @@ const instance = axios.create({
 });
 
 const onRequestSuccess = (config: any) => {
+  config.headers = {
+    ...config.headers,
+    Cookie: ".AspNetCore.Culture=c%3Den%7Cuic%3Den; __tenant=3a1927cb-a1d7-2e9a-697c-ffa7deb63fc7",
+  };
   return config;
 };
 const onResponseSuccess = (response: AxiosResponse) => {

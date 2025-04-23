@@ -10,7 +10,7 @@ interface LinkItem {
 export interface MenuItem {
   id: string;
   name: string;
-  links: LinkItem[];
+  items: LinkItem[];
 }
 
 export interface Category {
